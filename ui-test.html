@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional UI Test - Slink</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/slink.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <h1 class="header__title">Slink</h1>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link active">Home</a></li>
+
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h2 class="hero__title">Learn what you want. Teach what you know.</h2>
+                <p class="hero__subtitle">Connect with skilled professionals to exchange knowledge and grow together.</p>
+                <div class="hero__cta">
+                    <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Find a Skill</button>
+                    <button class="btn btn--secondary btn--large">Become a Teacher</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main style="padding: 50px 0; background-color: #f8f9fa;">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 40px;">Professional & Classic UI Showcase</h1>
+            
+            <!-- Buttons Section -->
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <h2>Professional Buttons</h2>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--primary">Primary Button</button>
+                    <button class="btn btn--primary btn--large">Large Primary</button>
+                    <button class="btn btn--primary btn--small">Small Primary</button>
+                    <button class="btn btn--primary" disabled>Disabled Primary</button>
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--secondary">Secondary Button</button>
+                    <button class="btn btn--secondary btn--large">Large Secondary</button>
+                    <button class="btn btn--secondary btn--small">Small Secondary</button>
+                    <button class="btn btn--secondary" disabled>Disabled Secondary</button>
+                </div>
+            </div>
+            
+            <!-- Form Elements Section -->
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <h2>Classic Form Elements</h2>
+                <div style="max-width: 600px; margin: 20px 0;">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="skill">Select Skill</label>
+                        <select id="skill" class="filter-select">
+                            <option>Select a skill</option>
+                            <option>UX Design</option>
+                            <option>Python</option>
+                            <option>Photography</option>
+                            <option>Cooking</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn--primary" style="width: 100%;">Submit Form</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interactive Demo Section -->
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h2>Interactive Demo</h2>
+                <p>Try interacting with the elements to experience the professional and classic design:</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--primary" onclick="showInfo('Primary button clicked!')">Click Me</button>
+                    <button class="btn btn--secondary" onclick="showInfo('Secondary button clicked!')">Click Me</button>
+                </div>
+                <div style="margin: 20px 0;">
+                    <input type="text" class="form-input" placeholder="Try focusing on this input field" style="width: 300px;">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
+                    <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                </div>
+                <div class="footer__links">
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2023 Slink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

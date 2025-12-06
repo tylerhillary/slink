@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test - Slink</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/slink.png" type="image/png">
+</head>
+<body>
+    <main style="padding: 50px 0; background-color: #f8f9fa;">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 40px;">Professional & Classic Button Showcase</h1>
+            
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <h2>Primary Buttons</h2>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--primary">Primary Button</button>
+                    <button class="btn btn--primary btn--large">Large Primary</button>
+                    <button class="btn btn--primary btn--small">Small Primary</button>
+                    <button class="btn btn--primary" disabled>Disabled Primary</button>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <h2>Secondary Buttons</h2>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--secondary">Secondary Button</button>
+                    <button class="btn btn--secondary btn--large">Large Secondary</button>
+                    <button class="btn btn--secondary btn--small">Small Secondary</button>
+                    <button class="btn btn--secondary" disabled>Disabled Secondary</button>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h2>Button Interactions</h2>
+                <p>Try hovering over and clicking the buttons to see the professional interactions:</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                    <button class="btn btn--primary" onclick="showInfo('Primary button clicked!')">Click Me</button>
+                    <button class="btn btn--secondary" onclick="showInfo('Secondary button clicked!')">Click Me</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Documentation files (temporary)
+*.md
+
+# Python temp files
+_tmp_edit.py
+__pycache__/
+*.pyc
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

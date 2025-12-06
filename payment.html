@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Slink</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/slink.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <h1 class="header__title">Slink</h1>
+            </div>
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">Home</a></li>
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h1 class="section-title">Complete Your Payment</h1>
+                    <p class="payment-subtitle">To connect with your chosen mentor and access the Skillbank platform features</p>
+                </div>
+
+                <!-- Security Notice -->
+                <div class="security-notice">
+                    <div class="security-icon">🔒</div>
+                    <div class="security-text">
+                        <h3>Secure Payment</h3>
+                        <p>Your payment information is encrypted and securely processed. Skillbank never stores your full credit card information.</p>
+                    </div>
+                </div>
+
+                <!-- Admin Contact -->
+                <div class="admin-contact">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <h3>Contact Admin for Payment</h3>
+                        <p>To complete your payment, please call our admin at <strong>+234(808-489-1200)</strong></p>
+                        <p>Our admin will assist you with the payment process and connect you with your chosen mentor.</p>
+                        <button class="btn btn--primary" onclick="window.location.href='tel:+2348084891200'">Call Now</button>
+                    </div>
+                </div>
+
+                <!-- Money Back Guarantee -->
+                <div class="guarantee">
+                    <div class="guarantee-icon">💯</div>
+                    <div class="guarantee-text">
+                        <h3>Money-Back Guarantee</h3>
+                        <p>Not satisfied with your mentor match? Contact us within 7 days for a full refund.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
+                    <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                </div>
+                <div class="footer__links">
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2023 Slink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

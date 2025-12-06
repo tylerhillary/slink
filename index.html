@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slink - Learn what you want. Teach what you know.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/slink.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <h1 class="header__title">Slink</h1>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link active">Home</a></li>
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
+                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <span class="hero__badge">Professional skill exchange</span>
+                <h1 class="hero__title">Learn what you want. Teach what you know.</h1>
+                <p class="hero__subtitle">Slink connects motivated professionals to exchange skills through focused, high-quality mentorship.</p>
+                <div class="hero__cta">
+                    <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Find Your Mentor</button>
+                    <button class="btn btn--secondary btn--large" onclick="document.getElementById('user-pathways').scrollIntoView({behavior: 'smooth'});">Share Your Skills</button>
+                </div>
+                <ul class="hero__highlights">
+                    <li>Curated mentor matches</li>
+                    <li>Verified industry experts</li>
+                    <li>Flexible scheduling worldwide</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Choose Path Section -->
+    <section class="user-pathways" id="user-pathways">
+        <div class="container">
+            <div class="user-pathways__intro">
+                <h2 class="section-title">Choose How You Want to Grow</h2>
+                <p class="section-subtitle">Select the path that best matches your goals on Slink.</p>
+            </div>
+            <div class="pathway-grid">
+                <article class="pathway-card">
+                    <div class="pathway-card__icon" aria-hidden="true">🎓</div>
+                    <h3 class="pathway-card__title">Learn a Skill</h3>
+                    <p class="pathway-card__description">Discover in-demand skills, register with ease, and work with mentors dedicated to your growth.</p>
+                    <ul class="pathway-card__list">
+                        <li>Browse curated skills and view requirements</li>
+                        <li>Submit a registration reviewed by our admin team</li>
+                        <li>Receive onboarding guidance for a smooth start</li>
+                    </ul>
+                    <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Explore Skills</button>
+                </article>
+                <article class="pathway-card pathway-card--secondary">
+                    <div class="pathway-card__icon" aria-hidden="true">🧑‍🏫</div>
+                    <h3 class="pathway-card__title">Teach a Skill</h3>
+                    <p class="pathway-card__description">Share your expertise with motivated learners and create meaningful mentorship experiences.</p>
+                    <ul class="pathway-card__list">
+                        <li>Submit your credentials for a swift review</li>
+                        <li>Join a trusted network of industry professionals</li>
+                        <li>Set your availability and mentor from anywhere</li>
+                    </ul>
+                    <button class="btn btn--secondary btn--large" onclick="document.getElementById('become-teacher').scrollIntoView({behavior: 'smooth'});">Start Teaching</button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Become a Teacher Section -->
+    <section class="become-teacher" id="become-teacher">
+        <div class="container">
+            <div class="teacher-info">
+                <h2 class="section-title">Want to Teach a Skill?</h2>
+                <p class="teacher-subtitle">Share your expertise with our community of learners.</p>
+                <div class="teacher-card">
+                    <span class="teacher-card__badge">Now accepting mentors</span>
+                    <p class="teacher-card__lead">Introduce yourself to our admin team and join a trusted network of professionals who are passionate about teaching.</p>
+                    <div class="teacher-card__email">
+                        <span>Send your resume to</span>
+                        <a href="mailto:skillbank0@gmail.com?subject=Teach%20with%20Slink" class="teacher-card__email-link">skillbank0@gmail.com</a>
+                    </div>
+                    <ul class="teacher-card__list">
+                        <li>Get a tailored onboarding plan within 48 hours</li>
+                        <li>Access resources to structure engaging mentorship sessions</li>
+                        <li>Set availability that fits your schedule</li>
+                    </ul>
+                    <div class="teacher-card__cta">
+                        <a class="btn btn--primary btn--large" href="mailto:skillbank0@gmail.com?subject=Teach%20with%20Slink">Email Your Resume</a>
+                        <p class="teacher-card__note">Include a brief summary of your expertise and the skills you’re ready to teach.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step__number">1</div>
+                    <h3 class="step__title">Add a Skill</h3>
+                    <p class="step__desc">Create your profile and list skills you can teach and want to learn.</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">2</div>
+                    <h3 class="step__title">Get Matched</h3>
+                    <p class="step__desc">Our algorithm finds perfect skill exchange partners for you.</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">3</div>
+                    <h3 class="step__title">Learn & Teach</h3>
+                    <p class="step__desc">Connect directly with matches and start exchanging knowledge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p class="testimonial-card__text">"Skillbank helped me find an amazing mentor for Python while allowing me to share my UX design expertise. Truly a win-win platform!"</p>
+                    <div class="testimonial-card__author">
+                        <img src="assets/my-image.jpg" alt="User" class="testimonial-card__avatar">
+                        <div>
+                            <h4 class="testimonial-card__name">Alex Morgan</h4>
+                            <p class="testimonial-card__role">Product Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-card__text">"I've learned photography and taught cooking through Skillbank. The matching algorithm is incredibly accurate!"</p>
+                    <div class="testimonial-card__author">
+                        <img src="assets/cooking and culinary.jpg" alt="User" class="testimonial-card__avatar">
+                        <div>
+                            <h4 class="testimonial-card__name">Jamie Chen</h4>
+                            <p class="testimonial-card__role">Food Blogger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
+                    <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                </div>
+                <div class="footer__links">
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2023 Slink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

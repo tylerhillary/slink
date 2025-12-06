@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Slink</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/slink.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <h1 class="header__title">Slink</h1>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">Home</a></li>
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
+                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="contact-hero">
+            <div class="container">
+                <div class="contact-hero__content">
+                    <span class="contact-hero__badge">We're here to help</span>
+                    <h1 class="contact-hero__title">Let's build the next chapter of your skill journey together.</h1>
+                    <p class="contact-hero__subtitle">Reach our dedicated success team for product guidance, partnership opportunities, or tailored onboarding support. We aim to reply within one business day.</p>
+                    <div class="contact-hero__metrics">
+                        <div class="metric">
+                            <span class="metric__value">&lt;24h</span>
+                            <span class="metric__label">Average response time</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric__value">4.9/5</span>
+                            <span class="metric__label">Customer satisfaction</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric__value">150+</span>
+                            <span class="metric__label">Global mentors onboard</span>
+                        </div>
+                    </div>
+                    <div class="contact-hero__cta">
+                        <a class="btn btn--primary btn--large" href="mailto:support@slink.com">Email our team</a>
+                        <a class="btn btn--secondary btn--large" href="#contact-form">Send a message</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-channels">
+                        <h2 class="contact-section__title">Talk to the right team</h2>
+                        <p class="contact-section__subtitle">Select the channel that matches your request and we'll connect you with a specialist.</p>
+                        <div class="contact-channel__list">
+                            <article class="contact-card contact-card--highlight">
+                                <div class="contact-card__icon" aria-hidden="true">
+                                    <span>🎯</span>
+                                </div>
+                                <div class="contact-card__body">
+                                    <h3>Product & Customer Support</h3>
+                                    <p>For help with the platform, scheduling sessions, or billing, message our frontline support team.</p>
+                                    <a href="mailto:support@slink.com" class="contact-card__link">support@slink.com</a>
+                                    <span class="contact-card__meta">Monday–Friday · 9:00–18:00 (WAT)</span>
+                                </div>
+                            </article>
+                            <article class="contact-card">
+                                <div class="contact-card__icon" aria-hidden="true">
+                                    <span>🤝</span>
+                                </div>
+                                <div class="contact-card__body">
+                                    <h3>Partnerships & Enterprise</h3>
+                                    <p>Collaborate with Slink to scale skill development for your teams or community initiatives.</p>
+                                    <a href="mailto:partnerships@slink.com" class="contact-card__link">partnerships@slink.com</a>
+                                    <span class="contact-card__meta">Global · 24-hour response</span>
+                                </div>
+                            </article>
+                            <article class="contact-card">
+                                <div class="contact-card__icon" aria-hidden="true">
+                                    <span>📰</span>
+                                </div>
+                                <div class="contact-card__body">
+                                    <h3>Press & Media</h3>
+                                    <p>Request commentary, assets, or interviews with the Slink leadership and mentor community.</p>
+                                    <a href="mailto:press@slink.com" class="contact-card__link">press@slink.com</a>
+                                    <span class="contact-card__meta">Media desk · Same-day replies</span>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="contact-form" id="contact-form">
+                        <div class="contact-form__header">
+                            <h2 class="contact-section__title">Send us a message</h2>
+                            <p class="contact-section__subtitle">Share a few details and a Slink specialist will follow up shortly.</p>
+                        </div>
+                        <form id="contactForm" class="contact-form__fields" action="https://formspree.io/f/mdkdvoqk" method="POST">
+                            <input type="hidden" name="recipient" value="skillbank0@gmail.com">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" class="form-input" placeholder="Olivia Daniels" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="you@slink.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="company">Company / Organization</label>
+                                    <input type="text" id="company" name="company" class="form-input" placeholder="Optional">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic">Topic *</label>
+                                    <select id="topic" name="topic" class="form-input" required>
+                                        <option value="" disabled selected>Select a topic</option>
+                                        <option value="support">Product support</option>
+                                        <option value="partnership">Partnership inquiry</option>
+                                        <option value="media">Press / media</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <input type="text" id="subject" name="subject" class="form-input" placeholder="How can we help?" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" class="form-input" rows="6" placeholder="Share as much context as you can so we can assist faster." required></textarea>
+                            </div>
+
+                            <div class="form-group contact-form__actions">
+                                <button type="submit" class="btn btn--primary btn--large">Send message</button>
+                                <span class="contact-form__policy">By submitting, you agree to our <a href="#">privacy policy</a>.</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-locations">
+            <div class="container">
+                <div class="locations-header">
+                    <h2 class="contact-section__title">Where to find us</h2>
+                    <p class="contact-section__subtitle">Our distributed team spans multiple regions to support learners around the world.</p>
+                </div>
+                <div class="locations-grid">
+                    <article class="location-card">
+                        <h3>Lagos HQ</h3>
+                        <p>18 Adeola Odeku Street, Victoria Island, Lagos</p>
+                        <span>Mon–Fri · 9:00–18:00 WAT</span>
+                    </article>
+                    <article class="location-card">
+                        <h3>London Office</h3>
+                        <p>90 High Holborn, Holborn, London WC1V 6LJ</p>
+                        <span>Mon–Fri · 8:00–17:00 GMT</span>
+                    </article>
+                    <article class="location-card">
+                        <h3>Remote Support</h3>
+                        <p>Global mentor success specialists available across 12 time zones.</p>
+                        <span>24/7 priority coverage</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
+                    <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                </div>
+                <div class="footer__links">
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2023 Slink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const form = event.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton ? submitButton.textContent : '';
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending…';
+                }
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: { 'Accept': 'application/json' },
+                        body: new FormData(form)
+                    });
+
+                    if (response.ok) {
+                        const nameInput = form.querySelector('#name');
+                        const name = nameInput && nameInput.value ? nameInput.value : 'there';
+                        showSuccess(`Thank you, ${name}! Your message has been sent successfully.`);
+                        form.reset();
+                    } else {
+                        showError('We could not send your message right now. Please try again shortly.');
+                    }
+                } catch (error) {
+                    showError('A network error occurred while sending your message. Please check your connection and try again.');
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

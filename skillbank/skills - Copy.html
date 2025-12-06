@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Skills - Skill Bank</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/skilll-logo.png">
+    <link rel="shortcut icon" href="assets/skilll-logo.png">
+    
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/skilll-logo.png" alt="Skill Bank Logo" class="logo-img">
+                <span class="logo-text">Skill Bank</span>
+            </a>
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="skills.html">Learn a Skill</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="index.html#form-section" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="teach-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Explore Our Skills</h1>
+                        <p class="hero-subtitle">Discover a world of knowledge and unlock your potential with our comprehensive skill library. From technology to creative arts, find the perfect skill to transform your life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        
+
+        <!-- Available Tutors (populated from file.json) -->
+        <section id="tutors-section" class="tutors-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Available Skills</h2>
+                    <p>Browse available skills from our community. Select a skill to propose a skill exchange—offer a skill you can teach in return.</p>
+                </div>
+                <div id="tutors-grid" class="tutors-grid">
+                    <div class="tutor-card" data-id="1">
+                        <div class="tutor-header">
+                            <div class="avatar">AB</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Graphic Design</strong></div>
+                                <h3 class="tutor-name">Nsikak Abasi Aquaisua</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="2">
+                        <div class="tutor-header">
+                            <div class="avatar">VU</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Tailoring</strong></div>
+                                <h3 class="tutor-name">Victor Ukpono</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="3">
+                        <div class="tutor-header">
+                            <div class="avatar">OO</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Product Management</strong></div>
+                                <h3 class="tutor-name">Oluwatobi Ojo</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="4">
+                        <div class="tutor-header">
+                            <div class="avatar">ME</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Wigging & Ventilation</strong></div>
+                                <h3 class="tutor-name">Mary Edunoh</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="5">
+                        <div class="tutor-header">
+                            <div class="avatar">FG</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Cosmetics Production</strong></div>
+                                <h3 class="tutor-name">Favour George</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="6">
+                        <div class="tutor-header">
+                            <div class="avatar">HS</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Video Editing</strong></div>
+                                <h3 class="tutor-name">Hanson Samuel</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="7">
+                        <div class="tutor-header">
+                            <div class="avatar">HG</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Cooking & Culinary</strong></div>
+                                <h3 class="tutor-name">Hillary Godwin</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="8">
+                        <div class="tutor-header">
+                            <div class="avatar">AI</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Video Editing</strong></div>
+                                <h3 class="tutor-name">Aniekan Idang</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+
+                    <div class="tutor-card" data-id="9">
+                        <div class="tutor-header">
+                            <div class="avatar">UU</div>
+                            <div>
+                                <div class="tutor-skill"><strong>Graphic Design</strong></div>
+                                <h3 class="tutor-name">Utibe Udoete</h3>
+                            </div>
+                        </div>
+                        <div class="tutor-footer"><div class="actions"><button type="button" class="btn btn-secondary btn-connect">Connect</button></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section id="learning-form-section" class="learning-form-section">
+            <div class="container">
+                <div class="form-header">
+                    <h2>Propose a Skill Exchange</h2>
+                    <p>Choose a skill you want to learn and tell us the skill you can offer in exchange. We’ll connect you for a peer-to-peer exchange. No money involved.</p>
+                </div>
+                
+                <form id="learning-form" class="learning-form" action="https://formspree.io/f/manbzyrq" method="POST">
+                    <input type="hidden" name="_replyto" value="skillbank0@gmail.com">
+                    <input type="hidden" name="_subject" value="New Skill Exchange Request - Skill Bank">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="learner-name" name="learner-name" class="form-control" placeholder=" " required>
+                            <label for="learner-name" class="form-label">Full Name *</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="learner-email" name="learner-email" class="form-control" placeholder=" " required>
+                            <label for="learner-email" class="form-label">Email Address *</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" id="learner-phone" name="learner-phone" class="form-control" placeholder=" " required>
+                            <label for="learner-phone" class="form-label">Phone Number *</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="learner-location" name="learner-location" class="form-control" placeholder=" " required>
+                            <label for="learner-location" class="form-label">Location *</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group custom-select">
+                            <select id="learner-gender" name="learner-gender" class="form-control" required>
+                                <option value="" disabled selected></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                            <label for="learner-gender" class="form-label">Gender *</label>
+                        </div>
+                        <div class="form-group custom-select">
+                            <select id="learner-age" name="learner-age" class="form-control">
+                                <option value="" disabled selected></option>
+                                <option value="18-24">18-24 years</option>
+                                <option value="25-34">25-34 years</option>
+                                <option value="35-44">35-44 years</option>
+                                <option value="45-54">45-54 years</option>
+                                <option value="55-64">55-64 years</option>
+                                <option value="65+">65+ years</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                            <label for="learner-age" class="form-label">Age Group</label>
+                        </div>
+                    </div>
+
+                    <div class="selected-skills-section">
+                        <h3><i class="fas fa-list-check"></i> Selected Tutor & Skill</h3>
+                        <div id="selected-skills-display">
+                            <p class="no-skills-message">No selection yet. Click a card above to add your preferred skill.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="desired-skill" name="desired-skill" class="form-control" placeholder=" ">
+                        <label for="desired-skill" class="form-label"><i class="fas fa-lightbulb"></i> Desired Skill to Learn (if no selection above)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="offered-skill" name="offered-skill" class="form-control" placeholder=" " required>
+                        <label for="offered-skill" class="form-label"><i class="fas fa-exchange-alt"></i> Your Skill to Offer *</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="paid-option"><i class="fas fa-wallet"></i> No skill to exchange?</label>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <input type="checkbox" id="paid-option" name="payment-preference" value="Paid">
+                            <label for="paid-option" style="margin:0;">I prefer to pay to learn</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="budget-group" style="display:none;">
+                        <input type="text" id="budget-amount" name="budget-amount" class="form-control" placeholder=" ">
+                        <label for="budget-amount" class="form-label"><i class="fas fa-money-bill-wave"></i> Your Monthly Budget ($)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="teach-option"><i class="fas fa-chalkboard-teacher"></i> Want to teach instead?</label>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <input type="checkbox" id="teach-option" name="teach-preference" value="Teach">
+                            <label for="teach-option" style="margin:0;">I want to teach a skill</label>
+                        </div>
+                    </div>
+
+                    <div id="teach-fields" style="display:none;">
+                        <div class="form-group">
+                            <input type="text" id="teach-skill" name="teach-skill" class="form-control" placeholder=" ">
+                            <label for="teach-skill" class="form-label"><i class="fas fa-book"></i> Skill You Can Teach *</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="teach-experience" name="teach-experience" class="form-control" placeholder=" ">
+                                <label for="teach-experience" class="form-label"><i class="fas fa-briefcase"></i> Years of Experience</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="teach-availability" name="teach-availability" class="form-control" placeholder=" ">
+                                <label for="teach-availability" class="form-label"><i class="fas fa-clock"></i> Availability</label>
+                            </div>
+                        </div>
+                        <div class="form-group custom-select">
+                            <select id="teach-mode" name="teach-mode" class="form-control">
+                                <option value="" disabled selected></option>
+                                <option value="Online">Online</option>
+                                <option value="In-person">In-person</option>
+                                <option value="Both">Both</option>
+                            </select>
+                            <label for="teach-mode" class="form-label"><i class="fas fa-user-graduate"></i> Teaching Mode</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="teach-bio" name="teach-bio" class="form-control" rows="3" placeholder=" "></textarea>
+                            <label for="teach-bio" class="form-label"><i class="fas fa-id-card"></i> Short Bio / Notes</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="learning-goals" name="learning-goals" class="form-control" rows="4" placeholder=" "></textarea>
+                        <label for="learning-goals" class="form-label"><i class="fas fa-bullseye"></i> Learning Goals & Expectations</label>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group custom-select">
+                            <select id="learning-intensity" name="learning-intensity" class="form-control" required>
+                                <option value="" disabled selected></option>
+                                <option value="Casual">Casual (1-2 hours/week)</option>
+                                <option value="Moderate">Moderate (3-5 hours/week)</option>
+                                <option value="Intensive">Intensive (6-10 hours/week)</option>
+                                <option value="Full-time">Full-time (10+ hours/week)</option>
+                            </select>
+                            <label for="learning-intensity" class="form-label"><i class="fas fa-tachometer-alt"></i> Learning Intensity *</label>
+                        </div>
+                        <div class="form-group custom-select">
+                            <select id="learning-duration" name="learning-duration" class="form-control" required>
+                                <option value="" disabled selected></option>
+                                <option value="1-2 weeks">1-2 weeks</option>
+                                <option value="1 month">1 month</option>
+                                <option value="2-3 months">2-3 months</option>
+                                <option value="3-6 months">3-6 months</option>
+                                <option value="6+ months">6+ months</option>
+                            </select>
+                            <label for="learning-duration" class="form-label"><i class="fas fa-calendar-alt"></i> Expected Duration *</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="previous-experience" name="previous-experience" class="form-control" rows="3" placeholder=" "></textarea>
+                        <label for="previous-experience" class="form-label"><i class="fas fa-history"></i> Previous Experience (if any)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="specific-requirements" name="specific-requirements" class="form-control" rows="3" placeholder=" "></textarea>
+                        <label for="specific-requirements" class="form-label"><i class="fas fa-clipboard-list"></i> Specific Requirements or Preferences</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Exchange Request
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Skill Bank</h3>
+                    <p>Our mission is to create a global community for learning and teaching. Connect with peers, share your expertise, and discover new passions.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="skills.html">Learn a Skill</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Skill Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    <script src="js/particles-config.js"></script>
+</body>
+</html>
