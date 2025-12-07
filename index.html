@@ -23,6 +23,7 @@
             <nav class="header__nav">
                 <ul class="header__nav-list">
                     <li class="header__nav-item"><a href="index.html" class="header__nav-link active">Home</a></li>
+                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">About</a></li>
                     <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
                     <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
                 </ul>
@@ -33,19 +34,24 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero__content">
-                <span class="hero__badge">Professional skill exchange</span>
-                <h1 class="hero__title">Learn what you want. Teach what you know.</h1>
-                <p class="hero__subtitle">Slink connects motivated professionals to exchange skills through focused, high-quality mentorship.</p>
-                <div class="hero__cta">
-                    <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Find Your Mentor</button>
-                    <button class="btn btn--secondary btn--large" onclick="document.getElementById('user-pathways').scrollIntoView({behavior: 'smooth'});">Share Your Skills</button>
+            <div class="hero__layout">
+                <div class="hero__content" data-animate="fade-up">
+                    <span class="hero__badge">Professional skill exchange</span>
+                    <h1 class="hero__title">Learn what you want. Teach what you know.</h1>
+                    <p class="hero__subtitle">Slink connects motivated professionals to exchange skills through focused, high-quality mentorship.</p>
+                    <div class="hero__cta">
+                        <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Find Your Mentor</button>
+                        <button class="btn btn--secondary btn--large" onclick="document.getElementById('user-pathways').scrollIntoView({behavior: 'smooth'});">Share Your Skills</button>
+                    </div>
+                    <ul class="hero__highlights">
+                        <li>Curated mentor matches</li>
+                        <li>Verified industry experts</li>
+                        <li>Flexible scheduling worldwide</li>
+                    </ul>
                 </div>
-                <ul class="hero__highlights">
-                    <li>Curated mentor matches</li>
-                    <li>Verified industry experts</li>
-                    <li>Flexible scheduling worldwide</li>
-                </ul>
+                <div class="hero__media" data-animate="fade-left" data-animate-delay="0.15">
+                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="Professionals collaborating around a laptop">
+                </div>
             </div>
         </div>
     </section>
@@ -53,12 +59,15 @@
     <!-- Choose Path Section -->
     <section class="user-pathways" id="user-pathways">
         <div class="container">
-            <div class="user-pathways__intro">
+            <div class="user-pathways__intro" data-animate="fade-up">
                 <h2 class="section-title">Choose How You Want to Grow</h2>
                 <p class="section-subtitle">Select the path that best matches your goals on Slink.</p>
             </div>
             <div class="pathway-grid">
-                <article class="pathway-card">
+                <article class="pathway-card" data-animate="fade-up" data-animate-delay="0.05">
+                    <div class="pathway-card__image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Mentor guiding a learner during a session">
+                    </div>
                     <div class="pathway-card__icon" aria-hidden="true">🎓</div>
                     <h3 class="pathway-card__title">Learn a Skill</h3>
                     <p class="pathway-card__description">Discover in-demand skills, register with ease, and work with mentors dedicated to your growth.</p>
@@ -69,7 +78,10 @@
                     </ul>
                     <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Explore Skills</button>
                 </article>
-                <article class="pathway-card pathway-card--secondary">
+                <article class="pathway-card pathway-card--secondary" data-animate="fade-up" data-animate-delay="0.15">
+                    <div class="pathway-card__image">
+                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=80" alt="Professional sharing knowledge with a small group">
+                    </div>
                     <div class="pathway-card__icon" aria-hidden="true">🧑‍🏫</div>
                     <h3 class="pathway-card__title">Teach a Skill</h3>
                     <p class="pathway-card__description">Share your expertise with motivated learners and create meaningful mentorship experiences.</p>
@@ -114,23 +126,49 @@
     <!-- How It Works -->
     <section class="how-it-works">
         <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step__number">1</div>
-                    <h3 class="step__title">Add a Skill</h3>
-                    <p class="step__desc">Create your profile and list skills you can teach and want to learn.</p>
-                </div>
-                <div class="step">
-                    <div class="step__number">2</div>
-                    <h3 class="step__title">Get Matched</h3>
-                    <p class="step__desc">Our algorithm finds perfect skill exchange partners for you.</p>
-                </div>
-                <div class="step">
-                    <div class="step__number">3</div>
-                    <h3 class="step__title">Learn & Teach</h3>
-                    <p class="step__desc">Connect directly with matches and start exchanging knowledge.</p>
-                </div>
+            <div class="how-it-works__header" data-animate="fade-up">
+                <span class="section-tag">Mentorship in motion</span>
+                <h2 class="section-title">How Slink Brings Mentors and Learners Together</h2>
+                <p class="section-subtitle">From your first skill submission to your first booked session, here’s what happens behind the scenes.</p>
+            </div>
+            <div class="how-it-works__timeline">
+                <article class="timeline-card timeline-card--highlight" data-animate="fade-right">
+                    <div class="timeline-card__badge">01</div>
+                    <div class="timeline-card__body">
+                        <h3>Tell us what you want to learn</h3>
+                        <p>Start by choosing a skill, sharing your goals, and submitting a quick registration. This helps our concierge team understand the exact support you need.</p>
+                        <div class="timeline-card__meta">
+                            <span>Average time: 3 minutes</span>
+                            <span>Handled on the Skill Selection page</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-card" data-animate="fade-right" data-animate-delay="0.1">
+                    <div class="timeline-card__badge">02</div>
+                    <div class="timeline-card__body">
+                        <h3>We verify and shortlist mentors</h3>
+                        <p>Christiana’s operations team reviews your request, cross-checks credentials, and curates 2–3 mentors that suit your industry, availability, and budget.</p>
+                        <div class="timeline-card__meta">
+                            <span>Average time: under 24 hours</span>
+                            <span>Every mentor is background-checked</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-card" data-animate="fade-right" data-animate-delay="0.2">
+                    <div class="timeline-card__badge">03</div>
+                    <div class="timeline-card__body">
+                        <h3>You meet, schedule, and start progressing</h3>
+                        <p>We introduce you to your mentor, align on session goals, and activate payment. Once you’re onboarded, Divine-Angel’s product experience keeps each milestone on track.</p>
+                        <div class="timeline-card__meta">
+                            <span>First session typically booked within 48 hours</span>
+                            <span>Concierge support stays with you</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="how-it-works__cta" data-animate="fade-up" data-animate-delay="0.25">
+                <a href="skill-selection.html" class="btn btn--primary btn--large">Start your request</a>
+                <a href="contact.html" class="btn btn--secondary btn--large">Talk with our team</a>
             </div>
         </div>
     </section>
@@ -138,9 +176,9 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <h2 class="section-title">What Our Users Say</h2>
+            <h2 class="section-title" data-animate="fade-up">What Our Users Say</h2>
             <div class="testimonial-cards">
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-animate="fade-up" data-animate-delay="0.05">
                     <p class="testimonial-card__text">"Skillbank helped me find an amazing mentor for Python while allowing me to share my UX design expertise. Truly a win-win platform!"</p>
                     <div class="testimonial-card__author">
                         <img src="assets/my-image.jpg" alt="User" class="testimonial-card__avatar">
@@ -150,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-animate="fade-up" data-animate-delay="0.15">
                     <p class="testimonial-card__text">"I've learned photography and taught cooking through Skillbank. The matching algorithm is incredibly accurate!"</p>
                     <div class="testimonial-card__author">
                         <img src="assets/cooking and culinary.jpg" alt="User" class="testimonial-card__avatar">
@@ -167,11 +205,11 @@
     <!-- Founder Spotlight -->
     <section class="founder">
         <div class="container">
-            <div class="founder__layout">
-                <div class="founder__media">
+            <div class="founder__layout" data-animate="fade-up">
+                <div class="founder__media" data-animate="fade-right">
                     <img src="assets/ceo.jpg" alt="Radius Technology CEO" class="founder__photo">
                 </div>
-                <div class="founder__details">
+                <div class="founder__details" data-animate="fade-left" data-animate-delay="0.1">
                     <span class="founder__badge">Meet the Founder</span>
                     <h2 class="section-title section-title--left">Steering Slink with Purpose</h2>
                     <p class="founder__lead">Radius Technology’s CEO and Founder leads the charge in crafting opportunities that empower learners and mentors to thrive together through Slink.</p>
@@ -202,26 +240,47 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer__content">
-                <div class="footer__brand">
+            <div class="footer__grid">
+                <div class="footer__brand-block">
                     <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
                     <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                    <div class="footer__social">
+                        <a href="https://www.linkedin.com" aria-label="LinkedIn">in</a>
+                        <a href="https://twitter.com" aria-label="Twitter">X</a>
+                        <a href="https://www.instagram.com" aria-label="Instagram">IG</a>
+                    </div>
                 </div>
-                <div class="footer__links">
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Contact</a></li>
+                <div class="footer__column">
+                    <span class="footer__heading">Explore</span>
+                    <ul class="footer__list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="skill-selection.html">Skills</a></li>
+                        <li><a href="mentor-selection.html">Mentor Matching</a></li>
                     </ul>
                 </div>
-                <div class="footer__attribution">
-                    <span class="footer__attribution-text">Slink is brought to you by Radius Technology and built by Radius Technology.</span>
-                    <img src="assets/logo_-_Copy-removebg-preview.png" alt="Radius Technology logo" class="footer__attribution-logo">
+                <div class="footer__column">
+                    <span class="footer__heading">Company</span>
+                    <ul class="footer__list">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="mailto:skillbank0@gmail.com">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <span class="footer__heading">Legal</span>
+                    <ul class="footer__list">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer__copyright">
-                <p>&copy; 2023 Slink. All rights reserved.</p>
+            <div class="footer__bottom">
+                <span>&copy; 2025 Slink by Radius Technology. All rights reserved.</span>
+                <div class="footer__legal-links">
+                    <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
+                    <a href="tel:+2348084891200" class="footer__contact-link">+234 808 489 1200</a>
+                </div>
             </div>
         </div>
     </footer>

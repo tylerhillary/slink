@@ -739,88 +739,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Mobile menu toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const headerNav = document.querySelector('.header__nav');
-  
-  if (menuToggle && headerNav) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('open');
-      headerNav.classList.toggle('active');
-    });
+  const mobileMenuButton = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".header__nav");
+
+  mobileMenuButton?.addEventListener("click", () => {
+    mobileMenuButton.classList.toggle("open");
+    nav?.classList.toggle("open");
+  });
+
+  const animatedElements = document.querySelectorAll('[data-animate]');
+  if (animatedElements.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.getAttribute('data-animate-delay');
+            if (delay) {
+              el.style.transitionDelay = `${parseFloat(delay)}s`;
+            }
+            el.setAttribute('data-animate-state', 'visible');
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -60px 0px'
+      }
+    );
+
+    animatedElements.forEach((el) => observer.observe(el));
   }
 });
-
-// Custom Alert System
-function showAlert(message, type = 'info', title = null, duration = 5000) {
-  // Remove any existing alerts
-  const existingAlert = document.querySelector('.alert');
-  if (existingAlert) {
-    existingAlert.remove();
-  }
-
-  // Create alert element
-  const alert = document.createElement('div');
-  alert.className = `alert alert-${type}`;
-  
-  // Set icon based on type
-  const icons = {
-    success: '✓',
-    error: '✕',
-    warning: '⚠',
-    info: 'ℹ'
-  };
-  
-  // Set default title based on type
-  const titles = {
-    success: 'Success',
-    error: 'Error',
-    warning: 'Warning',
-    info: 'Information'
-  };
-  
-  const alertTitle = title || titles[type];
-  const alertIcon = icons[type];
-  
-  alert.innerHTML = `
-    <div class="alert-icon">${alertIcon}</div>
-    <div class="alert-content">
-      <div class="alert-title">${alertTitle}</div>
-      <div class="alert-message">${message}</div>
-    </div>
-    <button class="alert-close">&times;</button>
-  `;
-  
-  // Add close functionality
-  const closeBtn = alert.querySelector('.alert-close');
-  closeBtn.addEventListener('click', () => {
-    alert.classList.remove('show');
-    setTimeout(() => {
-      alert.remove();
-    }, 300);
-  });
-  
-  // Add to DOM
-  document.body.appendChild(alert);
-  
-  // Show alert with animation
-  setTimeout(() => {
-    alert.classList.add('show');
-  }, 10);
-  
-  // Auto close after duration
-  if (duration > 0) {
-    setTimeout(() => {
-      if (alert.parentElement) {
-        alert.classList.remove('show');
-        setTimeout(() => {
-          alert.remove();
-        }, 300);
-      }
-    }, duration);
-  }
-  
-  return alert;
-}
 
 // Convenience functions
 function showSuccess(message, title = null, duration = 5000) {
