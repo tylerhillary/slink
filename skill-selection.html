@@ -42,84 +42,84 @@
 
                 <!-- Available Skills -->
                 <div class="skills-grid">
-                    <div class="skill-card" onclick="selectSkill(event, 'UX Design')">
+                    <div class="skill-card" data-skill="UX Design">
                         <div class="skill-card__icon" aria-hidden="true">🎨</div>
                         <h3 class="skill-card__title">UX Design</h3>
                         <p class="skill-card__description">Learn user experience design principles and practices</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Figma')">
+                    <div class="skill-card" data-skill="Figma">
                         <div class="skill-card__icon" aria-hidden="true">📐</div>
                         <h3 class="skill-card__title">Figma</h3>
                         <p class="skill-card__description">Master the popular design tool for UI/UX professionals</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Python')">
+                    <div class="skill-card" data-skill="Python">
                         <div class="skill-card__icon" aria-hidden="true">🐍</div>
                         <h3 class="skill-card__title">Python</h3>
                         <p class="skill-card__description">Learn one of the most versatile programming languages</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Photography')">
+                    <div class="skill-card" data-skill="Photography">
                         <div class="skill-card__icon" aria-hidden="true">📸</div>
                         <h3 class="skill-card__title">Photography</h3>
                         <p class="skill-card__description">Develop your skills in capturing stunning photos</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Cooking')">
+                    <div class="skill-card" data-skill="Cooking">
                         <div class="skill-card__icon" aria-hidden="true">👨‍🍳</div>
                         <h3 class="skill-card__title">Cooking</h3>
                         <p class="skill-card__description">Learn culinary techniques and recipes</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Video Editing')">
+                    <div class="skill-card" data-skill="Video Editing">
                         <div class="skill-card__icon" aria-hidden="true">🎬</div>
                         <h3 class="skill-card__title">Video Editing</h3>
                         <p class="skill-card__description">Master video editing software and techniques</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Social Media Marketing')">
+                    <div class="skill-card" data-skill="Social Media Marketing">
                         <div class="skill-card__icon" aria-hidden="true">📱</div>
                         <h3 class="skill-card__title">Social Media Marketing</h3>
                         <p class="skill-card__description">Learn to promote brands and products online</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Tailoring')">
+                    <div class="skill-card" data-skill="Tailoring">
                         <div class="skill-card__icon" aria-hidden="true">🧵</div>
                         <h3 class="skill-card__title">Tailoring</h3>
                         <p class="skill-card__description">Master sewing and garment construction</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Website Design')">
+                    <div class="skill-card" data-skill="Website Design">
                         <div class="skill-card__icon" aria-hidden="true">💻</div>
                         <h3 class="skill-card__title">Website Design</h3>
                         <p class="skill-card__description">Learn to create beautiful and functional websites</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Website Development')">
+                    <div class="skill-card" data-skill="Website Development">
                         <div class="skill-card__icon" aria-hidden="true">⚙️</div>
                         <h3 class="skill-card__title">Website Development</h3>
                         <p class="skill-card__description">Master the art of building dynamic websites</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Wigging')">
+                    <div class="skill-card" data-skill="Wigging">
                         <div class="skill-card__icon" aria-hidden="true">💇</div>
                         <h3 class="skill-card__title">Wigging</h3>
                         <p class="skill-card__description">Learn professional wig making and styling techniques</p>
                         <span class="skill-card__action">Select Skill</span>
                     </div>
                     
-                    <div class="skill-card" onclick="selectSkill(event, 'Video')">
+                    <div class="skill-card" data-skill="Video">
                         <div class="skill-card__icon" aria-hidden="true">🎥</div>
                         <h3 class="skill-card__title">Video</h3>
                         <p class="skill-card__description">Learn video production and filming techniques</p>
@@ -137,19 +137,18 @@
                             <p id="selectedSkillMessage" class="selected-skill-message">Choose a skill above to unlock registration.</p>
                         </div>
                         <div class="selected-skill-actions">
-                            <button id="registerSkillBtn" class="btn btn--primary btn--large" disabled onclick="registerSkill(event)">Register Skill</button>
-                            <p class="selected-skill-note">Our admin team reviews every submission before onboarding.</p>
+                            <button id="registerSkillBtn" class="btn btn--primary btn--large" disabled>Register Skill</button>
+                            <p class="selected-skill-note">Our team will review your submission and contact you within 24 hours to discuss next steps.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Registration Form -->
-                <div class="registration-form" id="registrationFormSection" style="display: none;">
+                <div class="registration-form" id="registrationFormSection">
                     <h2>Complete Your Registration</h2>
                     <p>Tell us a bit about you and the skill you selected. Our admin team will review your submission and follow up with next steps.</p>
                     
-                    <form id="skillRegistrationForm" action="https://formspree.io/f/manaqjqj" method="POST">
-                        <input type="hidden" name="recipient" value="skillbank0@gmail.com">
+                    <form id="skillRegistrationForm" novalidate>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullName">Full Name *</label>
@@ -223,8 +222,22 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="selectedSkillField">Selected Skill</label>
-                            <input type="text" id="selectedSkillField" name="selectedSkill" class="form-input" readonly>
+                            <label for="selectedSkillField">Selected Skill *</label>
+                            <select id="selectedSkillField" name="selectedSkill" class="form-input" required>
+                                <option value="">Select a skill</option>
+                                <option value="UX Design">UX Design</option>
+                                <option value="Figma">Figma</option>
+                                <option value="Python">Python</option>
+                                <option value="Photography">Photography</option>
+                                <option value="Cooking">Cooking</option>
+                                <option value="Video Editing">Video Editing</option>
+                                <option value="Social Media Marketing">Social Media Marketing</option>
+                                <option value="Tailoring">Tailoring</option>
+                                <option value="Website Design">Website Design</option>
+                                <option value="Website Development">Website Development</option>
+                                <option value="Wigging">Wigging</option>
+                                <option value="Video">Video</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
@@ -237,11 +250,11 @@
                 <div class="registration-instructions">
                     <h2>Next Steps</h2>
                     <ol>
-                        <li>Select a skill you want to learn from the grid above</li>
-                        <li>Click "Register Skill" to register your selection with us</li>
-                        <li>After registration, you'll receive instructions to call our admin at <strong>+234(808-489-1200)</strong></li>
-                        <li>Our admin will guide you through the $25 payment process</li>
-                        <li>Once payment is complete, you'll be connected with your mentor</li>
+                        <li>Select a skill you want to learn from the grid above.</li>
+                        <li>Click “Register Skill” to submit your selection to Slink’s concierge team.</li>
+                        <li>After registration, check your inbox for onboarding instructions from <strong>skillbank0@gmail.com</strong>.</li>
+                        <li>Our specialists will coordinate payment and confirm mentor availability.</li>
+                        <li>Once enrollment is complete, you’ll receive your mentor match and first-session briefing.</li>
                     </ol>
                 </div>
 
@@ -293,13 +306,14 @@
                 <span>&copy; 2025 Slink by Radius Technology. All rights reserved.</span>
                 <div class="footer__legal-links">
                     <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
-                    <a href="tel:+2348084891200" class="footer__contact-link">+234 808 489 1200</a>
+                    <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script type="module" src="firebase-init.js"></script>
     <script src="app.js"></script>
-    <script src="skill-selection.js"></script>
+    <script type="module" src="skill-selection.js"></script>
 </body>
 </html>

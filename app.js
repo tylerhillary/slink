@@ -747,6 +747,15 @@ document.addEventListener('DOMContentLoaded', () => {
     nav?.classList.toggle("open");
   });
 
+  nav?.querySelectorAll(".header__nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (nav.classList.contains("open")) {
+        nav.classList.remove("open");
+        mobileMenuButton?.classList.remove("open");
+      }
+    });
+  });
+
   const animatedElements = document.querySelectorAll('[data-animate]');
   if (animatedElements.length) {
     const observer = new IntersectionObserver(
@@ -772,6 +781,72 @@ document.addEventListener('DOMContentLoaded', () => {
     animatedElements.forEach((el) => observer.observe(el));
   }
 });
+
+let activeAlertTimeout = null;
+
+function showAlert(message, type = 'info', title = null, duration = 5000) {
+  if (!message) {
+    return null;
+  }
+
+  if (activeAlertTimeout) {
+    clearTimeout(activeAlertTimeout);
+    activeAlertTimeout = null;
+  }
+
+  const existingAlert = document.querySelector('.alert');
+  existingAlert?.remove();
+
+  const iconMap = {
+    info: 'ℹ️',
+    success: '✅',
+    warning: '⚠️',
+    error: '❌',
+  };
+
+  const defaultTitles = {
+    info: 'Heads up',
+    success: 'Success',
+    warning: 'Check this',
+    error: 'Something went wrong',
+  };
+
+  const alertEl = document.createElement('div');
+  alertEl.className = `alert alert-${type}`;
+  alertEl.setAttribute('role', 'status');
+  alertEl.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+
+  const heading = title ?? defaultTitles[type] ?? 'Notice';
+  const icon = iconMap[type] ?? iconMap.info;
+
+  alertEl.innerHTML = `
+    <div class="alert-icon" aria-hidden="true">${icon}</div>
+    <div class="alert-content">
+      ${heading ? `<div class="alert-title">${heading}</div>` : ''}
+      <div class="alert-message">${message}</div>
+    </div>
+    <button class="alert-close" type="button" aria-label="Close notification">×</button>
+  `;
+
+  const dismiss = () => {
+    alertEl.classList.remove('show');
+    alertEl.addEventListener('transitionend', () => alertEl.remove(), { once: true });
+  };
+
+  alertEl.querySelector('.alert-close')?.addEventListener('click', dismiss);
+
+  document.body.appendChild(alertEl);
+
+  requestAnimationFrame(() => {
+    alertEl.classList.add('show');
+  });
+
+  if (duration > 0) {
+    activeAlertTimeout = setTimeout(dismiss, duration);
+  }
+
+  return alertEl;
+}
 
 // Convenience functions
 function showSuccess(message, title = null, duration = 5000) {
