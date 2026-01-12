@@ -6,9 +6,10 @@
     <title>Contact Us - Slink</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="assets/slink.png" type="image/png">
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK v9 (compat version for easier migration) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-analytics-compat.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -201,29 +202,34 @@
                         <a href="https://www.instagram.com" aria-label="Instagram">IG</a>
                     </div>
                 </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Explore</span>
-                    <ul class="footer__list">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="skill-selection.html">Skills</a></li>
-                        <li><a href="mentor-selection.html">Mentor Matching</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Company</span>
-                    <ul class="footer__list">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html" class="active">Contact</a></li>
-                        <li><a href="mailto:support@slink.com">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Legal</span>
-                    <ul class="footer__list">
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-of-service.html">Terms of Service</a></li>
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                    </ul>
+                <div class="footer__links">
+                    <div class="footer__links-column">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">Success Stories</a></li>
+                            <li><a href="#">Security</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__links-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Mentor Directory</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Webinars</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__links-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="footer__bottom">
@@ -236,25 +242,31 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="app.js"></script>
-    <script src="contact.js"></script>
-                        const name = nameInput && nameInput.value ? nameInput.value : 'there';
-                        showSuccess(`Thank you, ${name}! Your message has been sent successfully.`);
-                        form.reset();
-                    } else {
-                        showError('We could not send your message right now. Please try again shortly.');
-                    }
-                } catch (error) {
-                    showError('A network error occurred while sending your message. Please check your connection and try again.');
-                } finally {
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = originalButtonText;
-                    }
-                }
-            });
+    <!-- Firebase Configuration -->
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHIWxAFZz9gBEJ12XXF6QK53sY5BEfrVs",
+            authDomain: "slink-website.firebaseapp.com",
+            projectId: "slink-website",
+            storageBucket: "slink-website.firebasestorage.app",
+            messagingSenderId: "876458436291",
+            appId: "1:876458436291:web:0aff5515ed8b5fdc156476",
+            measurementId: "G-KPQSCM484L"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Initialize Analytics if supported
+        if (firebase.analytics && firebase.analytics.isSupported()) {
+            firebase.analytics();
         }
     </script>
+
+    <!-- App Scripts -->
+    <script src="app.js"></script>
+    <script src="contact.js"></script>
 </body>
 </html>
