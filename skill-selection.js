@@ -29,6 +29,7 @@ const suggestedMatchesElements = {
 };
 
 let firestoreContextPromise = null;
+let skipNextLearnerRefresh = false;
 
 async function getFirestoreContext() {
   if (!firestoreContextPromise) {
@@ -133,6 +134,11 @@ function initializeSuggestedMatchesUI() {
 }
 
 function refreshLearnerDetailsFromForm(options = {}) {
+  if (skipNextLearnerRefresh) {
+    skipNextLearnerRefresh = false;
+    return;
+  }
+
   const skillsDropdownValue = document.getElementById('selectedSkillField')?.value || '';
   const newState = {
     fullName: document.getElementById('fullName')?.value?.trim() || '',
@@ -941,6 +947,18 @@ document.addEventListener('DOMContentLoaded', function() {
           where,
         } = await getFirestoreContext();
 
+        const duplicateSnapshot = await getDocs(query(registrationsCollection, where('email', '==', email)));
+        const duplicateExists = duplicateSnapshot.docs.some((doc) => {
+          const data = doc.data() || {};
+          const storedName = (data.fullName || '').trim().toLowerCase();
+          return storedName === fullName.toLowerCase();
+        });
+
+        if (duplicateExists) {
+          showError('This email has already been used to register. Please reach out if you need to update your details.');
+          return;
+        }
+
         await addDoc(registrationsCollection, {
           fullName,
           email,
@@ -970,6 +988,14 @@ document.addEventListener('DOMContentLoaded', function() {
           teachSkills,
         };
         localStorage.setItem('registrationData', JSON.stringify(registrationData));
+
+        updateLearnerMatchState({
+          fullName,
+          email,
+          location,
+          skill: skillForSubmission,
+        }, { forceFetch: true });
+        skipNextLearnerRefresh = true;
 
         // Ensure each teachable skill exists as a selectable card
         await Promise.all(teachSkills.map(async (skill) => {
