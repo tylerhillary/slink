@@ -308,8 +308,13 @@
 
                         <div class="form-group">
                             <label for="teachSkillsInput">Skill(s) you can teach *</label>
-                            <input type="text" id="teachSkillsInput" name="teachSkills" class="form-input" placeholder="e.g., Python, Video Editing, Tailoring" required>
-                            <small class="form-helper-text">Separate multiple skills with commas.</small>
+                            <div class="teach-skills-combobox" id="teachSkillsCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="teachSkillsOptionsList">
+                                <ul class="teach-skills-selected" id="teachSkillsSelected" role="list"></ul>
+                                <input type="text" id="teachSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="Start typing to add a skill" aria-autocomplete="list" aria-controls="teachSkillsOptionsList" aria-activedescendant="" required>
+                            </div>
+                            <div class="teach-skills-options" id="teachSkillsOptionsList" role="listbox" aria-label="Suggested teaching skills"></div>
+                            <input type="hidden" id="teachSkillsHidden" name="teachSkills">
+                            <small class="form-helper-text">Choose from suggestions or press Enter to add your own skill.</small>
                         </div>
                         
                         <div class="form-group">

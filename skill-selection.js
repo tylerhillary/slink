@@ -31,6 +31,25 @@ const suggestedMatchesElements = {
 let firestoreContextPromise = null;
 let skipNextLearnerRefresh = false;
 
+const teachSkillsState = {
+  options: new Map(),
+  selected: [],
+  filteredOptions: [],
+  activeOptionIndex: -1,
+  elements: {
+    combobox: null,
+    input: null,
+    options: null,
+    selected: null,
+    hidden: null,
+  },
+  closeOptionsTimeout: null,
+};
+
+function getTeachSkillsElements() {
+  return teachSkillsState.elements;
+}
+
 async function getFirestoreContext() {
   if (!firestoreContextPromise) {
     firestoreContextPromise = (async () => {
@@ -93,6 +112,441 @@ function normalizeSkillName(name) {
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
+}
+
+function addTeachSkillOption(skillName) {
+  const normalized = normalizeSkillName(skillName);
+  if (!normalized) {
+    return;
+  }
+
+  const key = normalized.toLowerCase();
+  if (!teachSkillsState.options.has(key)) {
+    teachSkillsState.options.set(key, {
+      value: normalized,
+      key,
+      labelLower: key,
+    });
+  }
+}
+
+function removeTeachSkillOption(skillName) {
+  const key = normalizeSkillName(skillName).toLowerCase();
+  if (!key) {
+    return;
+  }
+  teachSkillsState.options.delete(key);
+}
+
+function getSelectedTeachSkills() {
+  return [...teachSkillsState.selected];
+}
+
+function updateTeachSkillsHiddenField() {
+  const { hidden } = getTeachSkillsElements();
+  if (hidden) {
+    hidden.value = teachSkillsState.selected.join(', ');
+    hidden.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+}
+
+function renderTeachSkillsSelected() {
+  const { selected, combobox, input } = getTeachSkillsElements();
+  if (!selected) {
+    return;
+  }
+
+  selected.innerHTML = '';
+
+  teachSkillsState.selected.forEach((skill) => {
+    const item = document.createElement('li');
+    item.className = 'teach-skills-chip';
+    item.innerHTML = `
+      <span class="teach-skills-chip__label">${escapeHtml(skill)}</span>
+      <button type="button" class="teach-skills-chip__remove" data-skill="${escapeHtml(skill)}" aria-label="Remove ${escapeHtml(skill)}">×</button>
+    `;
+    selected.appendChild(item);
+  });
+
+  selected.classList.toggle('is-empty', teachSkillsState.selected.length === 0);
+  combobox?.classList.toggle('has-selection', teachSkillsState.selected.length > 0);
+  if (input && !input.value && teachSkillsState.selected.length === 0) {
+    input.placeholder = 'Start typing to add a skill';
+  }
+
+  updateTeachSkillsHiddenField();
+}
+
+function addTeachSkillToSelected(skillName) {
+  const normalized = normalizeSkillName(skillName);
+  if (!normalized) {
+    return false;
+  }
+
+  const key = normalized.toLowerCase();
+  if (teachSkillsState.selected.some((skill) => skill.toLowerCase() === key)) {
+    return false;
+  }
+
+  teachSkillsState.selected.push(normalized);
+  teachSkillsState.selected.sort((a, b) => a.localeCompare(b));
+  renderTeachSkillsSelected();
+  return true;
+}
+
+function removeTeachSkillFromSelected(skillName) {
+  const key = skillName.toLowerCase();
+  const next = teachSkillsState.selected.filter((skill) => skill.toLowerCase() !== key);
+  if (next.length !== teachSkillsState.selected.length) {
+    teachSkillsState.selected = next;
+    renderTeachSkillsSelected();
+    filterTeachSkillOptions(getTeachSkillsElements().input?.value || '');
+  }
+}
+
+function clearTeachSkillsSelection() {
+  teachSkillsState.selected = [];
+  renderTeachSkillsSelected();
+  filterTeachSkillOptions('');
+}
+
+function setTeachSkillsComboboxExpanded(isExpanded) {
+  const { combobox } = getTeachSkillsElements();
+  if (!combobox) {
+    return;
+  }
+
+  combobox.setAttribute('aria-expanded', String(isExpanded));
+  combobox.classList.toggle('is-open', Boolean(isExpanded));
+}
+
+function updateTeachSkillsActiveDescendant() {
+  const { input } = getTeachSkillsElements();
+  if (!input) {
+    return;
+  }
+
+  if (teachSkillsState.activeOptionIndex >= 0) {
+    input.setAttribute('aria-activedescendant', `teachSkillsOption-${teachSkillsState.activeOptionIndex}`);
+  } else {
+    input.removeAttribute('aria-activedescendant');
+  }
+}
+
+function highlightTeachSkillOption(index) {
+  const { options } = getTeachSkillsElements();
+  if (!options || teachSkillsState.filteredOptions.length === 0) {
+    teachSkillsState.activeOptionIndex = -1;
+    updateTeachSkillsActiveDescendant();
+    return;
+  }
+
+  const boundedIndex = ((index % teachSkillsState.filteredOptions.length) + teachSkillsState.filteredOptions.length) % teachSkillsState.filteredOptions.length;
+  teachSkillsState.activeOptionIndex = boundedIndex;
+
+  Array.from(options.children).forEach((optionEl) => {
+    optionEl.classList.remove('is-active');
+  });
+
+  const activeOption = options.children[boundedIndex];
+  if (activeOption) {
+    activeOption.classList.add('is-active');
+    activeOption.scrollIntoView({ block: 'nearest' });
+  }
+
+  updateTeachSkillsActiveDescendant();
+}
+
+function renderTeachSkillsOptions() {
+  const { options } = getTeachSkillsElements();
+  if (!options) {
+    return;
+  }
+
+  options.innerHTML = '';
+
+  teachSkillsState.filteredOptions.forEach((option, index) => {
+    const optionEl = document.createElement('div');
+    optionEl.id = `teachSkillsOption-${index}`;
+    optionEl.className = 'teach-skills-option';
+    optionEl.setAttribute('role', 'option');
+    optionEl.dataset.index = String(index);
+    optionEl.dataset.value = option.actualValue;
+    optionEl.innerHTML = option.isCustom
+      ? `<span class="teach-skills-option__label">Add <strong>${escapeHtml(option.actualValue)}</strong></span>`
+      : `<span class="teach-skills-option__label">${escapeHtml(option.actualValue)}</span>`;
+    options.appendChild(optionEl);
+  });
+
+  if (teachSkillsState.filteredOptions.length === 0) {
+    setTeachSkillsComboboxExpanded(false);
+    teachSkillsState.activeOptionIndex = -1;
+    updateTeachSkillsActiveDescendant();
+    return;
+  }
+
+  setTeachSkillsComboboxExpanded(true);
+  teachSkillsState.activeOptionIndex = 0;
+  highlightTeachSkillOption(0);
+}
+
+function filterTeachSkillOptions(query) {
+  const normalizedQuery = (query || '').trim().toLowerCase();
+  const selectedSet = new Set(teachSkillsState.selected.map((skill) => skill.toLowerCase()));
+  let filtered = Array.from(teachSkillsState.options.values())
+    .filter((option) => !selectedSet.has(option.key));
+
+  if (normalizedQuery) {
+    filtered = filtered.filter((option) => option.labelLower.includes(normalizedQuery));
+  }
+
+  filtered.sort((a, b) => a.value.localeCompare(b.value));
+
+  const normalizedName = normalizeSkillName(query);
+  const normalizedKey = normalizedName.toLowerCase();
+  const shouldShowCreateOption = Boolean(normalizedName)
+    && !teachSkillsState.options.has(normalizedKey)
+    && !selectedSet.has(normalizedKey);
+
+  const results = filtered.map((option) => ({
+    actualValue: option.value,
+    key: option.key,
+    isCustom: false,
+  }));
+
+  if (shouldShowCreateOption) {
+    results.unshift({
+      actualValue: normalizedName,
+      key: `custom-${normalizedKey}`,
+      isCustom: true,
+    });
+  }
+
+  teachSkillsState.filteredOptions = results.slice(0, 8);
+  renderTeachSkillsOptions();
+}
+
+function commitTeachSkillSelection() {
+  const { input } = getTeachSkillsElements();
+  if (!input) {
+    return;
+  }
+
+  let value = '';
+  if (teachSkillsState.activeOptionIndex >= 0) {
+    const activeOption = teachSkillsState.filteredOptions[teachSkillsState.activeOptionIndex];
+    value = activeOption?.actualValue || '';
+  } else {
+    value = normalizeSkillName(input.value);
+  }
+
+  if (!value) {
+    return;
+  }
+
+  addTeachSkillOption(value);
+  const added = addTeachSkillToSelected(value);
+  if (added) {
+    filterTeachSkillOptions('');
+  }
+
+  input.value = '';
+  setTeachSkillsComboboxExpanded(false);
+}
+
+function showTeachSkillsOptions() {
+  const { input } = getTeachSkillsElements();
+  if (teachSkillsState.closeOptionsTimeout) {
+    clearTimeout(teachSkillsState.closeOptionsTimeout);
+    teachSkillsState.closeOptionsTimeout = null;
+  }
+
+  filterTeachSkillOptions(input?.value || '');
+}
+
+function hideTeachSkillsOptions() {
+  setTeachSkillsComboboxExpanded(false);
+  teachSkillsState.activeOptionIndex = -1;
+  updateTeachSkillsActiveDescendant();
+}
+
+function scheduleHideTeachSkillsOptions() {
+  if (teachSkillsState.closeOptionsTimeout) {
+    clearTimeout(teachSkillsState.closeOptionsTimeout);
+  }
+  teachSkillsState.closeOptionsTimeout = setTimeout(() => {
+    hideTeachSkillsOptions();
+    teachSkillsState.closeOptionsTimeout = null;
+  }, 120);
+}
+
+function handleTeachSkillInput(event) {
+  showTeachSkillsOptions();
+  filterTeachSkillOptions(event.target.value || '');
+}
+
+function handleTeachSkillKeyDown(event) {
+  const { key } = event;
+
+  if (key === 'ArrowDown') {
+    event.preventDefault();
+    if (!teachSkillsState.filteredOptions.length) {
+      filterTeachSkillOptions(event.target.value || '');
+    } else {
+      highlightTeachSkillOption(teachSkillsState.activeOptionIndex + 1);
+    }
+    return;
+  }
+
+  if (key === 'ArrowUp') {
+    event.preventDefault();
+    if (!teachSkillsState.filteredOptions.length) {
+      filterTeachSkillOptions(event.target.value || '');
+    } else {
+      highlightTeachSkillOption(teachSkillsState.activeOptionIndex - 1);
+    }
+    return;
+  }
+
+  if (key === 'Enter' || key === 'Tab' || key === ',') {
+    const currentValue = event.target.value.trim();
+    if (!currentValue && key === 'Tab') {
+      return;
+    }
+
+    event.preventDefault();
+    commitTeachSkillSelection();
+    return;
+  }
+
+  if (key === 'Backspace') {
+    const { input } = getTeachSkillsElements();
+    if (input && !input.value && teachSkillsState.selected.length > 0) {
+      event.preventDefault();
+      removeTeachSkillFromSelected(teachSkillsState.selected[teachSkillsState.selected.length - 1]);
+      filterTeachSkillOptions('');
+    }
+  }
+}
+
+function handleTeachSkillsOptionClick(event) {
+  const optionEl = event.target.closest('.teach-skills-option');
+  if (!optionEl) {
+    return;
+  }
+
+  const value = optionEl.dataset.value;
+  if (!value) {
+    return;
+  }
+
+  addTeachSkillOption(value);
+  if (addTeachSkillToSelected(value)) {
+    filterTeachSkillOptions('');
+  }
+
+  const { input } = getTeachSkillsElements();
+  if (input) {
+    input.value = '';
+    input.focus({ preventScroll: true });
+  }
+
+  hideTeachSkillsOptions();
+}
+
+function handleTeachSkillsSelectedClick(event) {
+  const removeButton = event.target.closest('.teach-skills-chip__remove');
+  if (!removeButton) {
+    return;
+  }
+
+  const { skill } = removeButton.dataset;
+  if (!skill) {
+    return;
+  }
+
+  removeTeachSkillFromSelected(skill);
+
+  const { input } = getTeachSkillsElements();
+  input?.focus({ preventScroll: true });
+}
+
+function collectInitialTeachSkillOptions() {
+  const skillCards = document.querySelectorAll('.skill-card[data-skill]');
+  skillCards.forEach((card) => {
+    const skillName = card.getAttribute('data-skill');
+    addTeachSkillOption(skillName);
+  });
+
+  const selectedSkillField = document.getElementById('selectedSkillField');
+  selectedSkillField?.querySelectorAll('option').forEach((option) => {
+    addTeachSkillOption(option.value);
+  });
+}
+
+function prefillTeachSkillsFromExistingValues() {
+  const { hidden } = getTeachSkillsElements();
+  const stored = localStorage.getItem('registrationData');
+  let skills = [];
+
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed.teachSkills)) {
+        skills = skills.concat(parsed.teachSkills);
+      }
+    } catch (error) {
+      console.warn('Unable to parse stored registration data.', error);
+    }
+  }
+
+  if (hidden && hidden.value) {
+    skills = skills.concat(hidden.value.split(',').map((skill) => skill.trim()).filter(Boolean));
+  }
+
+  const uniqueSkills = Array.from(new Set(skills.map((skill) => normalizeSkillName(skill)).filter(Boolean)));
+  uniqueSkills.forEach((skill) => {
+    addTeachSkillOption(skill);
+    addTeachSkillToSelected(skill);
+  });
+}
+
+function initializeTeachSkillsCombobox() {
+  const elements = getTeachSkillsElements();
+  elements.combobox = document.getElementById('teachSkillsCombobox');
+  elements.input = document.getElementById('teachSkillsInput');
+  elements.options = document.getElementById('teachSkillsOptionsList');
+  elements.selected = document.getElementById('teachSkillsSelected');
+  elements.hidden = document.getElementById('teachSkillsHidden');
+
+  if (!elements.combobox || !elements.input || !elements.options || !elements.selected || !elements.hidden) {
+    return;
+  }
+
+  collectInitialTeachSkillOptions();
+  prefillTeachSkillsFromExistingValues();
+  renderTeachSkillsSelected();
+  filterTeachSkillOptions(elements.input.value || '');
+
+  elements.input.addEventListener('input', handleTeachSkillInput);
+  elements.input.addEventListener('keydown', handleTeachSkillKeyDown);
+  elements.input.addEventListener('focus', showTeachSkillsOptions);
+  elements.input.addEventListener('blur', scheduleHideTeachSkillsOptions);
+
+  elements.options.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+  });
+  elements.options.addEventListener('click', handleTeachSkillsOptionClick);
+  elements.selected.addEventListener('click', handleTeachSkillsSelectedClick);
+
+  const registrationForm = document.getElementById('skillRegistrationForm');
+  registrationForm?.addEventListener('reset', () => {
+    clearTeachSkillsSelection();
+    const { input } = getTeachSkillsElements();
+    if (input) {
+      input.value = '';
+    }
+  });
 }
 
 function initializeSuggestedMatchesUI() {
@@ -915,11 +1369,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const gender = document.getElementById('gender').value;
       const location = document.getElementById('location').value;
       const skillForSubmission = selectedSkill || document.getElementById('selectedSkillField')?.value?.trim();
-      const teachSkillsInput = document.getElementById('teachSkillsInput');
-      const teachSkills = teachSkillsInput?.value
-        ?.split(',')
-        .map(skill => normalizeSkillName(skill))
-        .filter(Boolean) ?? [];
+      const teachSkills = getSelectedTeachSkills();
 
       if (!fullName || !email || Number.isNaN(age) || !gender || !location || !skillForSubmission || !teachSkills.length) {
         showError('Please fill in all required fields.');
@@ -1029,10 +1479,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedSkillField) {
           selectedSkillField.value = skillForSubmission;
         }
-
-        if (teachSkillsInput) {
-          teachSkillsInput.value = '';
-        }
+        clearTeachSkillsSelection();
       } catch (error) {
         showError('A network error occurred while submitting your registration. Please check your connection and try again.');
       } finally {
