@@ -40,6 +40,24 @@
                     <p class="selection-subtitle">Choose a skill you want to learn, then register it with us before proceeding to payment—Slink is proudly powered by Radius Technology, led by CEO Engr. Hillary Tyler.</p>
                 </div>
 
+                <div class="skill-search" role="search">
+                    <label class="skill-search__label" for="skillSearchInput">Search for a skill</label>
+                    <div class="skill-search__input-wrapper">
+                        <span class="skill-search__icon" aria-hidden="true">🔍</span>
+                        <input
+                            type="search"
+                            id="skillSearchInput"
+                            class="skill-search__input"
+                            placeholder="Type to quickly find a skill..."
+                            autocomplete="off"
+                        >
+                        <button type="button" id="clearSkillSearch" class="skill-search__clear" aria-label="Clear search" hidden>
+                            ✕
+                        </button>
+                    </div>
+                    <p class="skill-search__helper" id="skillSearchHelper">Showing all skills</p>
+                </div>
+
                 <!-- Available Skills -->
                 <div class="skills-grid">
                     <div class="skill-card" data-skill="UX Design">
@@ -151,6 +169,42 @@
                         <div class="selected-skill-actions">
                             <button id="registerSkillBtn" class="btn btn--primary btn--large" disabled>Register Skill</button>
                             <p class="selected-skill-note">Our team will review your submission and contact you within 24 hours to discuss next steps.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Matches -->
+                <div class="suggested-matches" id="suggestedMatchesSection" hidden>
+                    <div class="suggested-matches__header">
+                        <h2>Suggested Local Matches</h2>
+                        <p>We look for tutors in the same state who can teach your selected skill.</p>
+                    </div>
+                    <div class="suggested-matches__body">
+                        <article class="suggested-match-student" aria-label="Student details used for matching">
+                            <h3>Your Details</h3>
+                            <dl class="suggested-match-student__grid">
+                                <div>
+                                    <dt>Name</dt>
+                                    <dd id="suggestedStudentName">Your name</dd>
+                                </div>
+                                <div>
+                                    <dt>Skill</dt>
+                                    <dd id="suggestedStudentSkill">Select a skill to begin</dd>
+                                </div>
+                                <div>
+                                    <dt>State</dt>
+                                    <dd id="suggestedStudentLocation">No state selected</dd>
+                                </div>
+                                <div>
+                                    <dt>Email</dt>
+                                    <dd id="suggestedStudentEmail">Provide your email to connect</dd>
+                                </div>
+                            </dl>
+                        </article>
+                        <div class="suggested-match-results">
+                            <p class="suggested-match-loading" id="suggestedMatchesLoading">Select a skill and state to see tutors near you.</p>
+                            <p class="suggested-match-empty" id="suggestedMatchesEmpty" hidden>We couldn't find local tutors yet. Our team will expand your options.</p>
+                            <div class="suggested-match-list" id="suggestedMatchesList" role="list" aria-live="polite"></div>
                         </div>
                     </div>
                 </div>
