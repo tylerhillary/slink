@@ -3225,6 +3225,197 @@ input:checked + .slider:before {
   line-height: 1.6;
 }
 
+.teach-skills-combobox {
+  position: relative;
+  min-height: 56px;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  cursor: text;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.teach-skills-combobox:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.18);
+}
+
+.teach-skills-combobox.has-selection {
+  padding-block-start: var(--spacing-sm);
+  padding-block-end: var(--spacing-xs);
+}
+
+.teach-skills-selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-width: 120px;
+}
+
+.teach-skills-selected.is-empty::before {
+  content: '';
+  flex: 1;
+}
+
+.teach-skills-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(var(--secondary-rgb), 0.1);
+  color: var(--primary-color);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  border: 1px solid rgba(var(--secondary-rgb), 0.2);
+  box-shadow: 0 6px 18px -12px rgba(var(--secondary-rgb), 0.6);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.teach-skills-chip__remove {
+  border: none;
+  background: rgba(var(--primary-rgb), 0.12);
+  color: var(--primary-color);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.teach-skills-chip__remove:hover,
+.teach-skills-chip__remove:focus {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.teach-skills-input {
+  border: none;
+  flex: 1;
+  min-width: 160px;
+  font-size: var(--font-size-base);
+  padding: 0.35rem;
+  outline: none;
+  background: transparent;
+  color: var(--dark-color);
+}
+
+.teach-skills-input::placeholder {
+  color: rgba(var(--primary-rgb), 0.5);
+}
+
+.teach-skills-options {
+  position: relative;
+  margin-top: 0.35rem;
+}
+
+.teach-skills-options::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: -6px;
+  height: 6px;
+  background: transparent;
+}
+
+.teach-skills-options[aria-hidden="true"],
+.teach-skills-combobox:not(.is-open) + .teach-skills-options {
+  display: none;
+}
+
+.teach-skills-options {
+  max-height: 260px;
+  overflow-y: auto;
+  border-radius: calc(var(--border-radius) - 4px);
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
+  box-shadow: 0 18px 45px -32px rgba(15, 23, 42, 0.65);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  display: grid;
+  gap: 0;
+  z-index: 40;
+}
+
+.teach-skills-option {
+  padding: 0.75rem var(--spacing-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--font-size-base);
+  color: rgba(12, 22, 50, 0.88);
+  transition: background 0.18s ease, color 0.18s ease;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.teach-skills-option:last-child {
+  border-bottom: none;
+}
+
+.teach-skills-option:hover,
+.teach-skills-option.is-active {
+  background: rgba(var(--secondary-rgb), 0.12);
+  color: var(--primary-color);
+}
+
+.teach-skills-option__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.teach-skills-option__label strong {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.teach-skills-combobox.is-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: rgba(var(--primary-rgb), 0.4);
+  box-shadow: 0 2px 0 rgba(var(--primary-rgb), 0.12);
+}
+
+.teach-skills-combobox.is-open + .teach-skills-options {
+  display: block;
+}
+
+.teach-skills-combobox.is-open + .teach-skills-options::-webkit-scrollbar {
+  width: 10px;
+}
+
+.teach-skills-combobox.is-open + .teach-skills-options::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-rgb), 0.16);
+  border-radius: 999px;
+}
+
+.teach-skills-combobox.is-open + .teach-skills-options::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--primary-rgb), 0.24);
+}
+
+@media (max-width: 600px) {
+  .teach-skills-combobox {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .teach-skills-chip {
+    font-size: 0.75rem;
+  }
+}
+
 .footer__bottom {
   display: flex;
   flex-wrap: wrap;
