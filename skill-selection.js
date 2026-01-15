@@ -1310,6 +1310,7 @@ window.registerSkill = registerSkill;
 document.addEventListener('DOMContentLoaded', function() {
   setupSkillSearch();
   initializeSuggestedMatchesUI();
+  initializeTeachSkillsCombobox();
 
   const skillCards = document.querySelectorAll('.skill-card[data-skill]');
   skillCards.forEach(card => {
