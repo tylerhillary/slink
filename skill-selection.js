@@ -1369,10 +1369,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const age = parseInt(document.getElementById('age').value, 10);
       const gender = document.getElementById('gender').value;
       const location = document.getElementById('location').value;
+      const countryCode = document.getElementById('countryCode').value;
+      const mobileNumber = document.getElementById('mobileNumber').value.trim();
+      const fullMobileNumber = `${countryCode}${mobileNumber}`;
       const skillForSubmission = selectedSkill || document.getElementById('selectedSkillField')?.value?.trim();
       const teachSkills = getSelectedTeachSkills();
 
-      if (!fullName || !email || Number.isNaN(age) || !gender || !location || !skillForSubmission || !teachSkills.length) {
+      if (!fullName || !email || Number.isNaN(age) || !gender || !location || !mobileNumber || !skillForSubmission || !teachSkills.length) {
         showError('Please fill in all required fields.');
         return;
       }
@@ -1435,6 +1438,8 @@ document.addEventListener('DOMContentLoaded', function() {
           age,
           gender,
           location,
+          mobileNumber: fullMobileNumber,
+          countryCode,
           selectedSkill: skillForSubmission,
           teachSkills,
         };

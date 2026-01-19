@@ -228,6 +228,44 @@
                         
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="countryCode">Mobile Number *</label>
+                                <div class="phone-input-group">
+                                    <select id="countryCode" name="countryCode" class="country-code-select" required>
+                                        <option value="+234">🇳🇬 +234 (NG)</option>
+                                        <option value="+1">🇺🇸 +1 (US)</option>
+                                        <option value="+44">🇬🇧 +44 (UK)</option>
+                                        <option value="+233">🇬🇭 +233 (GH)</option>
+                                        <option value="+254">🇰🇪 +254 (KE)</option>
+                                        <option value="+27">🇿🇦 +27 (ZA)</option>
+                                        <option value="+256">🇺🇬 +256 (UG)</option>
+                                        <option value="+255">🇹🇿 +255 (TZ)</option>
+                                        <option value="+234">🇳🇬 +234 (NG)</option>
+                                        <option value="+1">🇺🇸 +1 (US)</option>
+                                        <option value="+44">🇬🇧 +44 (UK)</option>
+                                        <option value="+1">🇨🇦 +1 (CA)</option>
+                                        <option value="+61">🇦🇺 +61 (AU)</option>
+                                        <option value="+91">🇮🇳 +91 (IN)</option>
+                                        <option value="+86">🇨🇳 +86 (CN)</option>
+                                        <option value="+81">🇯🇵 +81 (JP)</option>
+                                        <option value="+82">🇰🇷 +82 (KR)</option>
+                                        <option value="+33">🇫🇷 +33 (FR)</option>
+                                        <option value="+49">🇩🇪 +49 (DE)</option>
+                                        <option value="+39">🇮🇹 +39 (IT)</option>
+                                        <option value="+34">🇪🇸 +34 (ES)</option>
+                                        <option value="+7">🇷🇺 +7 (RU)</option>
+                                        <option value="+971">🇦🇪 +971 (AE)</option>
+                                        <option value="+966">🇸🇦 +966 (SA)</option>
+                                        <option value="+20">🇪🇬 +20 (EG)</option>
+                                        <option value="+212">🇲🇦 +212 (MA)</option>
+                                    </select>
+                                    <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input phone-number" placeholder="e.g. 7012345678" pattern="[0-9]{10,15}" title="Please enter a valid 10-15 digit phone number" required>
+                                </div>
+                                <small class="form-hint">Include area code without the leading zero</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="age">Age *</label>
                                 <input type="number" id="age" name="age" class="form-input" min="13" max="100" required>
                             </div>
