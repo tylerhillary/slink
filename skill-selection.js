@@ -1370,13 +1370,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const gender = document.getElementById('gender').value;
       const location = document.getElementById('location').value;
       const countryCode = document.getElementById('countryCode').value;
-      const mobileNumber = document.getElementById('mobileNumber').value.trim();
-      const fullMobileNumber = `${countryCode}${mobileNumber}`;
+      const mobileNumberInput = document.getElementById('mobileNumber').value.trim();
+      const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
+      const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
       const skillForSubmission = selectedSkill || document.getElementById('selectedSkillField')?.value?.trim();
       const teachSkills = getSelectedTeachSkills();
 
-      if (!fullName || !email || Number.isNaN(age) || !gender || !location || !mobileNumber || !skillForSubmission || !teachSkills.length) {
+      if (!fullName || !email || Number.isNaN(age) || !gender || !location || !sanitizedMobileNumber || !skillForSubmission || !teachSkills.length) {
         showError('Please fill in all required fields.');
+        return;
+      }
+
+      if (sanitizedMobileNumber.length < 7 || sanitizedMobileNumber.length > 15) {
+        showError('Please enter a valid phone number between 7 and 15 digits.');
         return;
       }
 
@@ -1419,6 +1425,14 @@ document.addEventListener('DOMContentLoaded', function() {
           age,
           gender,
           location,
+          phone: fullMobileNumber,
+          contactPhone: fullMobileNumber,
+          phoneDetails: {
+            e164: fullMobileNumber,
+            countryCode,
+            nationalNumber: sanitizedMobileNumber,
+            rawInput: mobileNumberInput,
+          },
           selectedSkill: skillForSubmission,
           teachSkills,
           intent: 'learn',
@@ -1439,7 +1453,12 @@ document.addEventListener('DOMContentLoaded', function() {
           gender,
           location,
           mobileNumber: fullMobileNumber,
-          countryCode,
+          phoneDetails: {
+            e164: fullMobileNumber,
+            countryCode,
+            nationalNumber: sanitizedMobileNumber,
+            rawInput: mobileNumberInput,
+          },
           selectedSkill: skillForSubmission,
           teachSkills,
         };
