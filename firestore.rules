@@ -23,8 +23,8 @@ service cloud.firestore {
       return value is map && value.__type__ == 'server_timestamp';
     }
 
-    function matchesServerTimestamp(value) {
-      return value == request.time || value is timestamp || isServerTimestamp(value);
+    function isTimestampOrServer(value) {
+      return value is timestamp || value == request.time || isServerTimestamp(value);
     }
 
     function isNonEmptyStringList(list) {
@@ -53,9 +53,9 @@ service cloud.firestore {
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
         isNonEmptyString(notification.status) &&
-        matchesServerTimestamp(notification.createdAt) &&
-        isOptionalTimestamp(notification.updatedAt) &&
-        isOptionalTimestamp(notification.lastAttemptedAt) &&
+        isTimestampOrServer(notification.createdAt) &&
+        (notification.updatedAt == null || isTimestampOrServer(notification.updatedAt)) &&
+        (notification.lastAttemptedAt == null || isTimestampOrServer(notification.lastAttemptedAt)) &&
         isOptionalString(notification.lastError)
       );
     }
@@ -107,7 +107,7 @@ service cloud.firestore {
         data.status in ['pending', 'matched', 'archived'] &&
         isNonEmptyString(data.source) &&
         data.consent == true &&
-        matchesServerTimestamp(data.createdAt) &&
+        isTimestampOrServer(data.createdAt) &&
         isOptionalNonEmptyString(data.phone) &&
         isOptionalNonEmptyString(data.contactPhone) &&
         isNonEmptyStringList(data.teachSkills) &&
@@ -133,7 +133,7 @@ service cloud.firestore {
         isOptionalString(data.description) &&
         isNonEmptyString(data.status) &&
         isNonEmptyString(data.nameLower) &&
-        matchesServerTimestamp(data.createdAt);
+        isTimestampOrServer(data.createdAt);
     }
 
     match /skills/{skillId} {
@@ -155,7 +155,7 @@ service cloud.firestore {
         isNonEmptyString(data.subject) &&
         isNonEmptyString(data.message) &&
         isOptionalString(data.phone) &&
-        matchesServerTimestamp(data.timestamp);
+        isTimestampOrServer(data.timestamp);
     }
 
     match /contactSubmissions/{submissionId} {
