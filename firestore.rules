@@ -19,6 +19,14 @@ service cloud.firestore {
       return value == null || value is timestamp;
     }
 
+    function isServerTimestamp(value) {
+      return value is map && value.__type__ == 'server_timestamp';
+    }
+
+    function matchesServerTimestamp(value) {
+      return value == request.time || value is timestamp || isServerTimestamp(value);
+    }
+
     function isNonEmptyStringList(list) {
       return list is list && list.size() > 0 && list.size() <= 50 && list[0] is string;
     }
@@ -45,8 +53,7 @@ service cloud.firestore {
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
         isNonEmptyString(notification.status) &&
-        notification.createdAt is timestamp &&
-        notification.createdAt == request.time &&
+        matchesServerTimestamp(notification.createdAt) &&
         isOptionalTimestamp(notification.updatedAt) &&
         isOptionalTimestamp(notification.lastAttemptedAt) &&
         isOptionalString(notification.lastError)
@@ -100,8 +107,7 @@ service cloud.firestore {
         data.status in ['pending', 'matched', 'archived'] &&
         isNonEmptyString(data.source) &&
         data.consent == true &&
-        data.createdAt is timestamp &&
-        data.createdAt == request.time &&
+        matchesServerTimestamp(data.createdAt) &&
         isOptionalNonEmptyString(data.phone) &&
         isOptionalNonEmptyString(data.contactPhone) &&
         isNonEmptyStringList(data.teachSkills) &&
@@ -127,8 +133,7 @@ service cloud.firestore {
         isOptionalString(data.description) &&
         isNonEmptyString(data.status) &&
         isNonEmptyString(data.nameLower) &&
-        data.createdAt is timestamp &&
-        data.createdAt == request.time;
+        matchesServerTimestamp(data.createdAt);
     }
 
     match /skills/{skillId} {
@@ -150,8 +155,7 @@ service cloud.firestore {
         isNonEmptyString(data.subject) &&
         isNonEmptyString(data.message) &&
         isOptionalString(data.phone) &&
-        data.timestamp is timestamp &&
-        data.timestamp == request.time;
+        matchesServerTimestamp(data.timestamp);
     }
 
     match /contactSubmissions/{submissionId} {
