@@ -1407,6 +1407,12 @@ document.addEventListener('DOMContentLoaded', function() {
           where,
         } = await getFirestoreContext();
 
+        const teachSkillsIndex = Array.from(new Set(
+          teachSkills
+            .map((skill) => (typeof skill === 'string' ? skill.trim().toLowerCase() : ''))
+            .filter(Boolean)
+        ));
+
         const duplicateSnapshot = await getDocs(query(registrationsCollection, where('email', '==', email)));
         const duplicateExists = duplicateSnapshot.docs.some((doc) => {
           const data = doc.data() || {};
@@ -1435,6 +1441,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           selectedSkill: skillForSubmission,
           teachSkills,
+          teachSkillsIndex,
           intent: 'learn',
           teacherNotification: {
             status: 'pending',

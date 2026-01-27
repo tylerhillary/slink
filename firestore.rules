@@ -3,10 +3,60 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    match /registrations/{registrationId} {
-      allow create: if
-        request.auth == null &&
-        request.resource.data.keys().hasOnly([
+    function isNonEmptyString(value) {
+      return value is string && value.size() > 0;
+    }
+
+    function isOptionalNonEmptyString(value) {
+      return value == null || isNonEmptyString(value);
+    }
+
+    function isOptionalString(value) {
+      return value == null || value is string;
+    }
+
+    function isOptionalTimestamp(value) {
+      return value == null || value is timestamp;
+    }
+
+    function isNonEmptyStringList(list) {
+      return list is list && list.size() > 0 && list.size() <= 50 && list[0] is string;
+    }
+
+    function isOptionalStringList(list) {
+      return list == null || (list is list && (list.size() == 0 || list[0] is string));
+    }
+
+    function hasValidPhoneDetails(details) {
+      return details == null || (
+        details is map &&
+        details.keys().hasOnly(['e164', 'countryCode', 'nationalNumber', 'rawInput', 'international', 'display']) &&
+        isOptionalNonEmptyString(details.e164) &&
+        isOptionalNonEmptyString(details.countryCode) &&
+        isOptionalNonEmptyString(details.nationalNumber) &&
+        isOptionalString(details.rawInput) &&
+        isOptionalNonEmptyString(details.international) &&
+        isOptionalNonEmptyString(details.display)
+      );
+    }
+
+    function hasValidTeacherNotification(notification) {
+      return notification == null || (
+        notification is map &&
+        notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
+        isNonEmptyString(notification.status) &&
+        notification.createdAt is timestamp &&
+        notification.createdAt == request.time &&
+        isOptionalTimestamp(notification.updatedAt) &&
+        isOptionalTimestamp(notification.lastAttemptedAt) &&
+        isOptionalString(notification.lastError)
+      );
+    }
+
+    function isPublicRegistrationCreate() {
+      let data = request.resource.data;
+      return request.auth == null &&
+        data.keys().hasOnly([
           'fullName',
           'email',
           'age',
@@ -16,30 +66,102 @@ service cloud.firestore {
           'status',
           'source',
           'consent',
-          'createdAt'
+          'createdAt',
+          'phone',
+          'contactPhone',
+          'phoneDetails',
+          'teachSkills',
+          'teachSkillsIndex',
+          'teacherNotification',
+          'intent'
         ]) &&
-        request.resource.data.keys().hasAll([
+        data.keys().hasAll([
           'fullName',
           'email',
           'age',
           'gender',
           'location',
           'selectedSkill',
+          'status',
+          'source',
           'consent',
-          'createdAt'
+          'createdAt',
+          'teachSkills',
+          'intent'
         ]) &&
-        request.resource.data.fullName is string && request.resource.data.fullName.size() >= 3 &&
-        request.resource.data.email is string && request.resource.data.email.size() > 5 &&
-        request.resource.data.age is int && request.resource.data.age >= 13 && request.resource.data.age <= 100 &&
-        request.resource.data.gender is string && request.resource.data.gender.size() > 0 &&
-        request.resource.data.location is string && request.resource.data.location.size() > 0 &&
-        request.resource.data.selectedSkill is string && request.resource.data.selectedSkill.size() > 0 &&
-        request.resource.data.consent == true &&
-        request.resource.data.createdAt is timestamp &&
-        request.resource.data.status in ['pending', 'matched', 'archived'] &&
-        request.resource.data.source is string;
+        isNonEmptyString(data.fullName) &&
+        data.fullName.size() >= 3 &&
+        isNonEmptyString(data.email) &&
+        data.email.size() > 5 &&
+        data.age is int && data.age >= 13 && data.age <= 100 &&
+        isNonEmptyString(data.gender) &&
+        isNonEmptyString(data.location) &&
+        isNonEmptyString(data.selectedSkill) &&
+        data.status in ['pending', 'matched', 'archived'] &&
+        isNonEmptyString(data.source) &&
+        data.consent == true &&
+        data.createdAt is timestamp &&
+        data.createdAt == request.time &&
+        isOptionalNonEmptyString(data.phone) &&
+        isOptionalNonEmptyString(data.contactPhone) &&
+        isNonEmptyStringList(data.teachSkills) &&
+        isOptionalStringList(data.teachSkillsIndex) &&
+        data.intent in ['learn', 'teach', 'both'] &&
+        hasValidPhoneDetails(data.phoneDetails) &&
+        hasValidTeacherNotification(data.teacherNotification);
+    }
 
+    match /registrations/{registrationId} {
+      allow create: if isPublicRegistrationCreate();
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    function isValidSkillCreate() {
+      let data = request.resource.data;
+      return request.auth == null &&
+        data.keys().hasOnly(['name', 'icon', 'description', 'status', 'nameLower', 'createdAt']) &&
+        data.keys().hasAll(['name', 'status', 'nameLower', 'createdAt']) &&
+        isNonEmptyString(data.name) &&
+        isOptionalString(data.icon) &&
+        isOptionalString(data.description) &&
+        isNonEmptyString(data.status) &&
+        isNonEmptyString(data.nameLower) &&
+        data.createdAt is timestamp &&
+        data.createdAt == request.time;
+    }
+
+    match /skills/{skillId} {
+      allow read: if true;
+      allow create: if isValidSkillCreate();
+      allow update, delete: if false;
+    }
+
+    function isValidContactSubmission() {
+      let data = request.resource.data;
+      return request.auth == null &&
+        data.keys().hasOnly(['name', 'email', 'phone', 'topic', 'subject', 'message', 'timestamp']) &&
+        data.keys().hasAll(['name', 'email', 'topic', 'subject', 'message', 'timestamp']) &&
+        isNonEmptyString(data.name) &&
+        data.name.size() >= 3 &&
+        isNonEmptyString(data.email) &&
+        data.email.size() > 5 &&
+        isNonEmptyString(data.topic) &&
+        isNonEmptyString(data.subject) &&
+        isNonEmptyString(data.message) &&
+        isOptionalString(data.phone) &&
+        data.timestamp is timestamp &&
+        data.timestamp == request.time;
+    }
+
+    match /contactSubmissions/{submissionId} {
+      allow create: if isValidContactSubmission();
       allow read, update, delete: if false;
+    }
+
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow write: if false;
     }
 
     match /{document=**} {
