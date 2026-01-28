@@ -112,9 +112,15 @@ service cloud.firestore {
     }
 
     match /registrations/{registrationId} {
-      allow create: if true;
-      allow read: if true;
-      allow update, delete: if false;
+      allow create, read, update, delete: if true;
+    }
+
+    match /submissions/{submissionId} {
+      allow create, read, update, delete: if true;
+    }
+
+    match /mailQueue/{mailId} {
+      allow create, read, update, delete: if true;
     }
 
     function isValidSkillCreate() {
