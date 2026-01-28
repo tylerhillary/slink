@@ -44,7 +44,7 @@ service cloud.firestore {
       );
     }
 
-        function hasValidTeacherNotification(notification) {
+    function hasValidTeacherNotification(notification) {
       return notification == null || (
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
@@ -138,8 +138,7 @@ service cloud.firestore {
 
     function isValidContactSubmission() {
       let data = request.resource.data;
-      return request.auth == null &&
-        data.keys().hasOnly(['name', 'email', 'phone', 'topic', 'subject', 'message', 'timestamp']) &&
+      return data.keys().hasOnly(['name', 'email', 'phone', 'topic', 'subject', 'message', 'timestamp']) &&
         data.keys().hasAll(['name', 'email', 'topic', 'subject', 'message', 'timestamp']) &&
         isNonEmptyString(data.name) &&
         data.name.size() >= 3 &&
