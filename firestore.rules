@@ -19,12 +19,8 @@ service cloud.firestore {
       return value == null || value is timestamp;
     }
 
-    function isServerTimestamp(value) {
-      return value is map && value.__type__ == 'server_timestamp';
-    }
-
     function isTimestampOrServer(value) {
-      return value is timestamp || value == request.time || isServerTimestamp(value);
+      return value is timestamp || value == request.time || value is map;
     }
 
     function isNonEmptyStringList(list) {
@@ -53,7 +49,7 @@ service cloud.firestore {
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
         isNonEmptyString(notification.status) &&
-        isTimestampOrServer(notification.createdAt) &&
+        (notification.createdAt == null || isTimestampOrServer(notification.createdAt)) &&
         (notification.updatedAt == null || isTimestampOrServer(notification.updatedAt)) &&
         (notification.lastAttemptedAt == null || isTimestampOrServer(notification.lastAttemptedAt)) &&
         isOptionalString(notification.lastError)
@@ -92,7 +88,6 @@ service cloud.firestore {
           'status',
           'source',
           'consent',
-          'createdAt',
           'teachSkills',
           'intent'
         ]) &&
@@ -107,7 +102,7 @@ service cloud.firestore {
         data.status in ['pending', 'matched', 'archived'] &&
         isNonEmptyString(data.source) &&
         data.consent == true &&
-        isTimestampOrServer(data.createdAt) &&
+        (data.createdAt == null || isTimestampOrServer(data.createdAt)) &&
         isOptionalNonEmptyString(data.phone) &&
         isOptionalNonEmptyString(data.contactPhone) &&
         isNonEmptyStringList(data.teachSkills) &&

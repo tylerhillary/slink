@@ -1413,17 +1413,32 @@ document.addEventListener('DOMContentLoaded', function() {
             .filter(Boolean)
         ));
 
-        const duplicateSnapshot = await getDocs(query(registrationsCollection, where('email', '==', email)));
-        const duplicateExists = duplicateSnapshot.docs.some((doc) => {
-          const data = doc.data() || {};
-          const storedName = (data.fullName || '').trim().toLowerCase();
-          return storedName === fullName.toLowerCase();
+        console.log('Submitting registration payload', {
+          fullName,
+          email,
+          age,
+          gender,
+          location,
+          phone: fullMobileNumber,
+          contactPhone: fullMobileNumber,
+          phoneDetails: {
+            e164: fullMobileNumber,
+            countryCode,
+            nationalNumber: sanitizedMobileNumber,
+            rawInput: mobileNumberInput,
+          },
+          selectedSkill: skillForSubmission,
+          teachSkills,
+          teachSkillsIndex,
+          intent: 'learn',
+          teacherNotification: {
+            status: 'pending',
+            createdAt: 'serverTimestamp()',
+          },
+          status: 'pending',
+          source: 'skill-selection',
+          consent: true,
         });
-
-        if (duplicateExists) {
-          showError('This email has already been used to register. Please reach out if you need to update your details.');
-          return;
-        }
 
         await addDoc(registrationsCollection, {
           fullName,
@@ -1469,6 +1484,7 @@ document.addEventListener('DOMContentLoaded', function() {
           selectedSkill: skillForSubmission,
           teachSkills,
         };
+
         localStorage.setItem('registrationData', JSON.stringify(registrationData));
 
         updateLearnerMatchState({
@@ -1480,11 +1496,15 @@ document.addEventListener('DOMContentLoaded', function() {
         skipNextLearnerRefresh = true;
 
         // Ensure each teachable skill exists as a selectable card
-        await Promise.all(teachSkills.map(async (skill) => {
-          const existingOption = Array.from(document.querySelectorAll('.skill-card[data-skill]'))
-            .some(card => card.getAttribute('data-skill') === skill);
+        await Promise.all(
+          teachSkills.map(async (skill) => {
+            const existingOption = Array.from(document.querySelectorAll('.skill-card[data-skill]'))
+              .some(card => card.getAttribute('data-skill') === skill);
 
-          if (!existingOption) {
+            if (existingOption) {
+              return;
+            }
+
             try {
               const snapshot = await getDocs(query(skillsCollection, where('nameLower', '==', skill.toLowerCase())));
               if (snapshot.empty) {
@@ -1502,8 +1522,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (skillError) {
               console.error(`Failed to provision skill card for ${skill}`, skillError);
             }
-          }
-        }));
+          })
+        );
 
         showSuccess(`Thank you, ${fullName}! Our admin team will review your registration for "${skillForSubmission}" and reach out with next steps.`);
         form.reset();
@@ -1513,7 +1533,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         clearTeachSkillsSelection();
       } catch (error) {
-        showError('A network error occurred while submitting your registration. Please check your connection and try again.');
+        console.error('Registration submission failed.', error);
+
+        const errorCode = error?.code || '';
+        const errorMessage = error?.message || '';
+
+        if (errorCode === 'permission-denied') {
+          showError('Firestore blocked this submission (permission-denied). Redeploy your security rules and confirm the form fields match the rule requirements.');
+        } else if (errorCode === 'failed-precondition') {
+          showError('Firestore rejected the request (failed-precondition). Complete any required indexes or rule prerequisites and try again.');
+        } else if (errorCode === 'unavailable') {
+          showError('Firestore is temporarily unavailable. Check your connection and retry shortly.');
+        } else if (errorMessage) {
+          showError(`Registration failed: ${errorMessage}`);
+        } else {
+          showError('A network error occurred while submitting your registration. Please check your connection and try again.');
+        }
       } finally {
         if (submitButton) {
           submitButton.disabled = false;
