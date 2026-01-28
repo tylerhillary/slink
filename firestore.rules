@@ -58,8 +58,7 @@ service cloud.firestore {
 
     function isPublicRegistrationCreate() {
       let data = request.resource.data;
-      return request.auth == null &&
-        data.keys().hasOnly([
+      return data.keys().hasOnly([
           'fullName',
           'email',
           'age',
@@ -122,13 +121,13 @@ service cloud.firestore {
       let data = request.resource.data;
       return request.auth == null &&
         data.keys().hasOnly(['name', 'icon', 'description', 'status', 'nameLower', 'createdAt']) &&
-        data.keys().hasAll(['name', 'status', 'nameLower', 'createdAt']) &&
+        data.keys().hasAll(['name', 'status', 'nameLower']) &&
         isNonEmptyString(data.name) &&
         isOptionalString(data.icon) &&
         isOptionalString(data.description) &&
         isNonEmptyString(data.status) &&
         isNonEmptyString(data.nameLower) &&
-        isTimestampOrServer(data.createdAt);
+        (data.createdAt == null || isTimestampOrServer(data.createdAt));
     }
 
     match /skills/{skillId} {
