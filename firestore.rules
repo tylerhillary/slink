@@ -44,7 +44,7 @@ service cloud.firestore {
       );
     }
 
-    function hasValidTeacherNotification(notification) {
+        function hasValidTeacherNotification(notification) {
       return notification == null || (
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
