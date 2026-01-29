@@ -41,7 +41,6 @@
                     <p class="hero__subtitle">Slink, brought to you by Radius Technology under the leadership of CEO Engr. Hillary Tyler, curates verified mentors ready to teach the skills you crave—so you can grow faster without the guesswork.</p>
                     <div class="hero__cta">
                         <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Request a Mentor Match</button>
-                        <button class="btn btn--secondary btn--large" onclick="document.getElementById('user-pathways').scrollIntoView({behavior: 'smooth'});">Offer Mentorship</button>
                     </div>
                     <div class="hero__highlights-wrapper">
                         <ul class="hero__highlights" aria-label="Slink highlights carousel">
@@ -60,68 +59,40 @@
         </div>
     </section>
 
-    <!-- Choose Path Section -->
-    <section class="user-pathways" id="user-pathways">
+    <!-- Trusted Partners -->
+    <section class="trusted-by">
         <div class="container">
-            <div class="user-pathways__intro" data-animate="fade-up">
-                <h2 class="section-title">Choose How You Want to Grow</h2>
-                <p class="section-subtitle">Select the path that best matches your goals on Slink.</p>
+            <div class="trusted-by__header" data-animate="fade-up">
+                <span class="section-tag">Trusted network</span>
+                <h2 class="section-title">Trusted by our partners</h2>
+                <p class="section-subtitle">We proudly collaborate with institutions committed to hands-on learning excellence.</p>
             </div>
-            <div class="pathway-grid">
-                <article class="pathway-card" data-animate="fade-up" data-animate-delay="0.05">
-                    <div class="pathway-card__image">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Mentor guiding a learner during a session">
-                    </div>
-                    <div class="pathway-card__icon" aria-hidden="true">SL</div>
-                    <h3 class="pathway-card__title">Learn a Skill</h3>
-                    <p class="pathway-card__description">Discover in-demand skills, register with ease, and work with mentors dedicated to your growth.</p>
-                    <ul class="pathway-card__list">
-                        <li>Browse curated skills and view requirements</li>
-                        <li>Submit a registration reviewed by our admin team</li>
-                        <li>Receive onboarding guidance for a smooth start</li>
-                    </ul>
-                    <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Explore Skills</button>
-                </article>
-                <article class="pathway-card pathway-card--secondary" data-animate="fade-up" data-animate-delay="0.15">
-                    <div class="pathway-card__image">
-                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=80" alt="Professional sharing knowledge with a small group">
-                    </div>
-                    <div class="pathway-card__icon" aria-hidden="true">MT</div>
-                    <h3 class="pathway-card__title">Teach a Skill</h3>
-                    <p class="pathway-card__description">Share your expertise with motivated learners and create meaningful mentorship experiences.</p>
-                    <ul class="pathway-card__list">
-                        <li>Submit your credentials for a swift review</li>
-                        <li>Join a trusted network of industry professionals</li>
-                        <li>Set your availability and mentor from anywhere</li>
-                    </ul>
-                    <button class="btn btn--secondary btn--large" onclick="document.getElementById('become-teacher').scrollIntoView({behavior: 'smooth'});">Start Teaching</button>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Become a Teacher Section -->
-    <section class="become-teacher" id="become-teacher">
-        <div class="container">
-            <div class="teacher-info">
-                <h2 class="section-title">Want to Teach a Skill?</h2>
-                <p class="teacher-subtitle">Share your expertise with our community of learners.</p>
-                <div class="teacher-card">
-                    <span class="teacher-card__badge">Mentor applications open</span>
-                    <p class="teacher-card__lead">Submit your credentials to our accreditation desk and join a network of vetted professionals delivering world-class sessions.</p>
-                    <div class="teacher-card__email">
-                        <span>Send your portfolio to</span>
-                        <a href="mailto:skillbank0@gmail.com?subject=Mentor%20Application" class="teacher-card__email-link">skillbank0@gmail.com</a>
-                    </div>
-                    <ul class="teacher-card__list">
-                        <li>Receive a tailored onboarding plan within 48 hours</li>
-                        <li>Access structured resources for session quality</li>
-                        <li>Set availability that aligns with your schedule</li>
-                    </ul>
-                    <div class="teacher-card__cta">
-                        <a class="btn btn--primary btn--large" href="mailto:skillbank0@gmail.com?subject=Mentor%20Application">Email Your Portfolio</a>
-                        <p class="teacher-card__note">Include a short summary of your expertise, certifications, and the skills you are ready to teach.</p>
-                    </div>
+            <div class="trusted-by__logos" data-animate="fade-up" data-animate-delay="0.1">
+                <div class="trusted-by__logos-track" role="list">
+                    <figure class="trusted-by__logo" role="listitem">
+                        <div class="trusted-by__logo-inner">
+                            <img src="assets/topfaith-logo.png" alt="Topfaith University crest" loading="lazy">
+                        </div>
+                        <figcaption class="trusted-by__caption">Topfaith University</figcaption>
+                    </figure>
+                    <figure class="trusted-by__logo" role="listitem">
+                        <div class="trusted-by__logo-inner">
+                            <img src="assets/uniuyo-logo.png" alt="University of Uyo emblem" loading="lazy">
+                        </div>
+                        <figcaption class="trusted-by__caption">University of Uyo</figcaption>
+                    </figure>
+                    <figure class="trusted-by__logo" aria-hidden="true">
+                        <div class="trusted-by__logo-inner">
+                            <img src="assets/topfaith-logo.png" alt="" loading="lazy">
+                        </div>
+                        <figcaption class="trusted-by__caption">Topfaith University</figcaption>
+                    </figure>
+                    <figure class="trusted-by__logo" aria-hidden="true">
+                        <div class="trusted-by__logo-inner">
+                            <img src="assets/uniuyo-logo.png" alt="" loading="lazy">
+                        </div>
+                        <figcaption class="trusted-by__caption">University of Uyo</figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -173,35 +144,6 @@
             <div class="how-it-works__cta" data-animate="fade-up" data-animate-delay="0.25">
                 <a href="skill-selection.html" class="btn btn--primary btn--large">Start your request</a>
                 <a href="contact.html" class="btn btn--secondary btn--large">Talk with our team</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title" data-animate="fade-up">What Clients Tell Us</h2>
-            <div class="testimonial-cards">
-                <div class="testimonial-card" data-animate="fade-up" data-animate-delay="0.05">
-                    <p class="testimonial-card__text">“Slink paired our product team with mentors who delivered tangible progress in under a month. The experience is curated, responsive, and outcomes-driven.”</p>
-                    <div class="testimonial-card__author">
-                        <img src="assets/my-image.jpg" alt="User" class="testimonial-card__avatar">
-                        <div>
-                            <h4 class="testimonial-card__name">Alex Morgan</h4>
-                            <p class="testimonial-card__role">Head of Product, Verge Labs</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" data-animate="fade-up" data-animate-delay="0.15">
-                    <p class="testimonial-card__text">“Our leadership cohort relies on Slink for specialised coaching. Scheduling, reporting, and mentor quality all meet enterprise expectations.”</p>
-                    <div class="testimonial-card__author">
-                        <img src="assets/cooking and culinary.jpg" alt="User" class="testimonial-card__avatar">
-                        <div>
-                            <h4 class="testimonial-card__name">Jamie Chen</h4>
-                            <p class="testimonial-card__role">Learning Partner, Alder & Co.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
