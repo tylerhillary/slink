@@ -1018,13 +1018,18 @@ function applySkillSearchFilter(query) {
     const title = card.querySelector('.skill-card__title')?.textContent || '';
     const description = card.querySelector('.skill-card__description')?.textContent || '';
     const searchable = `${skillName} ${title} ${description}`.toLowerCase();
-    const isMatch = !normalizedQuery || searchable.includes(normalizedQuery);
-
-    card.style.display = isMatch ? '' : 'none';
+    
+    // Skill is only shown if there is a query AND it matches
+    const isMatch = normalizedQuery.length > 0 && searchable.includes(normalizedQuery);
+    
+    card.hidden = !isMatch;
     if (isMatch) {
-      matchCount += 1;
+      matchCount++;
     }
   });
+
+  // Skills grid container is hidden if no query or no matches
+  skillsGrid.hidden = normalizedQuery.length === 0 || matchCount === 0;
 
   let emptyState = skillsGrid.querySelector('.skill-search-empty');
   if (!matchCount && normalizedQuery) {
@@ -1039,6 +1044,7 @@ function applySkillSearchFilter(query) {
       span.textContent = query;
     }
     emptyState.style.display = 'flex';
+    skillsGrid.hidden = false; // Show grid to display the empty state message
   } else if (emptyState) {
     emptyState.style.display = 'none';
   }
@@ -1078,10 +1084,16 @@ function refreshSkillSearchResults() {
 function setupSkillSearch() {
   const searchInput = document.getElementById('skillSearchInput');
   const clearButton = document.getElementById('clearSkillSearch');
+  const skillsGrid = document.querySelector('.skills-grid');
 
   if (!searchInput) {
     refreshSkillSearchResults();
     return;
+  }
+
+  // Hide grid initially if search is empty
+  if (skillsGrid && !searchInput.value.trim()) {
+    skillsGrid.hidden = true;
   }
 
   const applySearch = (value) => {
