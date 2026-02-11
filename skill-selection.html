@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Skill - Slink</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="assets/slink.png" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/img/logos/slink.png" type="image/png">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header__logo">
-                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <img src="assets/img/logos/slink.png" alt="Slink Logo" class="header__logo-img">
                 <h1 class="header__title">Slink</h1>
             </div>
             <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -48,23 +48,23 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="fullName">Full Name *</label>
-                                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
+                                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Engr. Hillary Tyler" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email Address *</label>
-                                        <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com" required>
+                                        <input type="email" id="email" name="email" class="form-input" placeholder="yourname@example.com" required>
                                     </div>
                                 </div>
                                 
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="age">Age *</label>
-                                        <input type="number" id="age" name="age" class="form-input" min="13" max="100" placeholder="Your age" required>
+                                        <input type="number" id="age" name="age" class="form-input" min="13" max="100" placeholder="e.g. 25" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="gender">Gender *</label>
                                         <select id="gender" name="gender" class="form-input" required>
-                                            <option value="" disabled selected>Select Gender</option>
+                                            <option value="" disabled selected>Select your gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                             <option value="other">Other</option>
@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label for="location">State of Residence *</label>
                                     <select id="location" name="location" class="form-input" required>
-                                        <option value="" disabled selected>Select State</option>
+                                        <option value="" disabled selected>Where are you based?</option>
                                         <option value="Abia">Abia</option>
                                         <option value="Adamawa">Adamawa</option>
                                         <option value="Akwa Ibom">Akwa Ibom</option>
@@ -127,9 +127,9 @@
                                             <option value="+233">🇬🇭 +233</option>
                                             <option value="+254">🇰🇪 +254</option>
                                         </select>
-                                        <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input phone-number" placeholder="7012345678" pattern="[0-9]{10,15}" required>
+                                        <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input phone-number" placeholder="e.g. 812 345 6789" pattern="[0-9]{10,15}" required>
                                     </div>
-                                    <small class="form-hint">Enter number without leading zero</small>
+                                    <small class="form-hint">Provide your WhatsApp number for faster matching</small>
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@
                                 <div class="form-group">
                                     <label for="selectedSkillField">Skill you want to LEARN *</label>
                                     <select id="selectedSkillField" name="selectedSkill" class="form-input form-input--highlight" required>
-                                        <option value="" disabled selected>Select a skill to master</option>
+                                        <option value="" disabled selected>Which skill would you like to master?</option>
                                         <option value="UX Design">UX Design</option>
                                         <option value="Figma">Figma</option>
                                         <option value="Python">Python</option>
@@ -161,7 +161,7 @@
                                     <div class="teach-skills-wrapper">
                                         <div class="teach-skills-combobox" id="teachSkillsCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="teachSkillsOptionsList">
                                             <ul class="teach-skills-selected" id="teachSkillsSelected" role="list"></ul>
-                                            <input type="text" id="teachSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="Type to add a skill" required>
+                                            <input type="text" id="teachSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="e.g. JavaScript, Public Speaking, Photography" required>
                                         </div>
                                         <div class="teach-skills-options" id="teachSkillsOptionsList" role="listbox"></div>
                                         <input type="hidden" id="teachSkillsHidden" name="teachSkills">
@@ -205,41 +205,46 @@
         <div class="container">
             <div class="footer__grid">
                 <div class="footer__brand-block">
-                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
-                    <p class="footer__tagline">Learn what you want. Teach what you know. Powered by Radius Technology under CEO Engr. Hillary Tyler.</p>
+                    <div class="footer__logo-wrapper">
+                        <img src="assets/img/logos/slink.png" alt="Slink Logo" class="footer__logo">
+                        <span class="footer__logo-text">Slink</span>
+                    </div>
+                    <p class="footer__tagline">Empowering professionals through high-impact, reciprocal mentorship and skill exchange.</p>
                     <div class="footer__social">
-                        <a href="https://www.linkedin.com" aria-label="LinkedIn">in</a>
-                        <a href="https://twitter.com" aria-label="Twitter">X</a>
-                        <a href="https://www.instagram.com" aria-label="Instagram">IG</a>
+                        <a href="https://www.linkedin.com" aria-label="LinkedIn" class="social-link">in</a>
+                        <a href="https://twitter.com" aria-label="Twitter" class="social-link">X</a>
+                        <a href="https://www.instagram.com" aria-label="Instagram" class="social-link">IG</a>
                     </div>
                 </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Explore</span>
-                    <ul class="footer__list">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="skill-selection.html">Skills</a></li>
-                        <li><a href="mentor-selection.html">Mentor Matching</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Company</span>
-                    <ul class="footer__list">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="mailto:skillbank0@gmail.com">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Legal</span>
-                    <ul class="footer__list">
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-of-service.html">Terms of Service</a></li>
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                    </ul>
+                <div class="footer__nav-group">
+                    <div class="footer__column">
+                        <span class="footer__heading">Platform</span>
+                        <ul class="footer__list">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="skill-selection.html" class="active">Browse Skills</a></li>
+                            <li><a href="mentor-selection.html">Find Mentors</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <span class="footer__heading">Company</span>
+                        <ul class="footer__list">
+                            <li><a href="about.html">About Slink</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="mailto:skillbank0@gmail.com">Support Desk</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <span class="footer__heading">Legal</span>
+                        <ul class="footer__list">
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of Service</a></li>
+                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="footer__bottom">
-                <span>&copy; 2025 Slink by Radius Technology, led by CEO Engr. Hillary Tyler. All rights reserved.</span>
+                <p class="footer__copyright">&copy; 2025 Slink. All rights reserved.</p>
                 <div class="footer__legal-links">
                     <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
                     <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
@@ -248,8 +253,8 @@
         </div>
     </footer>
 
-    <script type="module" src="firebase-init.js"></script>
-    <script src="app.js"></script>
-    <script type="module" src="skill-selection.js"></script>
+    <script type="module" src="js/firebase-init.js"></script>
+    <script src="js/app.js"></script>
+    <script type="module" src="js/skill-selection.js"></script>
 </body>
 </html>

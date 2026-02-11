@@ -738,23 +738,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Mobile menu toggle
+  // Mobile menu toggle logic
   const mobileMenuButton = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".header__nav");
 
-  mobileMenuButton?.addEventListener("click", () => {
-    mobileMenuButton.classList.toggle("open");
-    nav?.classList.toggle("open");
-  });
+  if (mobileMenuButton && nav) {
+    const toggleMenu = (show) => {
+      const isOpen = show !== undefined ? show : !nav.classList.contains("open");
+      mobileMenuButton.classList.toggle("open", isOpen);
+      nav.classList.toggle("open", isOpen);
+      
+      // Control scrolling when menu is open
+      document.body.style.overflow = isOpen ? "hidden" : "";
+      
+      // Safety check: ensure content is hidden when closed via direct visibility/opacity toggling if needed
+      // (though the .open class in CSS already handles this)
+    };
 
-  nav?.querySelectorAll(".header__nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (nav.classList.contains("open")) {
-        nav.classList.remove("open");
-        mobileMenuButton?.classList.remove("open");
+    mobileMenuButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close menu when clicking any nav link
+    nav.querySelectorAll(".header__nav-link").forEach((link) => {
+      link.addEventListener("click", () => toggleMenu(false));
+    });
+
+    // Close menu when clicking outside the navigation panel
+    document.addEventListener("click", (e) => {
+      if (nav.classList.contains("open") && !nav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+        toggleMenu(false);
       }
     });
-  });
+  }
 
   const animatedElements = document.querySelectorAll('[data-animate]');
   if (animatedElements.length) {

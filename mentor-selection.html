@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Mentor - Slink</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="assets/slink.png" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/img/logos/slink.png" type="image/png">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header__logo">
-                <img src="assets/slink.png" alt="Slink Logo" class="header__logo-img">
+                <img src="assets/img/logos/slink.png" alt="Slink Logo" class="header__logo-img">
                 <h1 class="header__title">Slink</h1>
             </div>
             <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -136,50 +136,55 @@
         <div class="container">
             <div class="footer__grid">
                 <div class="footer__brand-block">
-                    <img src="assets/slink.png" alt="Slink Logo" class="footer__logo">
-                    <p class="footer__tagline">Learn what you want. Teach what you know.</p>
+                    <div class="footer__logo-wrapper">
+                        <img src="assets/img/logos/slink.png" alt="Slink Logo" class="footer__logo">
+                        <span class="footer__logo-text">Slink</span>
+                    </div>
+                    <p class="footer__tagline">Empowering professionals through high-impact, reciprocal mentorship and skill exchange.</p>
                     <div class="footer__social">
-                        <a href="https://www.linkedin.com" aria-label="LinkedIn">in</a>
-                        <a href="https://twitter.com" aria-label="Twitter">X</a>
-                        <a href="https://www.instagram.com" aria-label="Instagram">IG</a>
+                        <a href="https://www.linkedin.com" aria-label="LinkedIn" class="social-link">in</a>
+                        <a href="https://twitter.com" aria-label="Twitter" class="social-link">X</a>
+                        <a href="https://www.instagram.com" aria-label="Instagram" class="social-link">IG</a>
                     </div>
                 </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Explore</span>
-                    <ul class="footer__list">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="skill-selection.html">Skills</a></li>
-                        <li><a href="mentor-selection.html">Mentor Matching</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Company</span>
-                    <ul class="footer__list">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="mailto:skillbank0@gmail.com">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer__column">
-                    <span class="footer__heading">Legal</span>
-                    <ul class="footer__list">
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-of-service.html">Terms of Service</a></li>
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                    </ul>
+                <div class="footer__nav-group">
+                    <div class="footer__column">
+                        <span class="footer__heading">Platform</span>
+                        <ul class="footer__list">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="skill-selection.html">Browse Skills</a></li>
+                            <li><a href="mentor-selection.html" class="active">Find Mentors</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <span class="footer__heading">Company</span>
+                        <ul class="footer__list">
+                            <li><a href="about.html">About Slink</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="mailto:skillbank0@gmail.com">Support Desk</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <span class="footer__heading">Legal</span>
+                        <ul class="footer__list">
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of Service</a></li>
+                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="footer__bottom">
-                <span>&copy; 2025 Slink by Radius Technology. All rights reserved.</span>
+                <p class="footer__copyright">&copy; 2025 Slink. All rights reserved.</p>
                 <div class="footer__legal-links">
                     <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
-                    <a href="tel:+2348084891200" class="footer__contact-link">+234 808 489 1200</a>
+                    <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="app.js"></script>
-    <script src="mentor-selection.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/mentor-selection.js"></script>
 </body>
 </html>
