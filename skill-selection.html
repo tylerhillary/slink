@@ -138,22 +138,15 @@
                             <div class="form-section">
                                 <h3 class="form-section-title">Skill Exchange Details</h3>
                                 <div class="form-group">
-                                    <label for="selectedSkillField">Skill you want to LEARN *</label>
-                                    <select id="selectedSkillField" name="selectedSkill" class="form-input form-input--highlight" required>
-                                        <option value="" disabled selected>Which skill would you like to master?</option>
-                                        <option value="UX Design">UX Design</option>
-                                        <option value="Figma">Figma</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Photography">Photography</option>
-                                        <option value="Cooking">Cooking</option>
-                                        <option value="Video Editing">Video Editing</option>
-                                        <option value="Social Media Marketing">Social Media Marketing</option>
-                                        <option value="Tailoring">Tailoring</option>
-                                        <option value="Website Design">Website Design</option>
-                                        <option value="Website Development">Website Development</option>
-                                        <option value="Wigging">Wigging</option>
-                                        <option value="Video">Video</option>
-                                    </select>
+                                    <label for="learnSkillsInput">Skill you want to LEARN *</label>
+                                    <div class="teach-skills-wrapper">
+                                        <div class="teach-skills-combobox" id="learnSkillsCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="learnSkillsOptionsList">
+                                            <input type="text" id="learnSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="e.g. UX Design, Python, Photography" required>
+                                        </div>
+                                        <div class="teach-skills-options" id="learnSkillsOptionsList" role="listbox"></div>
+                                        <input type="hidden" id="selectedSkillField" name="selectedSkill">
+                                    </div>
+                                    <small class="form-helper-text">Type to search or add a new skill you want to learn.</small>
                                 </div>
 
                                 <div class="form-group">
