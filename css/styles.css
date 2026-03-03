@@ -4209,6 +4209,7 @@ input:checked + .slider:before {
   outline: none;
   background: transparent;
   color: var(--dark-color);
+  text-align: left;
 }
 
 .teach-skills-input::placeholder {

@@ -46,6 +46,21 @@ const teachSkillsState = {
   closeOptionsTimeout: null,
 };
 
+// State for learn skill (single selection combobox)
+const learnSkillState = {
+  options: new Map(),
+  selected: '',
+  filteredOptions: [],
+  activeOptionIndex: -1,
+  elements: {
+    combobox: null,
+    input: null,
+    options: null,
+    hidden: null,
+  },
+  closeOptionsTimeout: null,
+};
+
 function getTeachSkillsElements() {
   return teachSkillsState.elements;
 }
@@ -476,12 +491,302 @@ function collectInitialTeachSkillOptions() {
   skillCards.forEach((card) => {
     const skillName = card.getAttribute('data-skill');
     addTeachSkillOption(skillName);
+    addLearnSkillOption(skillName);
   });
 
   const selectedSkillField = document.getElementById('selectedSkillField');
   selectedSkillField?.querySelectorAll('option').forEach((option) => {
     addTeachSkillOption(option.value);
+    addLearnSkillOption(option.value);
   });
+}
+
+function addLearnSkillOption(skillName) {
+  const normalized = normalizeSkillName(skillName);
+  if (!normalized) return;
+
+  const key = normalized.toLowerCase();
+  if (!learnSkillState.options.has(key)) {
+    learnSkillState.options.set(key, {
+      value: normalized,
+      key,
+      labelLower: key,
+    });
+  }
+}
+
+function setLearnSkillComboboxExpanded(isExpanded) {
+  const { combobox } = learnSkillState.elements;
+  if (!combobox) return;
+
+  combobox.setAttribute('aria-expanded', String(isExpanded));
+  combobox.classList.toggle('is-open', Boolean(isExpanded));
+}
+
+function updateLearnSkillActiveDescendant() {
+  const { input } = learnSkillState.elements;
+  if (!input) return;
+
+  if (learnSkillState.activeOptionIndex >= 0) {
+    input.setAttribute('aria-activedescendant', `learnSkillOption-${learnSkillState.activeOptionIndex}`);
+  } else {
+    input.removeAttribute('aria-activedescendant');
+  }
+}
+
+function highlightLearnSkillOption(index) {
+  const { options } = learnSkillState.elements;
+  if (!options || learnSkillState.filteredOptions.length === 0) {
+    learnSkillState.activeOptionIndex = -1;
+    updateLearnSkillActiveDescendant();
+    return;
+  }
+
+  const boundedIndex = ((index % learnSkillState.filteredOptions.length) + learnSkillState.filteredOptions.length) % learnSkillState.filteredOptions.length;
+  learnSkillState.activeOptionIndex = boundedIndex;
+
+  Array.from(options.children).forEach((optionEl) => {
+    optionEl.classList.remove('is-active');
+  });
+
+  const activeOption = options.children[boundedIndex];
+  if (activeOption) {
+    activeOption.classList.add('is-active');
+    activeOption.scrollIntoView({ block: 'nearest' });
+  }
+
+  updateLearnSkillActiveDescendant();
+}
+
+function renderLearnSkillOptions() {
+  const { options } = learnSkillState.elements;
+  if (!options) return;
+
+  options.innerHTML = '';
+
+  learnSkillState.filteredOptions.forEach((option, index) => {
+    const optionEl = document.createElement('div');
+    optionEl.id = `learnSkillOption-${index}`;
+    optionEl.className = 'teach-skills-option';
+    optionEl.setAttribute('role', 'option');
+    optionEl.dataset.index = String(index);
+    optionEl.dataset.value = option.actualValue;
+    optionEl.innerHTML = option.isCustom
+      ? `<span class="teach-skills-option__label">Add <strong>${escapeHtml(option.actualValue)}</strong></span>`
+      : `<span class="teach-skills-option__label">${escapeHtml(option.actualValue)}</span>`;
+    options.appendChild(optionEl);
+  });
+
+  if (learnSkillState.filteredOptions.length === 0) {
+    setLearnSkillComboboxExpanded(false);
+    learnSkillState.activeOptionIndex = -1;
+    updateLearnSkillActiveDescendant();
+    return;
+  }
+
+  setLearnSkillComboboxExpanded(true);
+  learnSkillState.activeOptionIndex = 0;
+  highlightLearnSkillOption(0);
+}
+
+function filterLearnSkillOptions(query) {
+  const normalizedQuery = (query || '').trim().toLowerCase();
+  let filtered = Array.from(learnSkillState.options.values());
+
+  if (normalizedQuery) {
+    filtered = filtered.filter((option) => option.labelLower.includes(normalizedQuery));
+  }
+
+  filtered.sort((a, b) => a.value.localeCompare(b.value));
+
+  const normalizedName = normalizeSkillName(query);
+  const normalizedKey = normalizedName.toLowerCase();
+  const shouldShowCreateOption = Boolean(normalizedName)
+    && !learnSkillState.options.has(normalizedKey);
+
+  const results = filtered.map((option) => ({
+    actualValue: option.value,
+    key: option.key,
+    isCustom: false,
+  }));
+
+  if (shouldShowCreateOption) {
+    results.unshift({
+      actualValue: normalizedName,
+      key: `custom-${normalizedKey}`,
+      isCustom: true,
+    });
+  }
+
+  learnSkillState.filteredOptions = results.slice(0, 8);
+  renderLearnSkillOptions();
+}
+
+function commitLearnSkillSelection() {
+  const { input, hidden } = learnSkillState.elements;
+  if (!input) return;
+
+  let value = '';
+  if (learnSkillState.activeOptionIndex >= 0) {
+    const activeOption = learnSkillState.filteredOptions[learnSkillState.activeOptionIndex];
+    value = activeOption?.actualValue || '';
+  } else {
+    value = normalizeSkillName(input.value);
+  }
+
+  if (!value) return;
+
+  addLearnSkillOption(value);
+  learnSkillState.selected = value;
+  input.value = value;
+  if (hidden) {
+    hidden.value = value;
+    hidden.dispatchEvent(new Event('input', { bubbles: true }));
+    hidden.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  // Update global selectedSkill and trigger match update
+  selectedSkill = value;
+  updateLearnerMatchState({ skill: value });
+
+  filterLearnSkillOptions('');
+  setLearnSkillComboboxExpanded(false);
+}
+
+function showLearnSkillOptions() {
+  const { input } = learnSkillState.elements;
+  if (learnSkillState.closeOptionsTimeout) {
+    clearTimeout(learnSkillState.closeOptionsTimeout);
+    learnSkillState.closeOptionsTimeout = null;
+  }
+
+  filterLearnSkillOptions(input?.value || '');
+}
+
+function hideLearnSkillOptions() {
+  setLearnSkillComboboxExpanded(false);
+  learnSkillState.activeOptionIndex = -1;
+  updateLearnSkillActiveDescendant();
+}
+
+function scheduleHideLearnSkillOptions() {
+  if (learnSkillState.closeOptionsTimeout) {
+    clearTimeout(learnSkillState.closeOptionsTimeout);
+  }
+  learnSkillState.closeOptionsTimeout = setTimeout(() => {
+    hideLearnSkillOptions();
+    learnSkillState.closeOptionsTimeout = null;
+  }, 120);
+}
+
+function handleLearnSkillInput(event) {
+  showLearnSkillOptions();
+  filterLearnSkillOptions(event.target.value || '');
+}
+
+function handleLearnSkillKeyDown(event) {
+  const { key } = event;
+
+  if (key === 'ArrowDown') {
+    event.preventDefault();
+    if (!learnSkillState.filteredOptions.length) {
+      filterLearnSkillOptions(event.target.value || '');
+    } else {
+      highlightLearnSkillOption(learnSkillState.activeOptionIndex + 1);
+    }
+    return;
+  }
+
+  if (key === 'ArrowUp') {
+    event.preventDefault();
+    if (!learnSkillState.filteredOptions.length) {
+      filterLearnSkillOptions(event.target.value || '');
+    } else {
+      highlightLearnSkillOption(learnSkillState.activeOptionIndex - 1);
+    }
+    return;
+  }
+
+  if (key === 'Enter' || key === 'Tab') {
+    const currentValue = event.target.value.trim();
+    if (!currentValue && key === 'Tab') return;
+
+    event.preventDefault();
+    commitLearnSkillSelection();
+    return;
+  }
+
+  if (key === 'Escape') {
+    hideLearnSkillOptions();
+  }
+}
+
+function handleLearnSkillOptionClick(event) {
+  const optionEl = event.target.closest('.teach-skills-option');
+  if (!optionEl) return;
+
+  const value = optionEl.dataset.value;
+  if (!value) return;
+
+  addLearnSkillOption(value);
+  learnSkillState.selected = value;
+
+  const { input, hidden } = learnSkillState.elements;
+  if (input) {
+    input.value = value;
+  }
+  if (hidden) {
+    hidden.value = value;
+    hidden.dispatchEvent(new Event('input', { bubbles: true }));
+    hidden.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  // Update global selectedSkill and trigger match update
+  selectedSkill = value;
+  updateLearnerMatchState({ skill: value });
+
+  filterLearnSkillOptions('');
+  hideLearnSkillOptions();
+  input?.focus({ preventScroll: true });
+}
+
+function initializeLearnSkillCombobox() {
+  learnSkillState.elements.combobox = document.getElementById('learnSkillsCombobox');
+  learnSkillState.elements.input = document.getElementById('learnSkillsInput');
+  learnSkillState.elements.options = document.getElementById('learnSkillsOptionsList');
+  learnSkillState.elements.hidden = document.getElementById('selectedSkillField');
+
+  const { combobox, input, options, hidden } = learnSkillState.elements;
+  if (!combobox || !input || !options || !hidden) return;
+
+  filterLearnSkillOptions('');
+
+  input.addEventListener('input', handleLearnSkillInput);
+  input.addEventListener('keydown', handleLearnSkillKeyDown);
+  input.addEventListener('focus', showLearnSkillOptions);
+  input.addEventListener('blur', scheduleHideLearnSkillOptions);
+
+  options.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+  });
+  options.addEventListener('click', handleLearnSkillOptionClick);
+
+  const registrationForm = document.getElementById('skillRegistrationForm');
+  registrationForm?.addEventListener('reset', () => {
+    learnSkillState.selected = '';
+    input.value = '';
+    hidden.value = '';
+    filterLearnSkillOptions('');
+  });
+
+  // Sync from existing value (e.g., from localStorage or skill card selection)
+  const stored = localStorage.getItem('selectedSkill');
+  if (stored) {
+    learnSkillState.selected = stored;
+    input.value = stored;
+    hidden.value = stored;
+    addLearnSkillOption(stored);
+  }
 }
 
 function prefillTeachSkillsFromExistingValues() {
@@ -1164,9 +1469,13 @@ function selectSkill(evt, skillName) {
   targetCard?.classList.add('selected');
 
   const selectedSkillField = document.getElementById('selectedSkillField');
+  const learnSkillsInput = document.getElementById('learnSkillsInput');
   if (selectedSkillField) {
     addSkillToSelects(normalizedSkill);
     selectedSkillField.value = normalizedSkill;
+  }
+  if (learnSkillsInput) {
+    learnSkillsInput.value = normalizedSkill;
   }
 
   updateLearnerMatchState({ skill: normalizedSkill });
@@ -1183,15 +1492,13 @@ function addSkillToSelects(skillName) {
     return;
   }
 
-  const selectedSkillField = document.getElementById('selectedSkillField');
-  if (selectedSkillField) {
-    const exists = Array.from(selectedSkillField.options).some(option => option.value === normalizedSkill);
-    if (!exists) {
-      const option = document.createElement('option');
-      option.value = normalizedSkill;
-      option.textContent = normalizedSkill;
-      selectedSkillField.appendChild(option);
-    }
+  // Add to learn skill options and combobox
+  addLearnSkillOption(normalizedSkill);
+  const learnInput = document.getElementById('learnSkillsInput');
+  const hiddenField = document.getElementById('selectedSkillField');
+  if (learnInput && hiddenField && !hiddenField.value) {
+    learnInput.value = normalizedSkill;
+    hiddenField.value = normalizedSkill;
   }
 }
 
@@ -1323,6 +1630,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setupSkillSearch();
   initializeSuggestedMatchesUI();
   initializeTeachSkillsCombobox();
+  initializeLearnSkillCombobox();
 
   const skillCards = document.querySelectorAll('.skill-card[data-skill]');
   skillCards.forEach(card => {
@@ -1345,6 +1653,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const skillName = evt.target.value;
       const selectedSkillLabel = document.getElementById('selectedSkill');
       const selectedSkillMessage = document.getElementById('selectedSkillMessage');
+      const learnSkillsInput = document.getElementById('learnSkillsInput');
+
+      // Update the visible input when hidden field changes
+      if (learnSkillsInput && skillName) {
+        learnSkillsInput.value = skillName;
+      }
 
       if (!skillName) {
         selectedSkill = null;
@@ -1354,7 +1668,7 @@ document.addEventListener('DOMContentLoaded', function() {
           selectedSkillLabel.textContent = 'No skill selected';
         }
         if (selectedSkillMessage) {
-          selectedSkillMessage.textContent = 'Choose a skill above or from the dropdown to proceed with registration.';
+          selectedSkillMessage.textContent = 'Choose a skill above or type to search for a skill to proceed with registration.';
         }
         if (registerButton) {
           registerButton.disabled = true;
