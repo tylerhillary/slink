@@ -1,5 +1,9 @@
 // Skill selection functionality
 
+// Variable to store the selected skill
+let selectedSkill = null;
+let skillSearchQuery = '';
+
 const SUGGESTED_TUTOR_LIMIT = 5;
 
 const suggestedMatchesState = {
@@ -661,7 +665,8 @@ function commitLearnSkillSelection() {
     hidden.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  // Update match update
+  // Update global selectedSkill and trigger match update
+  selectedSkill = value;
   updateLearnerMatchState({ skill: value });
 
   filterLearnSkillOptions('');
@@ -756,7 +761,8 @@ function handleLearnSkillOptionClick(event) {
     hidden.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  // Update match update
+  // Update global selectedSkill and trigger match update
+  selectedSkill = value;
   updateLearnerMatchState({ skill: value });
 
   filterLearnSkillOptions('');
@@ -816,12 +822,12 @@ function refreshLearnerDetailsFromForm(options = {}) {
     return;
   }
 
-  const skillInput = document.getElementById('learnSkillsInput')?.value || '';
+  const skillsDropdownValue = document.getElementById('selectedSkillField')?.value || '';
   const newState = {
     fullName: document.getElementById('fullName')?.value?.trim() || '',
     email: document.getElementById('email')?.value?.trim() || '',
     location: document.getElementById('location')?.value || '',
-    skill: normalizeSkillName(skillInput),
+    skill: selectedSkill || normalizeSkillName(skillsDropdownValue),
   };
 
   updateLearnerMatchState(newState, options);
@@ -912,12 +918,7 @@ function renderSuggestedMatches(matches) {
 
   if (!Array.isArray(matches) || matches.length === 0) {
     setSuggestedMatchesLoading(false);
-    emptyMessage.hidden = true;
-    if (!Array.isArray(matches)) {
-      setSuggestedMatchesLoading(true, 'Select a skill and state to see tutors near you.');
-    } else if (matches.length === 0) {
-      setSuggestedMatchesLoading(false, 'No tutors found.');
-    }
+    emptyMessage.hidden = false;
     return;
   }
 
@@ -1361,8 +1362,8 @@ function selectSkill(evt, skillName) {
     return;
   }
 
-  const previousSkill = document.getElementById('selectedSkillField')?.value || '';
-  document.getElementById('selectedSkillField')?.value = normalizedSkill;
+  const previousSkill = selectedSkill;
+  selectedSkill = normalizedSkill;
   const selectedSkillLabel = document.getElementById('selectedSkill');
   if (selectedSkillLabel) {
     selectedSkillLabel.textContent = normalizedSkill;
@@ -1391,7 +1392,12 @@ function selectSkill(evt, skillName) {
 
   targetCard?.classList.add('selected');
 
+  const selectedSkillField = document.getElementById('selectedSkillField');
   const learnSkillsInput = document.getElementById('learnSkillsInput');
+  if (selectedSkillField) {
+    addSkillToSelects(normalizedSkill);
+    selectedSkillField.value = normalizedSkill;
+  }
   if (learnSkillsInput) {
     learnSkillsInput.value = normalizedSkill;
   }
@@ -1504,12 +1510,19 @@ function registerSkill(e, options = {}) {
     e.preventDefault();
   }
 
-  const learnInput = document.getElementById('learnSkillsInput');
-  const skillForSubmission = (learnInput?.value || '').trim();
+  const selectedSkillField = document.getElementById('selectedSkillField');
+  const dropdownValue = selectedSkillField?.value?.trim() || '';
+  const skillForSubmission = (selectedSkill || dropdownValue || '').trim();
 
   if (!skillForSubmission) {
     showError('Please select a skill first.');
     return;
+  }
+
+  selectedSkill = skillForSubmission;
+
+  if (selectedSkillField && selectedSkillField.value !== skillForSubmission) {
+    selectedSkillField.value = skillForSubmission;
   }
 
   localStorage.setItem('selectedSkill', skillForSubmission);
