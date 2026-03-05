@@ -1614,20 +1614,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const submitButton = form.querySelector('button[type="submit"]');
       const originalButtonText = submitButton ? submitButton.textContent : '';
 
-      // Higher intelligence value extraction
-      const fullName = (document.querySelector('input[name="fullName"]') || document.getElementById('fullName'))?.value?.trim() || '';
-      const email = (document.querySelector('input[name="email"]') || document.getElementById('email'))?.value?.trim() || '';
-      const ageInput = (document.querySelector('input[name="age"]') || document.getElementById('age'))?.value;
+      // High intelligence value extraction
+      const fullName = document.getElementById('fullName').value.trim() || '';
+      const email = document.getElementById('email').value.trim() || '';
+      const ageInput = document.getElementById('age').value;
       const age = ageInput ? parseInt(ageInput, 10) : NaN;
-      const gender = (document.querySelector('select[name="gender"]') || document.getElementById('gender'))?.value || '';
-      const location = (document.querySelector('select[name="location"]') || document.getElementById('location'))?.value || '';
-      const countryCode = (document.querySelector('select[name="countryCode"]') || document.getElementById('countryCode'))?.value || '';
-      const mobileNumberInput = (document.querySelector('input[name="mobileNumber"]') || document.getElementById('mobileNumber'))?.value?.trim() || '';
+      const gender = document.getElementById('gender').value || '';
+      const location = document.getElementById('location').value || '';
+      const countryCode = document.getElementById('countryCode').value || '';
+      const mobileNumberInput = document.getElementById('mobileNumber').value.trim() || '';
       const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
       
-      const skillForSubmission = (document.getElementById('learnSkillsInput'))?.value?.trim() || '';
-      const teachSkillsRaw = (document.getElementById('teachSkillsInput'))?.value?.trim() || '';
+      const skillForSubmission = document.getElementById('learnSkillsInput').value.trim() || '';
+      const teachSkillsRaw = document.getElementById('teachSkillsInput').value.trim() || '';
       const teachSkills = teachSkillsRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
       console.log('Submission Debug (Deep Trace):', {
@@ -1652,7 +1652,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (teachSkills.length === 0) missingFields.push('Skill you can TEACH');
 
       if (missingFields.length > 0) {
-        showError(`Form Incomplete: Please provide ${missingFields.join(', ')}.`);
+        showError(`Incomplete Form: Please provide ${missingFields.join(', ')}.`);
         console.warn('Blocking submission due to missing fields:', missingFields);
         return;
       }
@@ -1683,6 +1683,29 @@ document.addEventListener('DOMContentLoaded', function() {
           where,
         } = await getFirestoreContext();
 
+        // Intelligence Layer: Check for existing identical registration to prevent duplicates
+        try {
+          // Note: This check is optimized to ensure the user doesn't spam identical entries
+          // but will not block the submission if the query itself fails (e.g. missing indexes).
+          const duplicateQuery = query(
+            registrationsCollection,
+            where('email', '==', email.toLowerCase()),
+            where('selectedSkill', '==', skillForSubmission)
+          );
+          const duplicateSnap = await getDocs(duplicateQuery);
+          if (!duplicateSnap.empty) {
+            showInfo('You have already registered for this skill. Our team is processing your request.');
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = originalButtonText;
+            }
+            return;
+          }
+        } catch (dupError) {
+          console.warn('Duplicate check bypassed (expected if Firestore indexes are building):', dupError);
+        }
+
+        // Processing indices for high-performance tutor matching
         const teachSkillsIndex = Array.from(new Set(
           teachSkills
             .map((skill) => (typeof skill === 'string' ? skill.trim().toLowerCase() : ''))
