@@ -154,12 +154,19 @@ function removeTeachSkillOption(skillName) {
 }
 
 function getSelectedTeachSkills() {
-  return [...teachSkillsState.selected];
+  const teachInput = document.getElementById('teachSkillsInput');
+  if (!teachInput) return [];
+  
+  // Return an array of skills separated by commas
+  return teachInput.value.split(',')
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
 }
 
 function updateTeachSkillsHiddenField() {
   const { hidden } = getTeachSkillsElements();
   if (hidden) {
+    hidden.value = getSelectedTeachSkills().join(', ');
     hidden.value = teachSkillsState.selected.join(', ');
     hidden.dispatchEvent(new Event('input', { bubbles: true }));
   }
@@ -763,108 +770,12 @@ function handleLearnSkillOptionClick(event) {
   input?.focus({ preventScroll: true });
 }
 
-function initializeLearnSkillCombobox() {
-  learnSkillState.elements.combobox = document.getElementById('learnSkillsCombobox');
-  learnSkillState.elements.input = document.getElementById('learnSkillsInput');
-  learnSkillState.elements.options = document.getElementById('learnSkillsOptionsList');
-  learnSkillState.elements.hidden = document.getElementById('selectedSkillField');
-
-  const { combobox, input, options, hidden } = learnSkillState.elements;
-  if (!combobox || !input || !options || !hidden) return;
-
-  filterLearnSkillOptions('');
-
-  input.addEventListener('input', handleLearnSkillInput);
-  input.addEventListener('keydown', handleLearnSkillKeyDown);
-  input.addEventListener('focus', showLearnSkillOptions);
-  input.addEventListener('blur', scheduleHideLearnSkillOptions);
-
-  options.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-  });
-  options.addEventListener('click', handleLearnSkillOptionClick);
-
-  const registrationForm = document.getElementById('skillRegistrationForm');
-  registrationForm?.addEventListener('reset', () => {
-    learnSkillState.selected = '';
-    input.value = '';
-    hidden.value = '';
-    filterLearnSkillOptions('');
-  });
-
-  // Sync from existing value (e.g., from localStorage or skill card selection)
-  const stored = localStorage.getItem('selectedSkill');
-  if (stored) {
-    learnSkillState.selected = stored;
-    input.value = stored;
-    hidden.value = stored;
-    addLearnSkillOption(stored);
-  }
-}
-
-function prefillTeachSkillsFromExistingValues() {
-  const { hidden } = getTeachSkillsElements();
-  const stored = localStorage.getItem('registrationData');
-  let skills = [];
-
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed.teachSkills)) {
-        skills = skills.concat(parsed.teachSkills);
-      }
-    } catch (error) {
-      console.warn('Unable to parse stored registration data.', error);
-    }
-  }
-
-  if (hidden && hidden.value) {
-    skills = skills.concat(hidden.value.split(',').map((skill) => skill.trim()).filter(Boolean));
-  }
-
-  const uniqueSkills = Array.from(new Set(skills.map((skill) => normalizeSkillName(skill)).filter(Boolean)));
-  uniqueSkills.forEach((skill) => {
-    addTeachSkillOption(skill);
-    addTeachSkillToSelected(skill);
-  });
-}
-
 function initializeTeachSkillsCombobox() {
-  const elements = getTeachSkillsElements();
-  elements.combobox = document.getElementById('teachSkillsCombobox');
-  elements.input = document.getElementById('teachSkillsInput');
-  elements.options = document.getElementById('teachSkillsOptionsList');
-  elements.selected = document.getElementById('teachSkillsSelected');
-  elements.hidden = document.getElementById('teachSkillsHidden');
+  // No longer needed for free-text input
+}
 
-  if (!elements.combobox || !elements.input || !elements.options || !elements.selected || !elements.hidden) {
-    return;
-  }
-
-  collectInitialTeachSkillOptions();
-  prefillTeachSkillsFromExistingValues();
-  renderTeachSkillsSelected();
-  filterTeachSkillOptions(elements.input.value || '');
-
-  elements.input.addEventListener('input', handleTeachSkillInput);
-  elements.input.addEventListener('keydown', handleTeachSkillKeyDown);
-  elements.input.addEventListener('focus', showTeachSkillsOptions);
-  elements.input.addEventListener('blur', scheduleHideTeachSkillsOptions);
-
-  elements.options.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-  });
-  elements.options.addEventListener('click', handleTeachSkillsOptionClick);
-  elements.selected.addEventListener('click', handleTeachSkillsSelectedClick);
-
-  const registrationForm = document.getElementById('skillRegistrationForm');
-  registrationForm?.addEventListener('reset', () => {
-    clearTeachSkillsSelection();
-    const { input } = getTeachSkillsElements();
-    if (input) {
-      input.value = '';
-    }
-  });
+function initializeLearnSkillCombobox() {
+  // No longer needed for free-text input
 }
 
 function initializeSuggestedMatchesUI() {
@@ -1703,31 +1614,46 @@ document.addEventListener('DOMContentLoaded', function() {
       const submitButton = form.querySelector('button[type="submit"]');
       const originalButtonText = submitButton ? submitButton.textContent : '';
 
-      const fullName = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const age = parseInt(document.getElementById('age').value, 10);
-      const gender = document.getElementById('gender').value;
-      const location = document.getElementById('location').value;
-      const countryCode = document.getElementById('countryCode').value;
-      const mobileNumberInput = document.getElementById('mobileNumber').value.trim();
+      // Higher intelligence value extraction
+      const fullName = (document.querySelector('input[name="fullName"]') || document.getElementById('fullName'))?.value?.trim() || '';
+      const email = (document.querySelector('input[name="email"]') || document.getElementById('email'))?.value?.trim() || '';
+      const ageInput = (document.querySelector('input[name="age"]') || document.getElementById('age'))?.value;
+      const age = ageInput ? parseInt(ageInput, 10) : NaN;
+      const gender = (document.querySelector('select[name="gender"]') || document.getElementById('gender'))?.value || '';
+      const location = (document.querySelector('select[name="location"]') || document.getElementById('location'))?.value || '';
+      const countryCode = (document.querySelector('select[name="countryCode"]') || document.getElementById('countryCode'))?.value || '';
+      const mobileNumberInput = (document.querySelector('input[name="mobileNumber"]') || document.getElementById('mobileNumber'))?.value?.trim() || '';
       const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
-      const skillForSubmission = (selectedSkill || document.getElementById('selectedSkillField')?.value || document.getElementById('learnSkillsInput')?.value || '').trim();
-      const teachSkills = getSelectedTeachSkills();
+      
+      const skillForSubmission = (document.getElementById('learnSkillsInput'))?.value?.trim() || '';
+      const teachSkillsRaw = (document.getElementById('teachSkillsInput'))?.value?.trim() || '';
+      const teachSkills = teachSkillsRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
-      console.log('Validation Debug:', {
+      console.log('Submission Debug (Deep Trace):', {
         fullName,
         email,
         age,
         gender,
         location,
-        sanitizedMobileNumber,
+        fullMobileNumber,
         skillForSubmission,
-        teachSkillsCount: teachSkills.length
+        teachSkills
       });
 
-      if (!fullName || !email || Number.isNaN(age) || !gender || !location || !sanitizedMobileNumber || !skillForSubmission || !teachSkills.length) {
-        showError('Please fill in all required fields.');
+      const missingFields = [];
+      if (!fullName) missingFields.push('Full Name');
+      if (!email) missingFields.push('Email');
+      if (Number.isNaN(age)) missingFields.push('Age');
+      if (!gender) missingFields.push('Gender');
+      if (!location) missingFields.push('Location');
+      if (!sanitizedMobileNumber) missingFields.push('Mobile Number');
+      if (!skillForSubmission) missingFields.push('Skill you want to LEARN');
+      if (teachSkills.length === 0) missingFields.push('Skill you can TEACH');
+
+      if (missingFields.length > 0) {
+        showError(`Form Incomplete: Please provide ${missingFields.join(', ')}.`);
+        console.warn('Blocking submission due to missing fields:', missingFields);
         return;
       }
 
