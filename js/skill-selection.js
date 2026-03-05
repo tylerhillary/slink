@@ -402,6 +402,7 @@ function handleTeachSkillInput(event) {
 
 function handleTeachSkillKeyDown(event) {
   const { key } = event;
+  const elements = getTeachSkillsElements();
 
   if (key === 'ArrowDown') {
     event.preventDefault();
@@ -423,14 +424,23 @@ function handleTeachSkillKeyDown(event) {
     return;
   }
 
-  if (key === 'Enter' || key === 'Tab' || key === ',') {
-    const currentValue = event.target.value.trim();
-    if (!currentValue && key === 'Tab') {
-      return;
-    }
-
+  if (key === 'Enter') {
     event.preventDefault();
-    commitTeachSkillSelection();
+    const currentValue = event.target.value.trim();
+    
+    if (teachSkillsState.activeOptionIndex >= 0) {
+      const activeOption = teachSkillsState.filteredOptions[teachSkillsState.activeOptionIndex];
+      if (activeOption) {
+        toggleTeachSkillSelection(activeOption.actualValue);
+        elements.input.value = '';
+        filterTeachSkillOptions('');
+      }
+    } else if (currentValue) {
+      // If no option highlighted, treat the typed text as a custom skill
+      toggleTeachSkillSelection(currentValue);
+      elements.input.value = '';
+      filterTeachSkillOptions('');
+    }
     return;
   }
 
@@ -631,12 +641,15 @@ function commitLearnSkillSelection() {
     const activeOption = learnSkillState.filteredOptions[learnSkillState.activeOptionIndex];
     value = activeOption?.actualValue || '';
   } else {
-    value = normalizeSkillName(input.value);
+    // If no option highlighted, treat the typed text as a custom skill
+    value = input.value.trim();
   }
 
   if (!value) return;
 
+  // Add to local UI options if it's new
   addLearnSkillOption(value);
+  
   learnSkillState.selected = value;
   input.value = value;
   if (hidden) {
