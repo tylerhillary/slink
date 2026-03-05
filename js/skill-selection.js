@@ -1739,34 +1739,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .filter(Boolean)
         ));
 
-        console.log('Submitting registration payload', {
-          fullName,
-          email,
-          age,
-          gender,
-          location,
-          phone: fullMobileNumber,
-          contactPhone: fullMobileNumber,
-          phoneDetails: {
-            e164: fullMobileNumber,
-            countryCode,
-            nationalNumber: sanitizedMobileNumber,
-            rawInput: mobileNumberInput,
-          },
-          selectedSkill: skillForSubmission,
-          teachSkills,
-          teachSkillsIndex,
-          intent: 'learn',
-          teacherNotification: {
-            status: 'pending',
-            createdAt: 'serverTimestamp()',
-          },
-          status: 'pending',
-          source: 'skill-selection',
-          consent: true,
-        });
-
-        await addDoc(registrationsCollection, {
+        const payload = {
           fullName,
           email,
           age,
@@ -1792,7 +1765,12 @@ document.addEventListener('DOMContentLoaded', function() {
           source: 'skill-selection',
           consent: true,
           createdAt: serverTimestamp(),
-        });
+        };
+
+        console.log('Submitting registration payload to Firestore...', payload);
+
+        const docRef = await addDoc(registrationsCollection, payload);
+        console.log('Registration successfully stored with ID:', docRef.id);
 
         const registrationData = {
           fullName,
