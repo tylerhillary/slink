@@ -1712,8 +1712,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const mobileNumberInput = document.getElementById('mobileNumber').value.trim();
       const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
-      const skillForSubmission = selectedSkill || document.getElementById('selectedSkillField')?.value?.trim();
+      const skillForSubmission = (selectedSkill || document.getElementById('selectedSkillField')?.value || document.getElementById('learnSkillsInput')?.value || '').trim();
       const teachSkills = getSelectedTeachSkills();
+
+      console.log('Validation Debug:', {
+        fullName,
+        email,
+        age,
+        gender,
+        location,
+        sanitizedMobileNumber,
+        skillForSubmission,
+        teachSkillsCount: teachSkills.length
+      });
 
       if (!fullName || !email || Number.isNaN(age) || !gender || !location || !sanitizedMobileNumber || !skillForSubmission || !teachSkills.length) {
         showError('Please fill in all required fields.');
