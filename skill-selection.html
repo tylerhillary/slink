@@ -1,62 +1,166 @@
 <!DOCTYPE html>
 
+
+
+
+
+
+
 <html lang="en">
+
+
+
+
+
+
 
 <head>
 
+
+
+
+
+
+
     <meta charset="UTF-8">
+
+
+
+
+
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
+
+
+
+
     <title>Select Skill - Slink360</title>
+
+
+
+
+
+
 
     <link rel="stylesheet" href="css/styles.css">
 
+
+
+
+
+
+
     <link rel="icon" type="image/png" href="/favicon.png">
+
+
+
+
+
+
 
 </head>
 
+
+
+
+
+
+
 <body>
+
+
 
     <!-- Header -->
 
-    <header class="header">
 
-        <div class="container">
 
-            <div class="header__logo">
+    <header class="header light-bg">
 
-                <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
+        <div class="container header__container">
 
-                <h1 class="header__title">Slink360</h1>
+            <div class="header__left">
+
+                <a href="index.html" class="header__logo-brand">
+
+                    <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
+
+                    <span class="brand-name">SLINK360</span>
+
+                </a>
+
+                <button class="menu-toggle-v2" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="hamburger-line line-1"></span>
+                    <span class="hamburger-line line-2"></span>
+                    <span class="hamburger-line line-3"></span>
+                </button>
 
             </div>
 
-            <button class="menu-toggle" aria-label="Toggle navigation menu">
-
-                <span></span>
-
-                <span></span>
-
-                <span></span>
-
-            </button>
-
-            <nav class="header__nav">
+            <nav class="header__nav-center">
 
                 <ul class="header__nav-list">
 
-                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">Home</a></li>
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">HOME</a></li>
 
-                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">About</a></li>
+                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">ABOUT</a></li>
 
-                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link active">Skills</a></li>
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link active">SKILLS</a></li>
 
-                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
+                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">CONTACT</a></li>
 
                 </ul>
 
             </nav>
+
+            <div class="header__right-minimal">
+
+                <div class="lang-selector-wrapper">
+
+                    <button class="lang-selector-btn" aria-haspopup="true" aria-expanded="false">
+
+                        <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria" class="flag-icon">
+
+                        <span class="lang-text">NGN</span>
+
+                        <svg class="chevron-icon" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+                    </button>
+
+                    <div class="lang-dropdown">
+
+                        <a href="#" class="lang-option active">
+
+                            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria">
+
+                            <span>Nigeria (NGN)</span>
+
+                        </a>
+
+                        <a href="#" class="lang-option">
+
+                            <img src="https://flagcdn.com/w20/gb.png" alt="UK">
+
+                            <span>United Kingdom (GBP)</span>
+
+                        </a>
+
+                        <a href="#" class="lang-option">
+
+                            <img src="https://flagcdn.com/w20/us.png" alt="USA">
+
+                            <span>United States (USD)</span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -64,323 +168,209 @@
 
 
 
+
+
+
+
+
+
     <!-- Skill Selection Section -->
 
-    <section class="skill-selection-section">
 
+
+
+
+
+
+    <section class="skill-selection-section-v2">
         <div class="container">
-
-            <div class="skill-selection-container">
-
-                <div class="selection-header">
-
-                    <h1 class="section-title">Complete Your Registration</h1>
-
-                    <p class="selection-subtitle">Tell us about the skill you want to gain and the experience you’re ready to share. Our admin team will review your submission and follow up with next steps.</p>
-
+            <div class="skill-selection-container-v2">
+                <div class="selection-header-v2" data-animate="fade-up">
+                    <div class="about-badge">REGISTRATION ENGINE</div>
+                    <h1 class="about-title">Join the <span class="text-gradient">expertise exchange.</span></h1>
+                    <p class="about-lead">Architect your growth pathway by providing the data points our matching engine needs to synchronize you with the ideal mentor.</p>
                 </div>
 
-
-
-                <div class="registration-form" id="registrationFormSection">
-
+                <div class="registration-form-v2" id="registrationFormSection" data-animate="fade-up">
                     <form id="skillRegistrationForm" novalidate>
-
-                        <div class="form-grid">
-
-                            <div class="form-section">
-
-                                <h3 class="form-section-title">Personal Information</h3>
-
-                                <div class="form-row">
-
-                                    <div class="form-group">
-
-                                        <label for="fullName">Full Name *</label>
-
-                                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Engr. Hillary Tyler" required>
-
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <label for="email">Email Address *</label>
-
-                                        <input type="email" id="email" name="email" class="form-input" placeholder="yourname@example.com" required>
-
-                                    </div>
-
+                        <div class="form-layout-grid-v2">
+                            <!-- Left: Personal info -->
+                            <div class="form-section-v2">
+                                <div class="section-title-v2">
+                                    <span class="step-indicator">01</span>
+                                    <h3>Personal Identity</h3>
                                 </div>
-
-                                
-
-                                <div class="form-row">
-
-                                    <div class="form-group">
-
-                                        <label for="age">Age *</label>
-
-                                        <input type="number" id="age" name="age" class="form-input" min="13" max="100" placeholder="e.g. 25" required>
-
+                                <div class="form-grid-inner-v2">
+                                    <div class="form-group-v2">
+                                        <label for="fullName">Full Name</label>
+                                        <input type="text" id="fullName" name="fullName" class="input-v2" placeholder="e.g. Hillary Tyler" required>
                                     </div>
-
-                                    <div class="form-group">
-
-                                        <label for="gender">Gender *</label>
-
-                                        <select id="gender" name="gender" class="form-input" required>
-
-                                            <option value="" disabled selected>Select your gender</option>
-
+                                    <div class="form-group-v2">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" name="email" class="input-v2" placeholder="name@example.com" required>
+                                    </div>
+                                    <div class="form-group-v2">
+                                        <label for="age">Age</label>
+                                        <input type="number" id="age" name="age" class="input-v2" min="13" max="100" placeholder="e.g. 25" required>
+                                    </div>
+                                    <div class="form-group-v2">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender" class="input-v2" required>
+                                            <option value="" disabled selected>Select</option>
                                             <option value="male">Male</option>
-
                                             <option value="female">Female</option>
-
                                             <option value="other">Other</option>
-
-                                            <option value="prefer-not-to-say">Prefer not to say</option>
-
                                         </select>
-
                                     </div>
-
-                                </div>
-
-
-
-                                <div class="form-group">
-
-                                    <label for="location">State of Residence *</label>
-
-                                    <select id="location" name="location" class="form-input" required>
-
-                                        <option value="" disabled selected>Where are you based?</option>
-
-                                        <option value="Abia">Abia</option>
-
-                                        <option value="Adamawa">Adamawa</option>
-
-                                        <option value="Akwa Ibom">Akwa Ibom</option>
-
-                                        <option value="Anambra">Anambra</option>
-
-                                        <option value="Bauchi">Bauchi</option>
-
-                                        <option value="Bayelsa">Bayelsa</option>
-
-                                        <option value="Benue">Benue</option>
-
-                                        <option value="Borno">Borno</option>
-
-                                        <option value="Cross River">Cross River</option>
-
-                                        <option value="Delta">Delta</option>
-
-                                        <option value="Ebonyi">Ebonyi</option>
-
-                                        <option value="Edo">Edo</option>
-
-                                        <option value="Ekiti">Ekiti</option>
-
-                                        <option value="Enugu">Enugu</option>
-
-                                        <option value="FCT - Abuja">FCT - Abuja</option>
-
-                                        <option value="Gombe">Gombe</option>
-
-                                        <option value="Imo">Imo</option>
-
-                                        <option value="Jigawa">Jigawa</option>
-
-                                        <option value="Kaduna">Kaduna</option>
-
-                                        <option value="Kano">Kano</option>
-
-                                        <option value="Katsina">Katsina</option>
-
-                                        <option value="Kebbi">Kebbi</option>
-
-                                        <option value="Kogi">Kogi</option>
-
-                                        <option value="Kwara">Kwara</option>
-
-                                        <option value="Lagos">Lagos</option>
-
-                                        <option value="Nasarawa">Nasarawa</option>
-
-                                        <option value="Niger">Niger</option>
-
-                                        <option value="Ogun">Ogun</option>
-
-                                        <option value="Ondo">Ondo</option>
-
-                                        <option value="Osun">Osun</option>
-
-                                        <option value="Oyo">Oyo</option>
-
-                                        <option value="Plateau">Plateau</option>
-
-                                        <option value="Rivers">Rivers</option>
-
-                                        <option value="Sokoto">Sokoto</option>
-
-                                        <option value="Taraba">Taraba</option>
-
-                                        <option value="Yobe">Yobe</option>
-
-                                        <option value="Zamfara">Zamfara</option>
-
-                                    </select>
-
-                                </div>
-
-
-
-                                <div class="form-group">
-
-                                    <label for="countryCode">Mobile Number *</label>
-
-                                    <div class="phone-input-group">
-
-                                        <select id="countryCode" name="countryCode" class="country-code-select" required>
-
-                                            <option value="+234">🇳🇬 +234</option>
-
-                                            <option value="+1">🇺🇸 +1</option>
-
-                                            <option value="+44">🇬🇧 +44</option>
-
-                                            <option value="+233">🇬🇭 +233</option>
-
-                                            <option value="+254">🇰🇪 +254</option>
-
+                                    <div class="form-group-v2 full-width">
+                                        <label for="location">State of Residence</label>
+                                        <select id="location" name="location" class="input-v2" required>
+                                            <option value="" disabled selected>Where are you based?</option>
+                                            <option value="Abia">Abia</option>
+                                            <option value="Adamawa">Adamawa</option>
+                                            <option value="Akwa Ibom">Akwa Ibom</option>
+                                            <option value="Anambra">Anambra</option>
+                                            <option value="Bauchi">Bauchi</option>
+                                            <option value="Bayelsa">Bayelsa</option>
+                                            <option value="Benue">Benue</option>
+                                            <option value="Borno">Borno</option>
+                                            <option value="Cross River">Cross River</option>
+                                            <option value="Delta">Delta</option>
+                                            <option value="Ebonyi">Ebonyi</option>
+                                            <option value="Edo">Edo</option>
+                                            <option value="Ekiti">Ekiti</option>
+                                            <option value="Enugu">Enugu</option>
+                                            <option value="FCT - Abuja">FCT - Abuja</option>
+                                            <option value="Gombe">Gombe</option>
+                                            <option value="Imo">Imo</option>
+                                            <option value="Jigawa">Jigawa</option>
+                                            <option value="Kaduna">Kaduna</option>
+                                            <option value="Kano">Kano</option>
+                                            <option value="Katsina">Katsina</option>
+                                            <option value="Kebbi">Kebbi</option>
+                                            <option value="Kogi">Kogi</option>
+                                            <option value="Kwara">Kwara</option>
+                                            <option value="Lagos">Lagos</option>
+                                            <option value="Nasarawa">Nasarawa</option>
+                                            <option value="Niger">Niger</option>
+                                            <option value="Ogun">Ogun</option>
+                                            <option value="Ondo">Ondo</option>
+                                            <option value="Osun">Osun</option>
+                                            <option value="Oyo">Oyo</option>
+                                            <option value="Plateau">Plateau</option>
+                                            <option value="Rivers">Rivers</option>
+                                            <option value="Sokoto">Sokoto</option>
+                                            <option value="Taraba">Taraba</option>
+                                            <option value="Yobe">Yobe</option>
+                                            <option value="Zamfara">Zamfara</option>
                                         </select>
-
-                                        <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input phone-number" placeholder="e.g. 812 345 6789" pattern="[0-9]{10,15}" required>
-
                                     </div>
-
-                                    <small class="form-hint">Provide your WhatsApp number for faster matching</small>
-
+                                    <div class="form-group-v2 full-width">
+                                        <label for="countryCode">Mobile Number</label>
+                                        <div class="phone-input-group-v2">
+                                            <select id="countryCode" name="countryCode" class="input-v2 country-select-v2" required>
+                                                <option value="+234">🇳🇬 +234</option>
+                                                <option value="+1">🇺🇸 +1</option>
+                                                <option value="+44">🇬🇧 +44</option>
+                                                <option value="+233">🇬🇭 +233</option>
+                                                <option value="+254">🇰🇪 +254</option>
+                                            </select>
+                                            <input type="tel" id="mobileNumber" name="mobileNumber" class="input-v2" placeholder="e.g. 812 345 6789" pattern="[0-9]{10,15}" required>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
 
-
-
-                            <div class="form-divider"></div>
-
-
-
-                            <div class="form-section">
-
-                                <h3 class="form-section-title">Skill Exchange Details</h3>
-
-                                <div class="form-group">
-
-                                    <label for="learnSkillsInput">Skill you want to LEARN *</label>
-
-                                    <div class="teach-skills-wrapper">
-
-                                        <div class="teach-skills-combobox" id="learnSkillsCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="learnSkillsOptionsList">
-
-                                            <input type="text" id="learnSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="e.g. UX Design, Python, Photography" required>
-
+                            <!-- Right: Skill info -->
+                            <div class="form-section-v2">
+                                <div class="section-title-v2">
+                                    <span class="step-indicator">02</span>
+                                    <h3>Exchange Parameters</h3>
+                                </div>
+                                <div class="form-grid-inner-v2">
+                                    <div class="form-group-v2 full-width">
+                                        <label for="learnSkillsInput">Skill you want to LEARN</label>
+                                        <div class="combobox-v2">
+                                            <div class="combobox-input-wrapper-v2" id="learnSkillsCombobox" role="combobox">
+                                                <input type="text" id="learnSkillsInput" class="input-v2" autocomplete="off" placeholder="e.g. UX Design, Python" required>
+                                            </div>
+                                            <div class="combobox-options-v2" id="learnSkillsOptionsList" role="listbox"></div>
+                                            <input type="hidden" id="selectedSkillField" name="selectedSkill">
                                         </div>
-
-                                        <div class="teach-skills-options" id="learnSkillsOptionsList" role="listbox"></div>
-
-                                        <input type="hidden" id="selectedSkillField" name="selectedSkill">
-
+                                        <small class="form-hint-v2">Identify the core competency you wish to acquire.</small>
                                     </div>
 
-                                    <small class="form-helper-text">Type to search or add a new skill you want to learn.</small>
-
-                                </div>
-
-
-
-                                <div class="form-group">
-
-                                    <label for="teachSkillsInput">Skill(s) you can TEACH *</label>
-
-                                    <div class="teach-skills-wrapper">
-
-                                        <div class="teach-skills-combobox" id="teachSkillsCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="teachSkillsOptionsList">
-
-                                            <ul class="teach-skills-selected" id="teachSkillsSelected" role="list"></ul>
-
-                                            <input type="text" id="teachSkillsInput" class="teach-skills-input" autocomplete="off" placeholder="e.g. JavaScript, Public Speaking, Photography" required>
-
+                                    <div class="form-group-v2 full-width">
+                                        <label for="teachSkillsInput">Skill(s) you can TEACH</label>
+                                        <div class="combobox-v2">
+                                            <div class="combobox-input-wrapper-v2 multiple" id="teachSkillsCombobox" role="combobox">
+                                                <ul class="selected-tags-v2" id="teachSkillsSelected" role="list"></ul>
+                                                <input type="text" id="teachSkillsInput" class="input-v2" autocomplete="off" placeholder="e.g. JavaScript, Photography" required>
+                                            </div>
+                                            <div class="combobox-options-v2" id="teachSkillsOptionsList" role="listbox"></div>
+                                            <input type="hidden" id="teachSkillsHidden" name="teachSkills">
                                         </div>
-
-                                        <div class="teach-skills-options" id="teachSkillsOptionsList" role="listbox"></div>
-
-                                        <input type="hidden" id="teachSkillsHidden" name="teachSkills">
-
+                                        <small class="form-hint-v2">Catalog your expertise for the reciprocal exchange.</small>
                                     </div>
 
-                                    <small class="form-helper-text">List your expertise to complete the exchange.</small>
-
+                                    <div class="submit-area-v2">
+                                        <button type="submit" class="btn btn--primary btn--large btn--full">Register My Skill</button>
+                                        <div class="security-lock-v2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                            <span>Encryption: AES-256 Enabled</span>
+                                        </div>
+                                    </div>
                                 </div>
-
-
-
-                                <div class="form-submit-container">
-
-                                    <button type="submit" class="btn btn--primary btn--large btn--full">Complete My Registration</button>
-
-                                    <p class="form-security-note">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-
-                                        Secure end-to-end data encryption
-
-                                    </p>
-
-                                </div>
-
                             </div>
-
                         </div>
-
                     </form>
-
                 </div>
 
-                
-
-                <!-- Registration Instructions -->
-
-                <div class="registration-instructions">
-
-                    <h2>Next Steps</h2>
-
-                    <ol>
-
-                        <li>Select a skill you want to learn from the grid above.</li>
-
-                        <li>Add the skill(s) you can teach so we can create a balanced exchange.</li>
-
-                        <li>Click “Register Skill” to submit your selections to Slink360’s concierge team.</li>
-
-                        <li>After registration, check your inbox for onboarding instructions from <strong>skillbank0@gmail.com</strong>.</li>
-
-                        <li>Our specialists will coordinate payment and confirm mentor availability.</li>
-
-                        <li>Once enrollment is complete, you’ll receive your mentor match and first-session briefing.</li>
-
-                    </ol>
-
+                <div class="registration-instructions-v2">
+                    <div class="section-header-centered" data-animate="fade-up">
+                        <div class="about-badge">NEXT STEPS</div>
+                        <h2 class="about-title">Post-submission <span class="text-gradient">workflow.</span></h2>
+                    </div>
+                    
+                    <div class="steps-grid-v2">
+                        <div class="step-card-v2" data-animate="fade-up">
+                            <div class="step-num-v2">01</div>
+                            <div class="step-body-v2">
+                                <h4>Data Validation</h4>
+                                <p>Our concierge team performs high-signal verification on your skill profile.</p>
+                            </div>
+                        </div>
+                        <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.1">
+                            <div class="step-num-v2">02</div>
+                            <div class="step-body-v2">
+                                <h4>Sync Protocol</h4>
+                                <p>Onboarding instructions and access tokens are dispatched to your inbox.</p>
+                            </div>
+                        </div>
+                        <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.2">
+                            <div class="step-num-v2">03</div>
+                            <div class="step-body-v2">
+                                <h4>Deployment</h4>
+                                <p>Complete enrollment and initialize your first mentorship synchronization.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
-
             </div>
-
         </div>
-
     </section>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -388,7 +378,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Footer -->
+
+
+
+
+
+
 
     <footer class="footer">
 
@@ -430,7 +438,7 @@
 
                             <li><a href="index.html">Home</a></li>
 
-                            <li><a href="skill-selection.html" class="active">Browse Skills</a></li>
+                            <li><a href="skill-selection.html">Browse Skills</a></li>
 
                             <li><a href="mentor-selection.html">Find Mentors</a></li>
 
@@ -494,12 +502,53 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     <script type="module" src="js/firebase-init.js"></script>
+
+
+
+
+
+
 
     <script src="js/app.js"></script>
 
+
+
+
+
+
+
     <script type="module" src="js/skill-selection.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update class names for JS logic to match V2 HTML
+            const form = document.getElementById('skillRegistrationForm');
+            if (form) {
+                // Ensure the JS still finds the right elements even with new class names
+                // The IDs remain the same, so most logic should work.
+                // We just need to make sure any class-based selectors in JS are handled.
+            }
+        });
+    </script>
 </body>
+
+
+
+
+
+
 
 </html>

@@ -52,49 +52,71 @@
 
     <!-- Header -->
 
-    <header class="header">
+    <header class="header dark-hero">
 
         <div class="container">
 
-            <div class="header__logo">
+            <div class="header__left">
 
-                <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
+                <a href="index.html" class="header__logo-brand">
 
-                <h1 class="header__title">Slink360</h1>
+                    <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
+
+                    <span class="brand-name">SLINK360</span>
+
+                </a>
+
+                <button class="menu-toggle-v2" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="hamburger-line line-1"></span>
+                    <span class="hamburger-line line-2"></span>
+                    <span class="hamburger-line line-3"></span>
+                </button>
 
             </div>
 
-            <button class="menu-toggle" aria-label="Toggle navigation menu">
-
-                <span></span>
-
-                <span></span>
-
-                <span></span>
-
-            </button>
-
-            <nav class="header__nav">
+            <nav class="header__nav-center">
 
                 <ul class="header__nav-list">
 
-                    <li class="header__nav-item"><a href="index.html" class="header__nav-link active">Home</a></li>
+                    <li class="header__nav-item"><a href="index.html" class="header__nav-link active">HOME</a></li>
 
-                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">About</a></li>
+                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">ABOUT</a></li>
 
-                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">Skills</a></li>
+                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">SKILLS</a></li>
 
-                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
+                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">CONTACT</a></li>
 
                 </ul>
 
             </nav>
 
+            <div class="header__right-minimal">
+                <div class="lang-selector-wrapper">
+                    <button class="lang-selector-btn" aria-haspopup="true" aria-expanded="false">
+                        <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria" class="flag-icon">
+                        <span class="lang-text">NGN</span>
+                        <svg class="chevron-icon" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="lang-dropdown">
+                        <a href="#" class="lang-option active">
+                            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria">
+                            <span>Nigeria (NGN)</span>
+                        </a>
+                        <a href="#" class="lang-option">
+                            <img src="https://flagcdn.com/w20/gb.png" alt="UK">
+                            <span>United Kingdom (GBP)</span>
+                        </a>
+                        <a href="#" class="lang-option">
+                            <img src="https://flagcdn.com/w20/us.png" alt="USA">
+                            <span>United States (USD)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </header>
-
-
 
     <!-- Hero Section -->
 
@@ -104,544 +126,299 @@
 
             <div class="hero__layout">
 
-                <div class="hero__content" data-animate="fade-up">
+                <div class="hero__content">
+
+                    <div class="hero__index">01</div>
 
                     <div class="hero__badge-wrapper">
 
-                        <span class="hero__badge">Enterprise skill exchange</span>
+                        <span class="hero__badge">Radius Technology</span>
 
                     </div>
 
-                    <h1 class="hero__title">Learn what you want,<br>Exchange what you know</h1>
+                    <h1 class="hero__title">Slink360</h1>
+                      <p class="hero-description">Skill Exchange platform where everyone gets to learn , teach and earn</p>
+                    <a href="./skill-selection.html" class="hero__see-project">
 
-                    <p class="hero__subtitle">Slink360 is a skill exchange platform that links people with different skills who want to learn something new. Everyone who learns also gives back by teaching the skills they already have—creating a professional cycle of shared growth.</p>
+                        <span>Register now</span>
 
-                    <div class="hero__cta">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
 
-                        <button class="btn btn--primary btn--large" onclick="window.location.href='skill-selection.html'">Get Started Now</button>
+                    </a>
 
-                        <button class="btn btn--secondary btn--large" onclick="window.location.href='about.html'">Learn More</button>
+                    <div class="hero__social-sidebar">
 
-                    </div>
+                        <a href="#" class="hero__social-link">IN</a>
 
-                </div>
+                        <a href="#" class="hero__social-link">FB</a>
 
-                <div class="hero__visual" data-animate="fade-left">
-
-                    <div class="hero__image-container">
-
-                        <img src="assets/img/illustrations/undraw_teaching_58yg.svg" alt="Slink360 Hero Visual" class="hero__illustration">
-
-                        <div class="hero__shape-1"></div>
-
-                        <div class="hero__shape-2"></div>
+                        <a href="#" class="hero__social-link">YT</a>
 
                     </div>
 
                 </div>
 
+                <div class="hero__visual">
+
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Slink360 Architecture" class="hero__illustration">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hero__bottom-nav">
+
+            <div class="hero__slider-info">
+
+                <strong>090</strong>
+
+            </div>
+
+            <div class="hero__slider-controls-wrapper">
+
+                <div class="hero__slider-pagination">
+
+                    <span class="hero__dot active"></span>
+
+                    <span class="hero__dot"></span>
+
+                    <span class="hero__dot"></span>
+
+                </div>
+
+                <div class="hero__slider-count">
+
+                    <strong>01</strong><span>/03</span>
+
+                </div>
+
             </div>
 
         </div>
 
     </section>
 
-
-
-    <section class="value-props">
-
+    <!-- Value Props / Features -->
+    <section class="value-props-v2">
         <div class="container">
-
-            <div class="value-props__header" data-animate="fade-up">
-
-                <span class="section-tag">Built for teams</span>
-
-                <h2 class="section-title">A mentorship platform that scales</h2>
-
-                <p class="section-subtitle">Slink360 helps organizations unlock internal expertise, accelerate onboarding, and build a culture of continuous learning.</p>
-
+            <div class="section-header-v2" data-animate="fade-up">
+                <div class="about-badge">SCALABLE MENTORSHIP</div>
+                <h2 class="about-title">Built for high-signal <span class="text-gradient">expertise exchange.</span></h2>
+                <p class="about-lead">Slink360 architects a high-intelligence environment where organizations and individuals unlock latent potential through engineered collaboration.</p>
             </div>
 
+            <div class="features-grid-v2">
+                <div class="feature-card-v2" data-animate="fade-up">
+                    <div class="feature-visual">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Enterprise Matching">
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-icon-v2">01</div>
+                        <h3>Enterprise-grade workflows</h3>
+                        <p>Our matching engine handles complex institutional requirements, ensuring every partner is strategically aligned for maximum ROI.</p>
+                    </div>
+                </div>
 
+                <div class="feature-card-v2" data-animate="fade-up" data-animate-delay="0.1">
+                    <div class="feature-visual">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2070&auto=format&fit=crop" alt="Verified Professionals">
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-icon-v2">02</div>
+                        <h3>Verified talent pool</h3>
+                        <p>We implement a multi-stage vetting process to maintain a network of credible industry leaders and subject matter experts.</p>
+                    </div>
+                </div>
 
-            <div class="value-props__grid">
-
-                <article class="value-props__card" data-animate="fade-up">
-
-                    <div class="value-props__icon">🏢</div>
-
-                    <h3 class="value-props__title">Enterprise-ready matching</h3>
-
-                    <p class="value-props__text">Structured requests, curated partner selection, and a clear workflow that supports teams and institutions.</p>
-
-                </article>
-
-
-
-                <article class="value-props__card" data-animate="fade-up" data-animate-delay="0.1">
-
-                    <div class="value-props__icon">✅</div>
-
-                    <h3 class="value-props__title">Verified professionals</h3>
-
-                    <p class="value-props__text">We prioritize credibility and outcomes by spotlighting mentors with proven expertise and leadership.</p>
-
-                </article>
-
-
-
-                <article class="value-props__card" data-animate="fade-up" data-animate-delay="0.2">
-
-                    <div class="value-props__icon">⚡</div>
-
-                    <h3 class="value-props__title">Fast time-to-value</h3>
-
-                    <p class="value-props__text">Launch learning initiatives quickly with a streamlined flow from skill selection to mentor connection.</p>
-
-                </article>
-
+                <div class="feature-card-v2" data-animate="fade-up" data-animate-delay="0.2">
+                    <div class="feature-visual">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop" alt="Fast Time-to-Value">
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-icon-v2">03</div>
+                        <h3>Reduced friction-to-value</h3>
+                        <p>Streamlined onboarding paths designed to minimize time-to-connection, allowing users to focus on what matters: growth.</p>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </section>
 
-
-
-    <section class="company-stats" aria-label="Slink360 company stats">
-
+    <!-- Unified Stats -->
+    <section class="stats-section-v2">
         <div class="container">
-
-            <div class="company-stats__grid" data-animate="fade-up">
-
-                <div class="company-stats__item">
-
-                    <span class="company-stats__value">Curated</span>
-
-                    <span class="company-stats__label">Mentor matches</span>
-
+            <div class="stats-bar-v2" data-animate="fade-up">
+                <div class="stat-unit">
+                    <span class="stat-big">180+</span>
+                    <span class="stat-small">Active Mentors</span>
                 </div>
-
-                <div class="company-stats__item">
-
-                    <span class="company-stats__value">Outcome-first</span>
-
-                    <span class="company-stats__label">Learning briefs</span>
-
+                <div class="stat-divider"></div>
+                <div class="stat-unit">
+                    <span class="stat-big">24h</span>
+                    <span class="stat-small">Response Target</span>
                 </div>
-
-                <div class="company-stats__item">
-
-                    <span class="company-stats__value">Flexible</span>
-
-                    <span class="company-stats__label">Scheduling</span>
-
+                <div class="stat-divider"></div>
+                <div class="stat-unit">
+                    <span class="stat-big">100%</span>
+                    <span class="stat-small">Peer Verified</span>
                 </div>
-
-                <div class="company-stats__item">
-
-                    <span class="company-stats__value">Trusted</span>
-
-                    <span class="company-stats__label">Partner network</span>
-
+                <div class="stat-divider"></div>
+                <div class="stat-unit">
+                    <span class="stat-big">NGN</span>
+                    <span class="stat-small">Local Currency</span>
                 </div>
-
             </div>
-
         </div>
-
     </section>
-
-
-
-    <section class="cta-band">
-
-        <div class="container">
-
-            <div class="cta-band__layout" data-animate="fade-up">
-
-                <div class="cta-band__content">
-
-                    <h2 class="cta-band__title">Ready to launch your mentorship exchange?</h2>
-
-                    <p class="cta-band__subtitle">Start with a skill request, or contact us for a team rollout and onboarding support.</p>
-
-                </div>
-
-                <div class="cta-band__actions">
-
-                    <a href="skill-selection.html" class="btn btn--primary btn--large">Start a request</a>
-
-                    <a href="contact.html" class="btn btn--secondary btn--large">Contact sales</a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
 
     <!-- Trusted Partners -->
-
-    <section class="trusted-by">
-
+    <section class="trusted-partners-v2">
         <div class="container">
-
-            <div class="trusted-by__layout">
-
-                <div class="trusted-by__content" data-animate="fade-right">
-
-                    <div class="trusted-by__header">
-
-                        <span class="section-tag">Trusted network</span>
-
-                        <h2 class="section-title">Partnering with Excellence</h2>
-
-                        <p class="section-subtitle">We collaborate with forward-thinking institutions to deliver industry-standard mentorship and practical learning experiences.</p>
-
-                    </div>
-
-                    <div class="trusted-by__logos" data-animate="fade-up" data-animate-delay="0.1">
-
-                        <div class="trusted-by__logos-track" role="list">
-
-                            <figure class="trusted-by__logo" role="listitem">
-
-                                <div class="trusted-by__logo-inner">
-
-                                    <img src="assets/img/logos/topfaith-logo.png" alt="Topfaith University" loading="lazy">
-
-                                </div>
-
-                                <figcaption class="trusted-by__caption">Topfaith University</figcaption>
-
-                            </figure>
-
-                            <figure class="trusted-by__logo" role="listitem">
-
-                                <div class="trusted-by__logo-inner">
-
-                                    <img src="assets/img/logos/uniuyo-logo.png" alt="University of Uyo" loading="lazy">
-
-                                </div>
-
-                                <figcaption class="trusted-by__caption">University of Uyo</figcaption>
-
-                            </figure>
-
-                        </div>
-
-                    </div>
-
+            <div class="partner-layout-v2">
+                <div class="partner-info-v2" data-animate="fade-right">
+                    <div class="about-badge">TRUSTED NETWORK</div>
+                    <h2 class="about-title">Partnering with <span class="text-gradient">industry leaders.</span></h2>
+                    <p class="about-lead">We collaborate with forward-thinking institutions to deliver industry-standard mentorship and practical learning experiences.</p>
                 </div>
-
-                <div class="trusted-by__visual" data-animate="fade-left">
-
-                    <img src="assets/img/illustrations/undraw_collaboration.svg" alt="Collaboration Illustration" class="section-illustration">
-
+                <div class="partner-grid-v2" data-animate="fade-left">
+                    <div class="partner-box-v2">
+                        <img src="assets/img/logos/topfaith-logo.png" alt="Topfaith University">
+                        <span>Topfaith University</span>
+                    </div>
+                    <div class="partner-box-v2">
+                        <img src="assets/img/logos/uniuyo-logo.png" alt="University of Uyo">
+                        <span>University of Uyo</span>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
     </section>
-
-
 
     <!-- How It Works -->
-
-    <section class="how-it-works">
-
+    <section class="workflow-section-v2">
         <div class="container">
-
-            <div class="how-it-works__layout">
-
-                <div class="how-it-works__visual" data-animate="fade-right">
-
-                    <img src="assets/img/illustrations/undraw_learning.svg" alt="Learning Illustration" class="section-illustration">
-
-                </div>
-
-                <div class="how-it-works__content">
-
-                    <div class="how-it-works__header" data-animate="fade-up">
-
-                        <span class="section-tag">Reciprocal Learning</span>
-
-                        <h2 class="section-title">A Seamless Exchange</h2>
-
-                        <p class="section-subtitle">Our curated process ensures high-quality matches and productive skill exchanges for every professional.</p>
-
-                    </div>
-
-                    <div class="how-it-works__timeline">
-
-                        <article class="timeline-card" data-animate="fade-left">
-
-                            <div class="timeline-card__badge">01</div>
-
-                            <div class="timeline-card__body">
-
-                                <h3>Define Your Exchange</h3>
-
-                                <p>Tell us what you want to learn and the expertise you’re ready to share in return.</p>
-
-                            </div>
-
-                        </article>
-
-                        <article class="timeline-card" data-animate="fade-left" data-animate-delay="0.1">
-
-                            <div class="timeline-card__badge">02</div>
-
-                            <div class="timeline-card__body">
-
-                                <h3>Curated Matching</h3>
-
-                                <p>Our team identifies partners whose skills align with your growth goals.</p>
-
-                            </div>
-
-                        </article>
-
-                        <article class="timeline-card" data-animate="fade-left" data-animate-delay="0.2">
-
-                            <div class="timeline-card__badge">03</div>
-
-                            <div class="timeline-card__body">
-
-                                <h3>Connect &amp; Grow</h3>
-
-                                <p>Engage in structured sessions supported by our concierge onboarding team.</p>
-
-                            </div>
-
-                        </article>
-
-                    </div>
-
-                    <div class="how-it-works__cta" data-animate="fade-up" data-animate-delay="0.25">
-
-                        <a href="skill-selection.html" class="btn btn--primary btn--large">Start your request</a>
-
-                        <a href="contact.html" class="btn btn--secondary btn--large">Talk with our team</a>
-
-                    </div>
-
-                </div>
-
+            <div class="section-header-centered" data-animate="fade-up">
+                <div class="about-badge">THE ENGINE</div>
+                <h2 class="about-title">How we architect <span class="text-gradient">your growth.</span></h2>
             </div>
-
+            
+            <div class="workflow-steps-v2">
+                <div class="step-card-v2" data-animate="fade-up">
+                    <div class="step-num-v2">01</div>
+                    <div class="step-body-v2">
+                        <h4>Define Exchange</h4>
+                        <p>Quantify your learning objectives and document the expertise you offer the ecosystem.</p>
+                    </div>
+                </div>
+                <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.1">
+                    <div class="step-num-v2">02</div>
+                    <div class="step-body-v2">
+                        <h4>Algorithm Match</h4>
+                        <p>Our concierge system pairs you based on synergy, skill-level, and professional alignment.</p>
+                    </div>
+                </div>
+                <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.2">
+                    <div class="step-num-v2">03</div>
+                    <div class="step-body-v2">
+                        <h4>Synchronize</h4>
+                        <p>Execute structured mentorship sessions designed for rapid knowledge transfer and progress.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </section>
-
-
 
     <!-- Founder Spotlight -->
-
-    <section class="founder">
-
+    <section class="founder-section-v2">
         <div class="container">
-
-            <div class="founder__layout">
-
-                <div class="founder__media" data-animate="fade-right">
-
-                    <div class="founder__image-wrapper">
-
-                        <img src="assets/img/photos/ceo.jpg" alt="Founder &amp; CEO Hillary Tyler" class="founder__photo">
-
-                        <div class="founder__experience-badge">15+ Years Excellence</div>
-
+            <div class="founder-card-v2">
+                <div class="founder-info">
+                    <div class="about-badge">LEADERSHIP</div>
+                    <h3>Engr. Hillary Tyler</h3>
+                    <p class="founder-role">Founder & CEO, Radius Technology</p>
+                    <div class="founder-bio">
+                        <p>With a 15-year legacy of excellence, Hillary architected Slink360 to deliver outcome-driven mentorship at scale. His mission is to unlock career momentum through inclusive, authentic human connection.</p>
                     </div>
-
+                    <div class="founder-socials">
+                        <a href="#" class="social-circle">in</a>
+                        <a href="#" class="social-circle">tw</a>
+                    </div>
                 </div>
-
-                <div class="founder__details" data-animate="fade-left">
-
-                    <span class="section-tag">Leadership</span>
-
-                    <h2 class="section-title">Steering with Purpose</h2>
-
-                    <p class="founder__lead">Founder &amp; CEO Engr. Hillary Tyler built Slink360 to deliver credible, outcome-driven mentorship at scale.</p>
-
-
-
-                    <div class="founder__body">
-
-                        <p>Focused on quality, accessibility, and consistent delivery—so every connection turns into measurable growth.</p>
-
-                    </div>
-
-
-
-                    <div class="founder__highlights">
-
-                        <div class="founder__highlight">
-
-                            <div class="highlight-icon">🎯</div>
-
-                            <div>
-
-                                <h3>Vision</h3>
-
-                                <p>Inclusive exchange that unlocks real career momentum.</p>
-
-                            </div>
-
-                        </div>
-
-                        <div class="founder__highlight">
-
-                            <div class="highlight-icon">💡</div>
-
-                            <div>
-
-                                <h3>Innovation</h3>
-
-                                <p>Scaling mentorship without losing human authenticity.</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="founder__signature">
-
-                        <div class="signature-line"></div>
-
-                        <div class="signature-content">
-
-                            <span class="founder__name">Engr. Hillary Tyler</span>
-
-                            <span class="founder__tagline">Founder &amp; Chief Executive Officer</span>
-
-                        </div>
-
-                    </div>
-
+                <div class="founder-quote-box">
+                    <svg class="quote-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H5c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-2 6-5 7v1zm11 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-3c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-2 6-5 7v1z"/></svg>
+                    <p>"We leverage technology to scale mentorship without losing the human core. Every connection is a precision-engineered pathway to success."</p>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
-
+    <!-- Final CTA -->
+    <section class="about-cta-v2">
+        <div class="container">
+            <div class="cta-glass-card" data-animate="fade-up">
+                <h2>Deploy your potential today.</h2>
+                <p>Join over 180+ professionals trading expertise in a high-intelligence reciprocal ecosystem.</p>
+                <div class="cta-actions-v2">
+                    <a href="skill-selection.html" class="btn btn--primary btn--large">Initiate Exchange</a>
+                    <a href="contact.html" class="btn btn--secondary btn--large">Consult Our Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-
     <footer class="footer">
-
         <div class="container">
-
             <div class="footer__grid">
-
                 <div class="footer__brand-block">
-
                     <div class="footer__logo-wrapper">
-
                         <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="footer__logo">
-
                         <span class="footer__logo-text">Slink360</span>
-
                     </div>
-
-                    <p class="footer__tagline">The skill exchange platform where everyone who learns also teaches. Linking professionals for mutual growth through high-impact mentorship swap.</p>
-
+                    <p class="footer__tagline">Empowering professionals through high-impact, reciprocal mentorship and skill exchange.</p>
                     <div class="footer__social">
-
                         <a href="https://www.linkedin.com" aria-label="LinkedIn" class="social-link">in</a>
-
                         <a href="https://twitter.com" aria-label="Twitter" class="social-link">X</a>
-
                         <a href="https://www.instagram.com" aria-label="Instagram" class="social-link">IG</a>
-
                     </div>
-
                 </div>
-
                 <div class="footer__nav-group">
-
                     <div class="footer__column">
-
                         <span class="footer__heading">Platform</span>
-
                         <ul class="footer__list">
-
                             <li><a href="index.html">Home</a></li>
-
                             <li><a href="skill-selection.html">Browse Skills</a></li>
-
                             <li><a href="mentor-selection.html">Find Mentors</a></li>
-
                         </ul>
-
                     </div>
-
                     <div class="footer__column">
-
                         <span class="footer__heading">Company</span>
-
                         <ul class="footer__list">
-
-                            <li><a href="about.html">Our Story</a></li>
-
+                            <li><a href="about.html">About Slink360</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
-
-                            <li><a href="mailto:skillbank0@gmail.com">Help Center</a></li>
-
+                            <li><a href="mailto:skillbank0@gmail.com">Support Desk</a></li>
                         </ul>
-
                     </div>
-
                     <div class="footer__column">
-
                         <span class="footer__heading">Legal</span>
-
                         <ul class="footer__list">
-
-                            <li><a href="privacy-policy.html">Privacy</a></li>
-
-                            <li><a href="terms-of-service.html">Terms</a></li>
-
-                            <li><a href="cookie-policy.html">Cookies</a></li>
-
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of Service</a></li>
+                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
                         </ul>
-
                     </div>
-
                 </div>
-
             </div>
-
             <div class="footer__bottom">
-
-                <p class="footer__copyright">&copy; 2025 Slink360. Built by Radius Technology.</p>
-
-                <div class="footer__contact-info">
-
-                    <a href="mailto:skillbank0@gmail.com">skillbank0@gmail.com</a>
-
-                    <span class="separator"></span>
-
-                    <a href="tel:+2348128204201">+234 812 820 4201</a>
-
+                <p class="footer__copyright">&copy; 2025 Slink360. All rights reserved.</p>
+                <div class="footer__legal-links">
+                    <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
+                    <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
                 </div>
-
             </div>
-
         </div>
-
     </footer>
 
 
@@ -649,6 +426,21 @@
     <script type="module" src="js/firebase-init.js"></script>
 
     <script src="js/app.js"></script>
+    <script>
+        // Header scroll intelligence
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.header');
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            };
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Initial check
+        });
+    </script>
 
 </body>
 

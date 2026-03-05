@@ -738,21 +738,102 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+  // Header scroll intelligence
+  const header = document.querySelector('.header');
+  if (header) {
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress-container';
+    scrollProgress.innerHTML = '<div class="scroll-progress-bar"></div>';
+    document.body.appendChild(scrollProgress);
+    const progressBar = scrollProgress.querySelector('.scroll-progress-bar');
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollY / docHeight) * 100;
+      
+      if (progressBar) progressBar.style.width = `${progress}%`;
+
+      if (scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+  }
+
+  // Language/Currency Selector Logic
+  const langSelectorWrapper = document.querySelector('.lang-selector-wrapper');
+  const langSelectorBtn = document.querySelector('.lang-selector-btn');
+  const langDropdown = document.querySelector('.lang-dropdown');
+
+  if (langSelectorWrapper && langSelectorBtn) {
+    const toggleDropdown = (force) => {
+      const isExpanded = force !== undefined ? force : langSelectorBtn.getAttribute('aria-expanded') === 'false';
+      langSelectorBtn.setAttribute('aria-expanded', isExpanded);
+      langSelectorWrapper.classList.toggle('active', isExpanded);
+    };
+
+    langSelectorBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!langSelectorWrapper.contains(e.target)) {
+        toggleDropdown(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toggleDropdown(false);
+      }
+    });
+
+    // Handle option selection
+    const langOptions = document.querySelectorAll('.lang-option');
+    langOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all
+        langOptions.forEach(opt => opt.classList.remove('active'));
+        // Add to clicked
+        option.classList.add('active');
+
+        // Update button content
+        const flagImg = option.querySelector('img').src;
+        const langText = option.querySelector('span').textContent.match(/\(([^)]+)\)/)[1];
+        
+        langSelectorBtn.querySelector('.flag-icon').src = flagImg;
+        langSelectorBtn.querySelector('.lang-text').textContent = langText;
+
+        toggleDropdown(false);
+        
+        // Optional: Trigger global event for currency change
+        window.dispatchEvent(new CustomEvent('currencyChange', { detail: { currency: langText } }));
+      });
+    });
+  }
+
   // Mobile menu toggle logic
-  const mobileMenuButton = document.querySelector(".menu-toggle");
-  const nav = document.querySelector(".header__nav");
+  const mobileMenuButton = document.querySelector(".menu-toggle-v2");
+  const nav = document.querySelector(".header__nav-center");
 
   if (mobileMenuButton && nav) {
-    const toggleMenu = (show) => {
-      const isOpen = show !== undefined ? show : !nav.classList.contains("open");
+    const toggleMenu = (force) => {
+      const isOpen = force !== undefined ? force : !nav.classList.contains("active");
+      nav.classList.toggle("active", isOpen);
       mobileMenuButton.classList.toggle("open", isOpen);
-      nav.classList.toggle("open", isOpen);
+      mobileMenuButton.setAttribute("aria-expanded", isOpen);
       
       // Control scrolling when menu is open
       document.body.style.overflow = isOpen ? "hidden" : "";
-      
-      // Safety check: ensure content is hidden when closed via direct visibility/opacity toggling if needed
-      // (though the .open class in CSS already handles this)
     };
 
     mobileMenuButton.addEventListener("click", (e) => {
@@ -767,14 +848,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close menu when clicking outside the navigation panel
     document.addEventListener("click", (e) => {
-      if (nav.classList.contains("open") && !nav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+      if (nav.classList.contains("active") && !nav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
         toggleMenu(false);
       }
     });
   }
 
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        // Optional: Stop observing after animation triggers
+        // animationObserver.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Select all elements with data-animate attribute
   const animatedElements = document.querySelectorAll('[data-animate]');
-  if (animatedElements.length) {
+  animatedElements.forEach(el => animationObserver.observe(el));
+
+  const animatedElements2 = document.querySelectorAll('[data-animate]');
+  if (animatedElements2.length) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
