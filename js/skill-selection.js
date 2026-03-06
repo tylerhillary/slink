@@ -1627,11 +1627,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
       
       const learnSkillsInput = document.getElementById('learnSkillsInput');
-      const skillForSubmission = learnSkillsInput?.value?.trim() || '';
+      const selectedSkillField = document.getElementById('selectedSkillField');
+      const skillForSubmission = learnSkillsInput?.value?.trim() || selectedSkillField?.value?.trim() || localStorage.getItem('selectedSkill') || selectedSkill || '';
       
       const teachSkillsInput = document.getElementById('teachSkillsInput');
       const teachSkillsRaw = teachSkillsInput?.value?.trim() || '';
-      const teachSkills = teachSkillsRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
+      const teachSkills = (teachSkillsRaw || '').split(',').map(s => s.trim()).filter(s => s.length > 0);
 
       console.log('Submission Debug (Deep Trace):', {
         fullName,
@@ -1643,7 +1644,11 @@ document.addEventListener('DOMContentLoaded', function() {
         skillForSubmission,
         teachSkills,
         learnSkillsInputExists: !!learnSkillsInput,
-        teachSkillsInputExists: !!teachSkillsInput
+        selectedSkillFieldExists: !!selectedSkillField,
+        teachSkillsInputExists: !!teachSkillsInput,
+        teachSkillsRaw: teachSkillsRaw,
+        localStorageSkill: localStorage.getItem('selectedSkill'),
+        globalSelectedSkill: selectedSkill
       });
 
       const missingFields = [];
