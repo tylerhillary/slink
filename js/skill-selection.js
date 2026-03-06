@@ -1805,6 +1805,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showSuccess(`Success! Your registration for "${skillForSubmission}" has been submitted to our database. Our admin team will review it and contact you soon.`);
         form.reset();
 
+        const selectedSkillField = document.getElementById('selectedSkillField');
         if (selectedSkillField) {
           selectedSkillField.value = skillForSubmission;
         }
