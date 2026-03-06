@@ -1802,7 +1802,7 @@ document.addEventListener('DOMContentLoaded', function() {
           })
         );
 
-        showSuccess(`Thank you, ${fullName}! Our admin team will review your registration for "${skillForSubmission}" and reach out with next steps.`);
+        showSuccess(`Success! Your registration for "${skillForSubmission}" has been submitted to our database. Our admin team will review it and contact you soon.`);
         form.reset();
 
         if (selectedSkillField) {
