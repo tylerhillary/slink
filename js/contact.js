@@ -33,7 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
       timestamp: serverTimestamp(),
     };
 
+    console.log('Form submission data:', formData);
+
     if (!formData.name || !formData.email || !formData.topic || !formData.subject || !formData.message) {
+      console.log('Validation failed. Missing fields:', {
+        name: !formData.name,
+        email: !formData.email,
+        topic: !formData.topic,
+        subject: !formData.subject,
+        message: !formData.message
+      });
       showError('Please fill in all required fields.');
       return;
     }

@@ -1615,19 +1615,22 @@ document.addEventListener('DOMContentLoaded', function() {
       const originalButtonText = submitButton ? submitButton.textContent : '';
 
       // High intelligence value extraction
-      const fullName = document.getElementById('fullName').value.trim() || '';
-      const email = document.getElementById('email').value.trim() || '';
-      const ageInput = document.getElementById('age').value;
+      const fullName = document.getElementById('fullName')?.value?.trim() || '';
+      const email = document.getElementById('email')?.value?.trim() || '';
+      const ageInput = document.getElementById('age')?.value;
       const age = ageInput ? parseInt(ageInput, 10) : NaN;
-      const gender = document.getElementById('gender').value || '';
-      const location = document.getElementById('location').value || '';
-      const countryCode = document.getElementById('countryCode').value || '';
-      const mobileNumberInput = document.getElementById('mobileNumber').value.trim() || '';
+      const gender = document.getElementById('gender')?.value || '';
+      const location = document.getElementById('location')?.value || '';
+      const countryCode = document.getElementById('countryCode')?.value || '';
+      const mobileNumberInput = document.getElementById('mobileNumber')?.value?.trim() || '';
       const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
       
-      const skillForSubmission = document.getElementById('learnSkillsInput').value.trim() || '';
-      const teachSkillsRaw = document.getElementById('teachSkillsInput').value.trim() || '';
+      const learnSkillsInput = document.getElementById('learnSkillsInput');
+      const skillForSubmission = learnSkillsInput?.value?.trim() || '';
+      
+      const teachSkillsInput = document.getElementById('teachSkillsInput');
+      const teachSkillsRaw = teachSkillsInput?.value?.trim() || '';
       const teachSkills = teachSkillsRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
       console.log('Submission Debug (Deep Trace):', {
@@ -1638,7 +1641,9 @@ document.addEventListener('DOMContentLoaded', function() {
         location,
         fullMobileNumber,
         skillForSubmission,
-        teachSkills
+        teachSkills,
+        learnSkillsInputExists: !!learnSkillsInput,
+        teachSkillsInputExists: !!teachSkillsInput
       });
 
       const missingFields = [];
