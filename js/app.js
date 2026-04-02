@@ -764,63 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll(); // Initial check
   }
 
-  // Language/Currency Selector Logic
-  const langSelectorWrapper = document.querySelector('.lang-selector-wrapper');
-  const langSelectorBtn = document.querySelector('.lang-selector-btn');
-  const langDropdown = document.querySelector('.lang-dropdown');
-
-  if (langSelectorWrapper && langSelectorBtn) {
-    const toggleDropdown = (force) => {
-      const isExpanded = force !== undefined ? force : langSelectorBtn.getAttribute('aria-expanded') === 'false';
-      langSelectorBtn.setAttribute('aria-expanded', isExpanded);
-      langSelectorWrapper.classList.toggle('active', isExpanded);
-    };
-
-    langSelectorBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
-    });
-
-    // Close on click outside
-    document.addEventListener('click', (e) => {
-      if (!langSelectorWrapper.contains(e.target)) {
-        toggleDropdown(false);
-      }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        toggleDropdown(false);
-      }
-    });
-
-    // Handle option selection
-    const langOptions = document.querySelectorAll('.lang-option');
-    langOptions.forEach(option => {
-      option.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // Remove active class from all
-        langOptions.forEach(opt => opt.classList.remove('active'));
-        // Add to clicked
-        option.classList.add('active');
-
-        // Update button content
-        const flagImg = option.querySelector('img').src;
-        const langText = option.querySelector('span').textContent.match(/\(([^)]+)\)/)[1];
-        
-        langSelectorBtn.querySelector('.flag-icon').src = flagImg;
-        langSelectorBtn.querySelector('.lang-text').textContent = langText;
-
-        toggleDropdown(false);
-        
-        // Optional: Trigger global event for currency change
-        window.dispatchEvent(new CustomEvent('currencyChange', { detail: { currency: langText } }));
-      });
-    });
-  }
-
   // Mobile menu toggle logic
   const mobileMenuButton = document.querySelector(".menu-toggle-v2");
   const nav = document.querySelector(".header__nav-center");
