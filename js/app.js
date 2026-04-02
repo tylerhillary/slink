@@ -765,15 +765,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Mobile menu toggle logic
-  const mobileMenuButton = document.querySelector(".menu-toggle-v2");
+  const mobileMenuButton = document.querySelector(".menu-toggle-v2, .menu-toggle-minimal");
   const nav = document.querySelector(".header__nav-center");
 
   if (mobileMenuButton && nav) {
+    nav.setAttribute("aria-hidden", "true");
+
     const toggleMenu = (force) => {
       const isOpen = force !== undefined ? force : !nav.classList.contains("active");
       nav.classList.toggle("active", isOpen);
       mobileMenuButton.classList.toggle("open", isOpen);
       mobileMenuButton.setAttribute("aria-expanded", isOpen);
+      nav.setAttribute("aria-hidden", String(!isOpen));
       
       // Control scrolling when menu is open
       document.body.style.overflow = isOpen ? "hidden" : "";
@@ -792,6 +795,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close menu when clicking outside the navigation panel
     document.addEventListener("click", (e) => {
       if (nav.classList.contains("active") && !nav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("active")) {
+        toggleMenu(false);
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1024 && nav.classList.contains("active")) {
         toggleMenu(false);
       }
     });
