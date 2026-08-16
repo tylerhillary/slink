@@ -1,496 +1,374 @@
 <!DOCTYPE html>
-
-
-
 <html lang="en">
 
-
-
 <head>
-
-
-
     <meta charset="UTF-8">
-
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
 
+    <title>Contact — Slink360</title>
+    <meta name="description" content="Reach the Slink360 concierge desk for support, partnerships or press. We answer within one business day.">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact — Slink360">
+    <meta property="og:description" content="Reach the Slink360 concierge desk. We answer within one business day.">
+    <meta property="og:image" content="https://slink360.com/assets/img/logos/slink.png">
 
-    <title>Contact Us - Slink360</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 
+    <link rel="stylesheet" href="css/slink.css?v=3.0.0">
+    <link rel="stylesheet" href="css/pages.css?v=3.0.0">
+    <link rel="icon" type="image/png" href="assets/img/logos/slink.png">
 
-
-    <link rel="stylesheet" href="css/styles.css?v=1.0.1">
-
-
-
-    <link rel="icon" type="image/png" href="/favicon.png">
-
-
-
+    <noscript>
+        <style>
+            [data-reveal] { opacity: 1 !important; translate: none !important; scale: 1 !important; clip-path: none !important; }
+            .line-mask > span { translate: none !important; }
+            .rule-draw { scale: 1 1 !important; }
+        </style>
+    </noscript>
 </head>
 
-
-
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="index.html" class="brand" aria-label="Slink360 — home">
+                <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                <span class="brand__name">Slink<span>360</span></span>
+            </a>
 
-
-    <!-- Header -->
-
-
-
-    <header class="header light-bg">
-
-
-
-        <div class="container">
-
-
-
-            <div class="header__left">
-
-
-
-                <a href="index.html" class="header__logo-brand">
-                    <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
-                    <span class="brand-name">SLINK360</span>
-                </a>
-
-
-
-                <button class="menu-toggle-v2" aria-label="Toggle menu" aria-expanded="false">
-                    <span class="hamburger-line line-1"></span>
-                    <span class="hamburger-line line-2"></span>
-                    <span class="hamburger-line line-3"></span>
-                </button>
-
-
-
-            </div>
-
-
-
-            <nav class="header__nav-center">
-
-
-
-                <ul class="header__nav-list">
-
-
-
-                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">HOME</a></li>
-
-
-
-                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">ABOUT</a></li>
-
-
-
-                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link">SKILLS</a></li>
-
-
-
-                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link active">CONTACT</a></li>
-
-
-
-                </ul>
-
-
-
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="nav__link">Home</a>
+                <a href="about.html" class="nav__link">About</a>
+                <a href="skill-selection.html" class="nav__link">Skills</a>
+                <a href="contact.html" class="nav__link is-active" aria-current="page">Contact</a>
             </nav>
+
+            <div class="header__actions">
+                <a href="skill-selection.html" class="btn btn--primary btn--sm">Join the exchange</a>
+                <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+                    <span class="nav-toggle__box">
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
+    <div class="nav-drawer" id="navDrawer">
+        <ul class="nav-drawer__list">
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="index.html"><span class="nav-drawer__num">01</span>Home</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="about.html"><span class="nav-drawer__num">02</span>About</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="skill-selection.html"><span class="nav-drawer__num">03</span>Skills</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link is-active" href="contact.html"><span class="nav-drawer__num">04</span>Contact</a></li>
+        </ul>
+        <div class="nav-drawer__footer">
+            <a href="skill-selection.html" class="btn btn--primary btn--lg btn--block">Join the exchange</a>
+            <p>Free to join · Verified members · Response within 24 hours</p>
+        </div>
+    </div>
 
+    <main id="main" class="site-main">
 
-
-
-
-
-    <!-- Main Content -->
-
-
-
-    <main>
-
-
-
-        <!-- Hero -->
-        <section class="contact-hero-v2">
+        <!-- ================= PAGE HERO ================= -->
+        <section class="page-hero">
             <div class="container">
-                <div class="contact-hero-grid">
-                    <div class="contact-hero-content">
-                        <div class="about-badge">SUPPORT & PARTNERSHIPS</div>
-                        <h1 class="about-title">Connect with our <span class="text-gradient">concierge team.</span></h1>
-                        <p class="about-lead">Whether you're looking for enterprise solutions, partnership opportunities, or technical support, our engineering-first mindset ensures a precise and helpful response.</p>
-                        <div class="contact-quick-info">
-                            <div class="info-item">
-                                <span class="icon">✉</span>
-                                <div class="info-text">
-                                    <span class="label">Response Time</span>
-                                    <span class="value">< 24 Hours</span>
+                <div class="page-hero__inner">
+                    <nav class="breadcrumbs" aria-label="Breadcrumb">
+                        <a href="index.html">Home</a> <span>/</span> <span>Contact</span>
+                    </nav>
+
+                    <div data-reveal="up"><span class="eyebrow">Contact</span></div>
+
+                    <h1 class="page-hero__title" data-reveal="up" data-reveal-delay="60">
+                        <span class="line-mask"><span>Talk to the people</span></span>
+                        <span class="line-mask"><span class="serif accent">who make the matches.</span></span>
+                    </h1>
+
+                    <p class="lead" data-reveal="up" data-reveal-delay="200">
+                        Support, partnerships, press, or a question before you register — it all
+                        lands on the same desk, and a person answers it.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FORM ================= -->
+        <section class="section">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="form-card" data-reveal="up">
+                        <div class="form-card__head">
+                            <h2>Send us a message</h2>
+                            <p>Fields marked with an asterisk are required. We reply within one business day.</p>
+                        </div>
+
+                        <form id="contactForm" novalidate>
+                            <div class="form-grid form-grid--2">
+                                <div class="field">
+                                    <label class="field__label" for="name">Full name <span class="req">*</span></label>
+                                    <input class="input" type="text" id="name" name="name" placeholder="Olivia Daniels" autocomplete="name" required>
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="email">Email address <span class="req">*</span></label>
+                                    <input class="input" type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="contact-phone">Phone or WhatsApp</label>
+                                    <input class="input" type="tel" id="contact-phone" name="phone" placeholder="+234 812 820 4201" autocomplete="tel">
+                                </div>
+
+                                <div class="field">
+                                    <label class="field__label" for="topic">Topic <span class="req">*</span></label>
+                                    <select class="select" id="topic" name="topic" required>
+                                        <option value="" disabled selected>Select a topic</option>
+                                        <option value="support">Member support</option>
+                                        <option value="partnership">Partnership enquiry</option>
+                                        <option value="media">Press or media</option>
+                                        <option value="other">Something else</option>
+                                    </select>
+                                </div>
+
+                                <div class="field field--full">
+                                    <label class="field__label" for="subject">Subject <span class="req">*</span></label>
+                                    <input class="input" type="text" id="subject" name="subject" placeholder="How can we help?" required>
+                                </div>
+
+                                <div class="field field--full">
+                                    <label class="field__label" for="message">Message <span class="req">*</span></label>
+                                    <textarea class="textarea" id="message" name="message" rows="6" placeholder="Share as much context as you can — the more specific, the faster we can help." required></textarea>
                                 </div>
                             </div>
-                            <div class="info-item">
-                                <span class="icon">☏</span>
-                                <div class="info-text">
-                                    <span class="label">Office Hours</span>
-                                    <span class="value">9AM - 6PM GMT+1</span>
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn--primary btn--lg">Send message</button>
+                                <p>By sending this, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <aside class="contact-aside" data-stagger="80">
+                        <a href="mailto:skillbank0@gmail.com" class="channel" data-reveal="up">
+                            <span class="channel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                            </span>
+                            <span>
+                                <span class="channel__label">Email</span>
+                                <span class="channel__value">skillbank0@gmail.com</span>
+                            </span>
+                        </a>
+
+                        <a href="tel:+2348128204201" class="channel" data-reveal="up">
+                            <span class="channel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+                            </span>
+                            <span>
+                                <span class="channel__label">Concierge line</span>
+                                <span class="channel__value">+234 812 820 4201</span>
+                            </span>
+                        </a>
+
+                        <div class="channel" data-reveal="up">
+                            <span class="channel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </span>
+                            <span>
+                                <span class="channel__label">Office</span>
+                                <span class="channel__value">Radius Technology, Lagos, Nigeria</span>
+                            </span>
+                        </div>
+
+                        <div class="status-card" data-reveal="up">
+                            <h3>Desk status</h3>
+                            <dl>
+                                <div class="status-row">
+                                    <dt>Local time</dt>
+                                    <dd><span id="local-time">--:--</span> WAT</dd>
                                 </div>
+                                <div class="status-row">
+                                    <dt>Office hours</dt>
+                                    <dd>09:00 – 18:00</dd>
+                                </div>
+                                <div class="status-row">
+                                    <dt>Typical reply</dt>
+                                    <dd>Under 24 hours</dd>
+                                </div>
+                                <div class="status-row">
+                                    <dt>Concierge desk</dt>
+                                    <dd><span class="pulse-dot"></span> Online</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FAQ ================= -->
+        <section class="section section--alt section--hairline">
+            <div class="container container--narrow">
+                <div class="section-head" data-reveal="up">
+                    <span class="eyebrow">Before you write</span>
+                    <h2 class="h2">Answers to the usual questions.</h2>
+                </div>
+
+                <div class="faq" data-reveal="up">
+                    <div class="faq__item">
+                        <button class="faq__q" type="button" aria-expanded="false">
+                            Does it cost anything to join?
+                            <span class="faq__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__a">
+                            <div>
+                                <p>
+                                    Registering and being matched is free. Some members agree paid
+                                    arrangements between themselves once they've met, but that is
+                                    entirely their business and never a requirement.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="contact-hero-visual">
-                        <div class="terminal-window">
-                            <div class="terminal-header">
-                                <div class="dot red"></div>
-                                <div class="dot yellow"></div>
-                                <div class="dot green"></div>
-                                <div class="terminal-title">bash — support</div>
+
+                    <div class="faq__item">
+                        <button class="faq__q" type="button" aria-expanded="false">
+                            How long until I hear back after registering?
+                            <span class="faq__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__a">
+                            <div>
+                                <p>
+                                    Our median turnaround from a completed registration to a shortlist is
+                                    under 24 hours. If your skill is unusual it can take a few days while
+                                    we find the right counterpart — we'll tell you either way.
+                                </p>
                             </div>
-                            <div class="terminal-body">
-                                <div class="terminal-line"><span class="prompt">$</span> slink-cli contact --init</div>
-                                <div class="terminal-line"><span class="success">✓</span> Connection established</div>
-                                <div class="terminal-line"><span class="prompt">$</span> slink-cli get-status --desk</div>
-                                <div class="terminal-line">Concierge Desk: <span class="status">Online</span></div>
-                                <div class="terminal-line">Specialists: <span class="status">Available</span></div>
-                                <div class="terminal-line"><span class="prompt">$</span> <span class="cursor">_</span></div>
+                        </div>
+                    </div>
+
+                    <div class="faq__item">
+                        <button class="faq__q" type="button" aria-expanded="false">
+                            What if I don't get on with my match?
+                            <span class="faq__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__a">
+                            <div>
+                                <p>
+                                    Tell us and we re-pair you, free of charge and without any awkward
+                                    conversation on your side. A bad fit is useful information, not a
+                                    complaint.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq__item">
+                        <button class="faq__q" type="button" aria-expanded="false">
+                            Do I need to be in Nigeria?
+                            <span class="faq__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__a">
+                            <div>
+                                <p>
+                                    Most of our members are, and the registration form is built around
+                                    Nigerian states. If you're elsewhere, write to us directly — we match
+                                    remote pairs where the skills and time zones line up.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq__item">
+                        <button class="faq__q" type="button" aria-expanded="false">
+                            How is my data handled?
+                            <span class="faq__icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq__a">
+                            <div>
+                                <p>
+                                    We store what you submit in order to match you and nothing more. We
+                                    don't sell it. You can request an export or deletion at any time —
+                                    the details are in our <a href="privacy-policy.html">Privacy Policy</a>.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Contact Content -->
-        <section class="contact-main-section">
-            <div class="container">
-                <div class="contact-layout-split">
-                    <div class="contact-form-side">
-                        <div class="form-card-v2">
-                            <div class="form-header">
-                                <h3>Submit a Concierge Ticket</h3>
-                                <p>Our routing engine will assign your request to the relevant specialist.</p>
-                            </div>
-                            <form id="contactForm" class="dev-form">
-                                <div class="form-row-dev">
-                                    <div class="form-group-dev">
-                                        <label>Full Name</label>
-                                        <input type="text" id="name" name="name" placeholder="Olivia Daniels" required>
-                                    </div>
-                                    <div class="form-group-dev">
-                                        <label>Work Email</label>
-                                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
-                                    </div>
-                                </div>
-                                <div class="form-row-dev">
-                                    <div class="form-group-dev">
-                                        <label>Phone / WhatsApp</label>
-                                        <input type="tel" id="contact-phone" name="phone" placeholder="+234 812 820 4201">
-                                    </div>
-                                    <div class="form-group-dev">
-                                        <label>Topic</label>
-                                        <select id="topic" name="topic" required>
-                                            <option value="" disabled selected>Select a topic</option>
-                                            <option value="support">Product Support</option>
-                                            <option value="partnership">Partnership Inquiry</option>
-                                            <option value="media">Press / Media</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group-dev">
-                                    <label>Subject</label>
-                                    <input type="text" id="subject" name="subject" placeholder="How can we help?" required>
-                                </div>
-                                <div class="form-group-dev">
-                                    <label>Message</label>
-                                    <textarea id="message" name="message" rows="5" placeholder="Share as much context as you can..." required></textarea>
-                                </div>
-                                <div class="form-footer-dev">
-                                    <button type="submit" class="btn-dev-primary">
-                                        Deploy Message
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                    </button>
-                                    <p class="policy-note">By submitting, you acknowledge our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="contact-info-side">
-                        <div class="info-card-dev">
-                            <h4>Direct Access</h4>
-                            <div class="direct-links">
-                                <a href="mailto:skillbank0@gmail.com" class="direct-link">
-                                    <span class="link-icon">@</span>
-                                    <div class="link-content">
-                                        <span class="link-label">Support Email</span>
-                                        <span class="link-value">skillbank0@gmail.com</span>
-                                    </div>
-                                </a>
-                                <a href="tel:+2348128204201" class="direct-link">
-                                    <span class="link-icon">#</span>
-                                    <div class="link-content">
-                                        <span class="link-label">Concierge Line</span>
-                                        <span class="link-value">+234 812 820 4201</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="info-card-dev highlight">
-                            <h4>Global Headquarters</h4>
-                            <p>Radius Technology Office<br>Lagos, Nigeria</p>
-                            <div class="timezone-badge">
-                                <span class="dot pulse"></span>
-                                Local Time: <span id="local-time">--:--</span> (WAT)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
 
     </main>
 
-
-
-
-
-
-
-    <!-- Footer -->
-
-
-
-    <footer class="footer">
-
-
-
+    <footer class="site-footer">
         <div class="container">
-
-
-
             <div class="footer__grid">
-
-
-
-                <div class="footer__brand-block">
-
-
-
-                    <div class="footer__logo-wrapper">
-
-
-
-                        <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="footer__logo">
-
-
-
-                        <span class="footer__logo-text">Slink360</span>
-
-
-
-                    </div>
-
-
-
-                    <p class="footer__tagline">Empowering professionals through high-impact, reciprocal mentorship and skill exchange.</p>
-
-
-
+                <div class="footer__brand">
+                    <a href="index.html" class="brand" aria-label="Slink360 — home">
+                        <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                        <span class="brand__name">Slink<span>360</span></span>
+                    </a>
+                    <p class="footer__tagline">
+                        A skill exchange by Radius Technology. Everyone here has something to learn
+                        and something worth teaching.
+                    </p>
                     <div class="footer__social">
-
-
-
-                        <a href="https://www.linkedin.com" aria-label="LinkedIn" class="social-link">in</a>
-
-
-
-                        <a href="https://twitter.com" aria-label="Twitter" class="social-link">X</a>
-
-
-
-                        <a href="https://www.instagram.com" aria-label="Instagram" class="social-link">IG</a>
-
-
-
+                        <a href="https://www.linkedin.com" aria-label="Slink360 on LinkedIn" rel="noopener">in</a>
+                        <a href="https://twitter.com" aria-label="Slink360 on X" rel="noopener">X</a>
+                        <a href="https://www.instagram.com" aria-label="Slink360 on Instagram" rel="noopener">IG</a>
                     </div>
-
-
-
                 </div>
 
-
-
-                <div class="footer__nav-group">
-
-
-
-                    <div class="footer__column">
-
-
-
+                <div class="footer__columns">
+                    <div>
                         <span class="footer__heading">Platform</span>
-
-
-
                         <ul class="footer__list">
-
-
-
                             <li><a href="index.html">Home</a></li>
-
-
-
-                            <li><a href="skill-selection.html">Browse Skills</a></li>
-
-
-
-                            <li><a href="mentor-selection.html">Find Mentors</a></li>
-
-
-
+                            <li><a href="skill-selection.html">Register a skill</a></li>
+                            <li><a href="index.html#how-it-works">How it works</a></li>
                         </ul>
-
-
-
                     </div>
-
-
-
-                    <div class="footer__column">
-
-
-
+                    <div>
                         <span class="footer__heading">Company</span>
-
-
-
                         <ul class="footer__list">
-
-
-
-                            <li><a href="about.html">About Slink360</a></li>
-
-
-
-                            <li><a href="contact.html">Contact Us</a></li>
-
-
-
-                            <li><a href="mailto:skillbank0@gmail.com">Support Desk</a></li>
-
-
-
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="mailto:skillbank0@gmail.com">Support desk</a></li>
                         </ul>
-
-
-
                     </div>
-
-
-
-                    <div class="footer__column">
-
-
-
+                    <div>
                         <span class="footer__heading">Legal</span>
-
-
-
                         <ul class="footer__list">
-
-
-
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-
-
-
-                            <li><a href="terms-of-service.html">Terms of Service</a></li>
-
-
-
-                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
-
-
-
+                            <li><a href="privacy-policy.html">Privacy policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of service</a></li>
+                            <li><a href="cookie-policy.html">Cookie policy</a></li>
                         </ul>
-
-
-
                     </div>
-
-
-
                 </div>
-
-
-
             </div>
-
-
 
             <div class="footer__bottom">
-
-
-
-                <p class="footer__copyright">&copy; 2025 Slink360. All rights reserved.</p>
-
-
-
-                <div class="footer__legal-links">
-
-
-
-                    <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
-
-
-
-                    <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
-
-
-
+                <p>&copy; <span data-year>2026</span> Slink360 · Radius Technology. All rights reserved.</p>
+                <div class="footer__meta">
+                    <a href="mailto:skillbank0@gmail.com">skillbank0@gmail.com</a>
+                    <a href="tel:+2348128204201">+234 812 820 4201</a>
+                    <span>Lagos, Nigeria</span>
                 </div>
-
-
-
             </div>
-
-
-
         </div>
-
-
-
     </footer>
 
-
-
-
-
-
-
-    <!-- Scripts -->
-
-
-
-    <script src="js/app.js?v=1.0.1"></script>
-
-
-
-    <script type="module" src="js/firebase-init.js?v=1.0.1"></script>
-
-
-
-    <script type="module" src="js/contact.js?v=1.0.1"></script>
+    <script src="js/core.js?v=3.0.0" defer></script>
+    <script src="js/motion.js?v=3.0.0" defer></script>
+    <script type="module" src="js/firebase-init.js?v=3.0.0"></script>
+    <script type="module" src="js/contact.js?v=3.0.0"></script>
 </body>
-
-
 
 </html>

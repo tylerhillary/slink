@@ -1,182 +1,202 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
 <html lang="en">
 
-
-
-
-
-
-
 <head>
-
-
-
-
-
-
-
     <meta charset="UTF-8">
-
-
-
-
-
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
 
+    <title>Register your skill — Slink360</title>
+    <meta name="description" content="Tell us the skill you want to learn and the skills you can teach. A person reads every registration and comes back within 24 hours.">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Register your skill — Slink360">
+    <meta property="og:description" content="Tell us what you want to learn and what you can teach. We match you within 24 hours.">
+    <meta property="og:image" content="https://slink360.com/assets/img/logos/slink.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 
+    <link rel="stylesheet" href="css/slink.css?v=3.0.0">
+    <link rel="stylesheet" href="css/pages.css?v=3.0.0">
+    <link rel="icon" type="image/png" href="assets/img/logos/slink.png">
 
-
-
-    <title>Select Skill - Slink360</title>
-
-
-
-
-
-
-
-    <link rel="stylesheet" href="css/styles.css?v=1.0.1">
-
-
-
-
-
-
-
-    <link rel="icon" type="image/png" href="/favicon.png">
-
-
-
-
-
-
-
+    <noscript>
+        <style>
+            [data-reveal] { opacity: 1 !important; translate: none !important; scale: 1 !important; clip-path: none !important; }
+            .line-mask > span { translate: none !important; }
+            .rule-draw { scale: 1 1 !important; }
+        </style>
+    </noscript>
 </head>
 
-
-
-
-
-
-
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="index.html" class="brand" aria-label="Slink360 — home">
+                <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                <span class="brand__name">Slink<span>360</span></span>
+            </a>
 
-
-    <!-- Header -->
-
-
-
-    <header class="header light-bg">
-
-        <div class="container header__container">
-
-            <div class="header__left">
-
-                <a href="index.html" class="header__logo-brand">
-
-                    <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="header__logo-img">
-
-                    <span class="brand-name">SLINK360</span>
-
-                </a>
-
-                <button class="menu-toggle-v2" aria-label="Toggle menu" aria-expanded="false">
-                    <span class="hamburger-line line-1"></span>
-                    <span class="hamburger-line line-2"></span>
-                    <span class="hamburger-line line-3"></span>
-                </button>
-
-            </div>
-
-            <nav class="header__nav-center">
-
-                <ul class="header__nav-list">
-
-                    <li class="header__nav-item"><a href="index.html" class="header__nav-link">HOME</a></li>
-
-                    <li class="header__nav-item"><a href="about.html" class="header__nav-link">ABOUT</a></li>
-
-                    <li class="header__nav-item"><a href="skill-selection.html" class="header__nav-link active">SKILLS</a></li>
-
-                    <li class="header__nav-item"><a href="contact.html" class="header__nav-link">CONTACT</a></li>
-
-                </ul>
-
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="nav__link">Home</a>
+                <a href="about.html" class="nav__link">About</a>
+                <a href="skill-selection.html" class="nav__link is-active" aria-current="page">Skills</a>
+                <a href="contact.html" class="nav__link">Contact</a>
             </nav>
+
+            <div class="header__actions">
+                <a href="contact.html" class="btn btn--outline btn--sm">Talk to us</a>
+                <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+                    <span class="nav-toggle__box">
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
+    <div class="nav-drawer" id="navDrawer">
+        <ul class="nav-drawer__list">
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="index.html"><span class="nav-drawer__num">01</span>Home</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="about.html"><span class="nav-drawer__num">02</span>About</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link is-active" href="skill-selection.html"><span class="nav-drawer__num">03</span>Skills</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="contact.html"><span class="nav-drawer__num">04</span>Contact</a></li>
+        </ul>
+        <div class="nav-drawer__footer">
+            <a href="contact.html" class="btn btn--outline btn--lg btn--block">Talk to us first</a>
+            <p>Free to join · Verified members · Response within 24 hours</p>
+        </div>
+    </div>
 
+    <main id="main" class="site-main">
 
+        <!-- ================= PAGE HERO ================= -->
+        <section class="page-hero">
+            <div class="container">
+                <div class="page-hero__inner">
+                    <nav class="breadcrumbs" aria-label="Breadcrumb">
+                        <a href="index.html">Home</a> <span>/</span> <span>Register</span>
+                    </nav>
 
+                    <div data-reveal="up"><span class="eyebrow">Registration</span></div>
 
+                    <h1 class="page-hero__title" data-reveal="up" data-reveal-delay="60">
+                        <span class="line-mask"><span>Tell us what you want</span></span>
+                        <span class="line-mask"><span class="serif accent">and what you can give.</span></span>
+                    </h1>
 
-
-
-
-    <!-- Skill Selection Section -->
-
-
-
-
-
-
-
-    <section class="skill-selection-section-v2">
-        <div class="container">
-            <div class="skill-selection-container-v2">
-                <div class="selection-header-v2" data-animate="fade-up">
-                    <div class="about-badge">REGISTRATION ENGINE</div>
-                    <h1 class="about-title">Join the <span class="text-gradient">expertise exchange.</span></h1>
-                    <p class="about-lead">Architect your growth pathway by providing the data points our matching engine needs to synchronize you with the ideal mentor.</p>
+                    <p class="lead" data-reveal="up" data-reveal-delay="200">
+                        Three minutes now, a shortlist within a day. Be specific about both sides of
+                        the trade — it's what makes the match work.
+                    </p>
                 </div>
+            </div>
+        </section>
 
-                <div class="registration-form-v2" id="registrationFormSection" data-animate="fade-up">
-                    <form id="skillRegistrationForm" novalidate>
-                        <div class="form-layout-grid-v2">
-                            <!-- Left: Personal info -->
-                            <div class="form-section-v2">
-                                <div class="section-title-v2">
-                                    <span class="step-indicator">01</span>
-                                    <h3>Personal Identity</h3>
+        <!-- ================= REGISTER ================= -->
+        <section class="section">
+            <div class="container">
+                <div class="register">
+
+                    <aside class="register__aside" data-reveal="right">
+                        <div>
+                            <span class="eyebrow">What happens next</span>
+                            <ul class="checklist mt-md">
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                                    <span>
+                                        <strong>We verify your details</strong>
+                                        A person checks your profile and the expertise you've claimed.
+                                    </span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                                    <span>
+                                        <strong>You get a shortlist</strong>
+                                        Usually within 24 hours, sent to the email address you give us.
+                                    </span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                                    <span>
+                                        <strong>You agree the terms</strong>
+                                        Session count, cadence, and what you'll each have to show at the end.
+                                    </span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                                    <span>
+                                        <strong>Not right? We re-pair you</strong>
+                                        Free of charge, at any point, no awkward conversation needed.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="status-card">
+                            <h3>Writing a good entry</h3>
+                            <p class="feature__text">
+                                "React state management" gets a better match than "coding". Name the
+                                specific thing you want to be able to do, and list every skill you'd be
+                                comfortable teaching — separated by commas.
+                            </p>
+                        </div>
+                    </aside>
+
+                    <div class="form-card" id="registrationFormSection" data-reveal="up" data-reveal-delay="100">
+                        <div class="form-card__head">
+                            <h2>Skill registration</h2>
+                            <p>Fields marked with an asterisk are required.</p>
+                        </div>
+
+                        <form id="skillRegistrationForm" novalidate>
+
+                            <!-- Step 1 -->
+                            <fieldset class="form-step">
+                                <div class="form-step__head">
+                                    <span class="form-step__badge">01</span>
+                                    <div>
+                                        <div class="form-step__title">About you</div>
+                                        <div class="form-step__desc">So we know who we're introducing.</div>
+                                    </div>
                                 </div>
-                                <div class="form-grid-inner-v2">
-                                    <div class="form-group-v2">
-                                        <label for="fullName">Full Name</label>
-                                        <input type="text" id="fullName" name="fullName" class="input-v2" placeholder="e.g. Hillary Tyler" required>
+
+                                <div class="form-grid form-grid--2">
+                                    <div class="field">
+                                        <label class="field__label" for="fullName">Full name <span class="req">*</span></label>
+                                        <input class="input" type="text" id="fullName" name="fullName" placeholder="e.g. Hillary Tyler" autocomplete="name" required>
                                     </div>
-                                    <div class="form-group-v2">
-                                        <label for="email">Email Address</label>
-                                        <input type="email" id="email" name="email" class="input-v2" placeholder="name@example.com" required>
+
+                                    <div class="field">
+                                        <label class="field__label" for="email">Email address <span class="req">*</span></label>
+                                        <input class="input" type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required>
                                     </div>
-                                    <div class="form-group-v2">
-                                        <label for="age">Age</label>
-                                        <input type="number" id="age" name="age" class="input-v2" min="13" max="100" placeholder="e.g. 25" required>
+
+                                    <div class="field">
+                                        <label class="field__label" for="age">Age <span class="req">*</span></label>
+                                        <input class="input" type="number" id="age" name="age" min="13" max="100" placeholder="e.g. 25" required>
                                     </div>
-                                    <div class="form-group-v2">
-                                        <label for="gender">Gender</label>
-                                        <select id="gender" name="gender" class="input-v2" required>
+
+                                    <div class="field">
+                                        <label class="field__label" for="gender">Gender <span class="req">*</span></label>
+                                        <select class="select" id="gender" name="gender" required>
                                             <option value="" disabled selected>Select</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
-                                    <div class="form-group-v2 full-width">
-                                        <label for="location">State of Residence</label>
-                                        <select id="location" name="location" class="input-v2" required>
+
+                                    <div class="field field--full">
+                                        <label class="field__label" for="location">State of residence <span class="req">*</span></label>
+                                        <select class="select" id="location" name="location" required>
                                             <option value="" disabled selected>Where are you based?</option>
                                             <option value="Abia">Abia</option>
                                             <option value="Adamawa">Adamawa</option>
@@ -217,277 +237,171 @@
                                             <option value="Zamfara">Zamfara</option>
                                         </select>
                                     </div>
-                                    <div class="form-group-v2 full-width">
-                                        <label for="countryCode">Mobile Number</label>
-                                        <div class="phone-input-group-v2">
-                                            <select id="countryCode" name="countryCode" class="input-v2 country-select-v2" required>
+
+                                    <div class="field field--full">
+                                        <label class="field__label" for="mobileNumber">Mobile number <span class="req">*</span></label>
+                                        <div class="input-group">
+                                            <select class="select" id="countryCode" name="countryCode" aria-label="Country dialling code" required>
                                                 <option value="+234">🇳🇬 +234</option>
                                                 <option value="+1">🇺🇸 +1</option>
                                                 <option value="+44">🇬🇧 +44</option>
                                                 <option value="+233">🇬🇭 +233</option>
                                                 <option value="+254">🇰🇪 +254</option>
                                             </select>
-                                            <input type="tel" id="mobileNumber" name="mobileNumber" class="input-v2" placeholder="e.g. 812 345 6789" pattern="[0-9]{10,15}" required>
+                                            <input class="input" type="tel" id="mobileNumber" name="mobileNumber" placeholder="812 345 6789" pattern="[0-9 ]{7,20}" autocomplete="tel-national" required>
                                         </div>
+                                        <span class="field__hint">We use this only to reach you about your match.</span>
                                     </div>
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <!-- Right: Skill info -->
-                            <div class="form-section-v2">
-                                <div class="section-title-v2">
-                                    <span class="step-indicator">02</span>
-                                    <h3>Exchange Parameters</h3>
-                                </div>
-                                <div class="form-grid-inner-v2">
-                                    <div class="form-group-v2 full-width">
-                                        <label for="learnSkillsInput">Skill you want to LEARN</label>
-                                        <input type="text" id="learnSkillsInput" name="learnSkillsInput" class="input-v2" placeholder="e.g. UX Design, Python" required>
-                                        <small class="form-hint-v2">Identify the core competency you wish to acquire.</small>
-                                    </div>
-
-                                    <div class="form-group-v2 full-width">
-                                        <label for="teachSkillsInput">Skill(s) you can TEACH</label>
-                                        <input type="text" id="teachSkillsInput" name="teachSkillsInput" class="input-v2" placeholder="e.g. JavaScript, Photography (separate with commas)" required>
-                                        <small class="form-hint-v2">Catalog your expertise for the reciprocal exchange.</small>
-                                    </div>
-
-                                    <div class="submit-area-v2">
-                                        <button type="submit" class="btn btn--primary btn--large btn--full">Register My Skill</button>
-                                        <div class="security-lock-v2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                                            <span>Encryption: AES-256 Enabled</span>
-                                        </div>
+                            <!-- Step 2 -->
+                            <fieldset class="form-step">
+                                <div class="form-step__head">
+                                    <span class="form-step__badge">02</span>
+                                    <div>
+                                        <div class="form-step__title">The trade</div>
+                                        <div class="form-step__desc">One skill in, one or more skills out.</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
 
-                <div class="registration-instructions-v2">
-                    <div class="section-header-centered" data-animate="fade-up">
-                        <div class="about-badge">NEXT STEPS</div>
-                        <h2 class="about-title">Post-submission <span class="text-gradient">workflow.</span></h2>
-                    </div>
-                    
-                    <div class="steps-grid-v2">
-                        <div class="step-card-v2" data-animate="fade-up">
-                            <div class="step-num-v2">01</div>
-                            <div class="step-body-v2">
-                                <h4>Data Validation</h4>
-                                <p>Our concierge team performs high-signal verification on your skill profile.</p>
+                                <div class="form-grid">
+                                    <div class="field">
+                                        <label class="field__label" for="learnSkillsInput">Skill you want to learn <span class="req">*</span></label>
+                                        <input class="input" type="text" id="learnSkillsInput" name="learnSkillsInput" placeholder="e.g. UX research, Python, food photography" required>
+                                        <span class="field__hint">Name the specific thing you want to be able to do.</span>
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="field__label" for="teachSkillsInput">Skills you can teach <span class="req">*</span></label>
+                                        <input class="input" type="text" id="teachSkillsInput" name="teachSkillsInput" placeholder="e.g. JavaScript, photography, bookkeeping" required>
+                                        <span class="field__hint">Separate multiple skills with commas.</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="submit-bar">
+                                <button type="submit" class="btn btn--primary btn--lg btn--block">Submit registration</button>
+                                <span class="trust-note">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    Sent over an encrypted connection. We never sell your data.
+                                </span>
                             </div>
-                        </div>
-                        <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.1">
-                            <div class="step-num-v2">02</div>
-                            <div class="step-body-v2">
-                                <h4>Sync Protocol</h4>
-                                <p>Onboarding instructions and access tokens are dispatched to your inbox.</p>
-                            </div>
-                        </div>
-                        <div class="step-card-v2" data-animate="fade-up" data-animate-delay="0.2">
-                            <div class="step-num-v2">03</div>
-                            <div class="step-body-v2">
-                                <h4>Deployment</h4>
-                                <p>Complete enrollment and initialize your first mentorship synchronization.</p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- ================= REASSURANCE ================= -->
+        <section class="section section--alt section--hairline">
+            <div class="container">
+                <div class="section-head section-head--center" data-reveal="up">
+                    <span class="eyebrow">After you submit</span>
+                    <h2 class="h2">Here's exactly what we do with it.</h2>
+                </div>
 
+                <div class="grid grid--3" data-stagger="90">
+                    <article class="card" data-reveal="up">
+                        <div class="feature">
+                            <span class="card__index">01</span>
+                            <h3 class="feature__title">We read it</h3>
+                            <p class="feature__text">
+                                A member of the concierge team reads your entry in full and checks the
+                                expertise you've listed against your references.
+                            </p>
+                        </div>
+                    </article>
 
+                    <article class="card" data-reveal="up">
+                        <div class="feature">
+                            <span class="card__index">02</span>
+                            <h3 class="feature__title">We shortlist</h3>
+                            <p class="feature__text">
+                                We look for members whose teaching skill answers your goal and whose
+                                learning goal you can answer. You'll get names, not a database dump.
+                            </p>
+                        </div>
+                    </article>
 
+                    <article class="card" data-reveal="up">
+                        <div class="feature">
+                            <span class="card__index">03</span>
+                            <h3 class="feature__title">We introduce</h3>
+                            <p class="feature__text">
+                                Once you pick, we make the introduction and help you set the terms.
+                                From there the sessions are yours to run.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
+    </main>
 
-
-
-
-
-
-
-
-
-
-    <!-- Modal removed - redirection handled directly in JavaScript -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Footer -->
-
-
-
-
-
-
-
-    <footer class="footer">
-
+    <footer class="site-footer">
         <div class="container">
-
             <div class="footer__grid">
-
-                <div class="footer__brand-block">
-
-                    <div class="footer__logo-wrapper">
-
-                        <img src="assets/img/logos/slink.png" alt="Slink360 Logo" class="footer__logo">
-
-                        <span class="footer__logo-text">Slink360</span>
-
-                    </div>
-
-                    <p class="footer__tagline">Empowering professionals through high-impact, reciprocal mentorship and skill exchange.</p>
-
+                <div class="footer__brand">
+                    <a href="index.html" class="brand" aria-label="Slink360 — home">
+                        <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                        <span class="brand__name">Slink<span>360</span></span>
+                    </a>
+                    <p class="footer__tagline">
+                        A skill exchange by Radius Technology. Everyone here has something to learn
+                        and something worth teaching.
+                    </p>
                     <div class="footer__social">
-
-                        <a href="https://www.linkedin.com" aria-label="LinkedIn" class="social-link">in</a>
-
-                        <a href="https://twitter.com" aria-label="Twitter" class="social-link">X</a>
-
-                        <a href="https://www.instagram.com" aria-label="Instagram" class="social-link">IG</a>
-
+                        <a href="https://www.linkedin.com" aria-label="Slink360 on LinkedIn" rel="noopener">in</a>
+                        <a href="https://twitter.com" aria-label="Slink360 on X" rel="noopener">X</a>
+                        <a href="https://www.instagram.com" aria-label="Slink360 on Instagram" rel="noopener">IG</a>
                     </div>
-
                 </div>
 
-                <div class="footer__nav-group">
-
-                    <div class="footer__column">
-
+                <div class="footer__columns">
+                    <div>
                         <span class="footer__heading">Platform</span>
-
                         <ul class="footer__list">
-
                             <li><a href="index.html">Home</a></li>
-
-                            <li><a href="skill-selection.html">Browse Skills</a></li>
-
-                            <li><a href="mentor-selection.html">Find Mentors</a></li>
-
+                            <li><a href="skill-selection.html">Register a skill</a></li>
+                            <li><a href="index.html#how-it-works">How it works</a></li>
                         </ul>
-
                     </div>
-
-                    <div class="footer__column">
-
+                    <div>
                         <span class="footer__heading">Company</span>
-
                         <ul class="footer__list">
-
-                            <li><a href="about.html">About Slink360</a></li>
-
-                            <li><a href="contact.html">Contact Us</a></li>
-
-                            <li><a href="mailto:skillbank0@gmail.com">Support Desk</a></li>
-
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="mailto:skillbank0@gmail.com">Support desk</a></li>
                         </ul>
-
                     </div>
-
-                    <div class="footer__column">
-
+                    <div>
                         <span class="footer__heading">Legal</span>
-
                         <ul class="footer__list">
-
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-
-                            <li><a href="terms-of-service.html">Terms of Service</a></li>
-
-                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
-
+                            <li><a href="privacy-policy.html">Privacy policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of service</a></li>
+                            <li><a href="cookie-policy.html">Cookie policy</a></li>
                         </ul>
-
                     </div>
-
                 </div>
-
             </div>
 
             <div class="footer__bottom">
-
-                <p class="footer__copyright">&copy; 2025 Slink360. All rights reserved.</p>
-
-                <div class="footer__legal-links">
-
-                    <a href="mailto:skillbank0@gmail.com" class="footer__contact-link">skillbank0@gmail.com</a>
-
-                    <a href="tel:+2348128204201" class="footer__contact-link">+234 812 820 4201</a>
-
+                <p>&copy; <span data-year>2026</span> Slink360 · Radius Technology. All rights reserved.</p>
+                <div class="footer__meta">
+                    <a href="mailto:skillbank0@gmail.com">skillbank0@gmail.com</a>
+                    <a href="tel:+2348128204201">+234 812 820 4201</a>
+                    <span>Lagos, Nigeria</span>
                 </div>
-
             </div>
-
         </div>
-
     </footer>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script type="module" src="js/firebase-init.js"></script>
-
-
-
-
-
-
-
-    <script src="js/app.js?v=1.0.1"></script>
-
-
-
-
-
-
-
-    <script type="module" src="js/skill-selection.js?v=1.0.1"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Update class names for JS logic to match V2 HTML
-            const form = document.getElementById('skillRegistrationForm');
-            if (form) {
-                // Ensure the JS still finds the right elements even with new class names
-                // The IDs remain the same, so most logic should work.
-                // We just need to make sure any class-based selectors in JS are handled.
-            }
-        });
-    </script>
+    <script src="js/core.js?v=3.0.0" defer></script>
+    <script src="js/motion.js?v=3.0.0" defer></script>
+    <script type="module" src="js/firebase-init.js?v=3.0.0"></script>
+    <script type="module" src="js/skill-selection.js?v=3.0.0"></script>
 </body>
-
-
-
-
-
-
 
 </html>
