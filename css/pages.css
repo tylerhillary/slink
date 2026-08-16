@@ -544,8 +544,18 @@
 
 .page-hero__facts { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin-top: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem); }
 .page-hero__fact { display: flex; flex-direction: column; gap: 0.1rem; }
-.page-hero__fact strong { font-size: var(--step-2); font-weight: 600; letter-spacing: -0.025em; color: var(--text); }
-.page-hero__fact span { font-size: var(--step--2); color: var(--text-3); }
+
+.page-hero__fact strong {
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Direct child only — the value itself wraps a counter <span>, which must
+   keep the heading size rather than shrink to the label size. */
+.page-hero__fact > span { font-size: var(--step--2); color: var(--text-3); }
 
 /* ==========================================================================
    ABOUT
