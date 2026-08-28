@@ -43,6 +43,10 @@ const config = {
   // --- Brand / contact -------------------------------------------------
   brandName: 'Slink360',
   parentBrand: 'Radius Technology',
+  // Slink360 is a Radius Technology product, and the emails say so. Set this
+  // to the Radius site and every mention becomes a link; leave it empty and
+  // the same mentions render as plain text.
+  parentBrandUrl: readString('SLINK_PARENT_URL', slinkLegacy.parent_url, 'https://radiustechnology.vercel.app'),
   siteUrl: readString('SLINK_SITE_URL', slinkLegacy.site_url, 'https://slink-beta.vercel.app'),
   adminEmail: readString('SLINK_ADMIN_EMAIL', slinkLegacy.admin_email, 'skillbank0@gmail.com'),
   adminPhone: readString('SLINK_ADMIN_PHONE', slinkLegacy.admin_phone, '+234 812 820 4201'),
@@ -59,7 +63,7 @@ const config = {
   smtpPass: readString('SMTP_PASS', mailLegacy.smtp_pass, ''),
 
   fromEmail: readString('SLINK_MAIL_FROM_EMAIL', mailLegacy.from_email, 'skillbank0@gmail.com'),
-  fromName: readString('SLINK_MAIL_FROM_NAME', mailLegacy.from_name, 'Slink360'),
+  fromName: readString('SLINK_MAIL_FROM_NAME', mailLegacy.from_name, 'Slink360 (Radius Technology)'),
   replyToEmail: readString('SLINK_MAIL_REPLY_TO', mailLegacy.reply_to, ''),
 
   // --- Matching behaviour ----------------------------------------------

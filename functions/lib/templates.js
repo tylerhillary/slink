@@ -42,6 +42,16 @@ function opensSentence(value) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+/**
+ * "Radius Technology", linked to the parent site when one is configured.
+ * Slink360 is their product, and every email says so plainly.
+ */
+function parentBrand({ color, bold } = {}) {
+  const label = bold ? `<strong>${escapeHtml(config.parentBrand)}</strong>` : escapeHtml(config.parentBrand);
+  if (!config.parentBrandUrl) return label;
+  return `<a href="${escapeHtml(config.parentBrandUrl)}" style="color:${color || NAVY};text-decoration:none;">${label}</a>`;
+}
+
 /** Wraps body HTML in the branded email shell. */
 function shell({ preheader, heading, eyebrow, body }) {
   return `<!DOCTYPE html>
@@ -59,7 +69,7 @@ function shell({ preheader, heading, eyebrow, body }) {
 
   <tr><td style="background:${NAVY};padding:22px 32px;">
     <span style="color:#ffffff;font-size:19px;font-weight:700;letter-spacing:-0.02em;">Slink<span style="color:#aab4f0;">360</span></span>
-    <span style="color:rgba(255,255,255,0.6);font-size:11px;float:right;padding-top:7px;">A ${escapeHtml(config.parentBrand)} platform</span>
+    <span style="color:rgba(255,255,255,0.78);font-size:11px;float:right;padding-top:7px;">A ${parentBrand({ color: '#ffffff' })} platform</span>
   </td></tr>
 
   <tr><td style="padding:34px 32px 8px 32px;">
@@ -72,8 +82,9 @@ function shell({ preheader, heading, eyebrow, body }) {
   </td></tr>
 
   <tr><td style="background:${PAPER_ALT};border-top:1px solid ${LINE};padding:22px 32px;color:${MUTED};font-size:12px;line-height:1.65;">
-    <p style="margin:0 0 8px;color:${INK};font-weight:600;font-size:13px;">Slink360 &middot; ${escapeHtml(config.parentBrand)}</p>
-    <p style="margin:0 0 10px;">Everyone here has something to learn and something worth teaching.</p>
+    <p style="margin:0 0 8px;color:${INK};font-weight:600;font-size:13px;">Slink360</p>
+    <p style="margin:0 0 10px;">A skill exchange built and operated by ${parentBrand({ bold: true })}.
+      Everyone here has something to learn and something worth teaching.</p>
     <p style="margin:0;">
       <a href="mailto:${escapeHtml(config.supportEmail)}" style="color:${NAVY};text-decoration:none;">${escapeHtml(config.supportEmail)}</a>
       &nbsp;&middot;&nbsp; ${escapeHtml(config.adminPhone)}
