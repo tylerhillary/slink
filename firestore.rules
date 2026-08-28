@@ -75,7 +75,8 @@ service cloud.firestore {
           'teachSkills',
           'teachSkillsIndex',
           'teacherNotification',
-          'intent'
+          'intent',
+          'selectedSkillIndex'
         ]) &&
         data.keys().hasAll([
           'fullName',
@@ -106,6 +107,7 @@ service cloud.firestore {
         isOptionalNonEmptyString(data.contactPhone) &&
         isNonEmptyStringList(data.teachSkills) &&
         isOptionalStringList(data.teachSkillsIndex) &&
+        isOptionalNonEmptyString(data.selectedSkillIndex) &&
         data.intent in ['learn', 'teach', 'both'] &&
         hasValidPhoneDetails(data.phoneDetails) &&
         hasValidTeacherNotification(data.teacherNotification);
@@ -121,6 +123,19 @@ service cloud.firestore {
 
     match /mailQueue/{mailId} {
       allow create, read, update, delete: if true;
+    }
+
+    // Match records hold both parties' contact details. They are written only
+    // by Cloud Functions (the Admin SDK bypasses these rules), so every client
+    // path is closed. Do not open these up: the introduction emails are the
+    // delivery mechanism, not the browser.
+    match /matches/{matchId} {
+      allow read, write: if false;
+    }
+
+    // Idempotency locks and delivery receipts for outbound email. Server only.
+    match /emailLog/{logId} {
+      allow read, write: if false;
     }
 
     function isValidSkillCreate() {

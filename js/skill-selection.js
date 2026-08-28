@@ -1737,6 +1737,7 @@ document.addEventListener('DOMContentLoaded', function() {
             rawInput: mobileNumberInput,
           },
           selectedSkill: skillForSubmission,
+          selectedSkillIndex: skillForSubmission.trim().toLowerCase(),
           teachSkills,
           teachSkillsIndex,
           intent: 'learn',
@@ -1812,7 +1813,7 @@ document.addEventListener('DOMContentLoaded', function() {
           })
         );
 
-        showSuccess(`Success! Your registration for "${skillForSubmission}" has been submitted to our database. Our admin team will review it and contact you soon.`);
+        showSuccess(`Success! Your registration for "${skillForSubmission}" is in. A confirmation email is on its way to ${email} — we’ll introduce you to your match as soon as we find one, usually within 24 hours.`);
         form.reset();
 
         const selectedSkillField = document.getElementById('selectedSkillField');
