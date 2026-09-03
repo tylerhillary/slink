@@ -662,6 +662,121 @@
 .form-footer p { font-size: var(--step--2); color: var(--text-3); max-width: 34ch; }
 .form-footer a { color: var(--navy); text-decoration: underline; text-underline-offset: 2px; }
 
+/* Direct channels — the contact page leads with email, telephone and WhatsApp. */
+.contact-head { margin-bottom: var(--space-lg); }
+
+.contact-head__note {
+  max-width: 52ch;
+  margin-top: var(--space-sm);
+  font-size: var(--step--1);
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.channel-list { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.channel-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(0.9rem, 0.75rem + 0.6vw, 1.25rem);
+  padding: clamp(1.15rem, 1rem + 0.9vw, 1.65rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.channel-card:hover,
+.channel-card:focus-visible {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.channel-card:hover .channel-card__icon,
+.channel-card:focus-visible .channel-card__icon { border-color: var(--navy); background: var(--navy-tint); }
+
+.channel-card:hover .channel-card__go,
+.channel-card:focus-visible .channel-card__go {
+  border-color: var(--navy);
+  background: var(--navy-tint);
+  color: var(--navy);
+  translate: 3px 0;
+}
+
+.channel-card__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--paper-alt);
+  color: var(--navy);
+  transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+}
+
+.channel-card__icon svg { width: 1.2rem; height: 1.2rem; }
+
+.channel-card__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.channel-card__value {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.channel-card__text {
+  display: block;
+  max-width: 62ch;
+  margin-top: 0.5rem;
+  font-size: var(--step--1);
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.channel-card__meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; }
+
+.channel-card__go {
+  display: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+  transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), translate var(--dur) var(--ease-out);
+}
+
+.channel-card__go svg { width: 1rem; height: 1rem; }
+
+@media (min-width: 560px) {
+  .channel-card { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+  .channel-card__value { font-size: var(--step-2); }
+  .channel-card__go { display: grid; }
+}
+
+.contact-note { margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--line); }
+.contact-note h3 { font-size: var(--step-1); margin-bottom: var(--space-sm); }
+
+.aside-cta h3 { font-size: var(--step-1); margin-bottom: 0.4rem; }
+.aside-cta p { font-size: var(--step--1); color: var(--text-2); line-height: 1.7; margin-bottom: 0.9rem; }
+
 .contact-aside { display: flex; flex-direction: column; gap: var(--space-md); }
 
 .channel {
