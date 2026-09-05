@@ -1,9 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-import {
-  getAnalytics,
-  isSupported as isAnalyticsSupported,
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHIWxAFZz9gBEJ12XXF6QK53sY5BEfrVs",
@@ -18,6 +14,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-export const analyticsReady = isAnalyticsSupported()
-  .then((supported) => (supported ? getAnalytics(app) : null))
-  .catch(() => null);
+// Analytics is deliberately not initialised here. Firebase Analytics sets
+// cookies the moment it loads, which would break the promise made in the
+// cookie policy. It is loaded by js/consent.js instead, and only after the
+// visitor has actually agreed.

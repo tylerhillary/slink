@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Registration received — Slink360</title>
+    <meta name="description" content="Your Slink360 registration is in. Here is your reference, what happens next, and how to reach the desk if something needs changing.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://slink-beta.vercel.app/registration-received.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <link rel="stylesheet" href="css/slink.css?v=3.0.2">
+    <link rel="stylesheet" href="css/pages.css?v=3.0.2">
+    <link rel="icon" type="image/png" href="assets/img/logos/slink.png">
+
+    <noscript>
+        <style>
+            [data-reveal] { opacity: 1 !important; translate: none !important; scale: 1 !important; clip-path: none !important; }
+            .line-mask > span { translate: none !important; }
+            .rule-draw { scale: 1 1 !important; }
+        </style>
+    </noscript>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="index.html" class="brand" aria-label="Slink360 — home">
+                <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                <span class="brand__name">Slink<span>360</span></span>
+            </a>
+
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="nav__link">Home</a>
+                <a href="about.html" class="nav__link">About</a>
+                <a href="skill-selection.html" class="nav__link">Skills</a>
+                <a href="contact.html" class="nav__link">Contact</a>
+            </nav>
+
+            <div class="header__actions">
+                <a href="contact.html" class="btn btn--primary btn--sm">Talk to us</a>
+                <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+                    <span class="nav-toggle__box">
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                        <span class="nav-toggle__bar"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-drawer" id="navDrawer">
+        <ul class="nav-drawer__list">
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="index.html"><span class="nav-drawer__num">01</span>Home</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="about.html"><span class="nav-drawer__num">02</span>About</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="skill-selection.html"><span class="nav-drawer__num">03</span>Skills</a></li>
+            <li class="nav-drawer__item"><a class="nav-drawer__link" href="contact.html"><span class="nav-drawer__num">04</span>Contact</a></li>
+        </ul>
+        <div class="nav-drawer__footer">
+            <a href="contact.html" class="btn btn--primary btn--lg btn--block">Talk to us</a>
+            <p>Free to join · Verified members · Response within 24 hours</p>
+        </div>
+    </div>
+
+    <main id="main" class="site-main">
+
+        <section class="section">
+            <div class="container">
+
+                <div class="section-head" data-reveal="up">
+                    <span class="eyebrow">Registration received</span>
+                    <h1 class="h2 mt-sm">That's in. A person takes it from here.</h1>
+                    <p class="lead mt-md">
+                        Your entry is now in the queue and a member of the concierge desk will read it
+                        in full — not an algorithm. Keep the reference below; it's the fastest way for
+                        us to find you if you call or write.
+                    </p>
+                </div>
+
+                <div class="receipt" data-reveal="up" data-reveal-delay="80">
+                    <div class="receipt__row">
+                        <span class="receipt__label">Your reference</span>
+                        <span class="receipt__value" id="registrationReference">—</span>
+                    </div>
+                    <div class="receipt__row" id="registrationEmailRow" hidden>
+                        <span class="receipt__label">Confirmation sent to</span>
+                        <span class="receipt__value receipt__value--plain" id="registrationEmail">—</span>
+                    </div>
+                    <div class="receipt__row" id="registrationSkillRow" hidden>
+                        <span class="receipt__label">Skill you want to learn</span>
+                        <span class="receipt__value receipt__value--plain" id="registrationSkill">—</span>
+                    </div>
+                </div>
+
+                <div class="next-steps" data-reveal="up" data-reveal-delay="140">
+                    <ol class="process__list">
+                        <li class="process__step">
+                            <span class="process__num">01</span>
+                            <div>
+                                <h2 class="process__title">A confirmation email</h2>
+                                <p class="process__text">
+                                    It should arrive within a few minutes. If it hasn't after an hour,
+                                    check your spam folder — then tell us, because it usually means we
+                                    have the address slightly wrong.
+                                </p>
+                                <span class="process__meta">Within minutes</span>
+                            </div>
+                        </li>
+                        <li class="process__step">
+                            <span class="process__num">02</span>
+                            <div>
+                                <h2 class="process__title">We verify and shortlist</h2>
+                                <p class="process__text">
+                                    We check the expertise you listed, then hand-pick members whose
+                                    teaching skill answers your goal and whose learning goal you can answer.
+                                </p>
+                                <span class="process__meta">Usually within 24 hours</span>
+                            </div>
+                        </li>
+                        <li class="process__step">
+                            <span class="process__num">03</span>
+                            <div>
+                                <h2 class="process__title">An introduction</h2>
+                                <p class="process__text">
+                                    Once you pick, we introduce the two of you by email and help you agree
+                                    the session count, the cadence and what you'll each have to show at the end.
+                                </p>
+                                <span class="process__meta">After you choose</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="notice" data-reveal="up" data-reveal-delay="180">
+                    <h2 class="h3">Something wrong with what you sent?</h2>
+                    <p class="mt-sm">
+                        A typo in your email address is the one mistake that stops everything, because
+                        the shortlist has nowhere to go. Write or call the desk with your reference and
+                        we'll correct it — you don't need to register again.
+                    </p>
+                    <div class="notice__actions mt-md">
+                        <a href="mailto:skillbank0@gmail.com?subject=Registration%20correction" class="btn btn--primary">Email the desk</a>
+                        <a href="tel:+2348128204201" class="btn btn--outline">+234 812 820 4201</a>
+                    </div>
+                    <p class="mt-md" style="font-size: var(--step--1); color: var(--text-3);">
+                        You can also ask us to delete your registration at any time, and we will.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a href="index.html" class="brand" aria-label="Slink360 — home">
+                        <img src="assets/img/logos/slink.png" alt="" class="brand__mark" width="34" height="34">
+                        <span class="brand__name">Slink<span>360</span></span>
+                    </a>
+                    <p class="footer__tagline">
+                        A skill exchange by Radius Technology. Everyone here has something to learn
+                        and something worth teaching.
+                    </p>
+                </div>
+
+                <div class="footer__columns">
+                    <div>
+                        <span class="footer__heading">Platform</span>
+                        <ul class="footer__list">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="skill-selection.html">Register a skill</a></li>
+                            <li><a href="index.html#how-it-works">How it works</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="footer__heading">Company</span>
+                        <ul class="footer__list">
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="mailto:skillbank0@gmail.com">Support desk</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="footer__heading">Legal</span>
+                        <ul class="footer__list">
+                            <li><a href="privacy-policy.html">Privacy policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of service</a></li>
+                            <li><a href="cookie-policy.html">Cookie policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; <span data-year>2026</span> Slink360 · Radius Technology. All rights reserved.</p>
+                <div class="footer__meta">
+                    <a href="mailto:skillbank0@gmail.com">skillbank0@gmail.com</a>
+                    <a href="tel:+2348128204201">+234 812 820 4201</a>
+                    <span>Port Harcourt, Nigeria</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/core.js?v=3.0.2" defer></script>
+    <script src="js/motion.js?v=3.0.2" defer></script>
+    <script src="js/registration-received.js?v=3.0.2" defer></script>
+    <script src="js/consent.js?v=3.0.2" defer></script>
+</body>
+
+</html>

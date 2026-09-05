@@ -1,0 +1,12 @@
+# Slink360 — https://slink-beta.vercel.app
+# A skill exchange operated by Radius Technology.
+
+User-agent: *
+Allow: /
+
+# Working files and transactional pages that should never appear in search.
+Disallow: /archive/
+Disallow: /registration-received.html
+Disallow: /payment.html
+
+Sitemap: https://slink-beta.vercel.app/sitemap.xml

@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "slink360",
+      "name": "slink-static",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5510"],
-      "port": 5510
+      "runtimeArgs": ["-m", "http.server", "8123"],
+      "port": 8123
     }
   ]
 }

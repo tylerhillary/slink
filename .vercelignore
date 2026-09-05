@@ -1,0 +1,9 @@
+# Design experiments and dead test pages — kept in git, never deployed.
+archive/
+
+# Firebase Cloud Functions deploy to Firebase, not to Vercel.
+functions/
+firebase.json
+firestore.rules
+firestore.indexes.json
+.firebaserc

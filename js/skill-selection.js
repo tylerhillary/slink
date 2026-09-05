@@ -6,6 +6,25 @@ let skillSearchQuery = '';
 
 const SUGGESTED_TUTOR_LIMIT = 5;
 
+// Bump this whenever the wording of the consent checkbox, or the privacy
+// policy it points at, changes - so older records stay attributable.
+const CONSENT_VERSION = '2026-09-05';
+
+// A short, human-quotable reference the member can give the desk on the phone.
+function buildRegistrationReference() {
+  const now = new Date();
+  const stamp = `${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const entropy = (window.crypto && window.crypto.getRandomValues)
+    ? window.crypto.getRandomValues(new Uint32Array(4))
+    : Array.from({ length: 4 }, () => Math.floor(Math.random() * 0xffffffff));
+  let suffix = '';
+  for (let i = 0; i < 4; i += 1) {
+    suffix += alphabet[entropy[i] % alphabet.length];
+  }
+  return `SL-${stamp}-${suffix}`;
+}
+
 const suggestedMatchesState = {
   learner: {
     fullName: '',
@@ -97,8 +116,8 @@ async function getFirestoreContext() {
           orderBy,
           limit,
           registrationsCollection: collection(db, 'registrations'),
+          directoryCollection: collection(db, 'directory'),
           skillsCollection: collection(db, 'skills'),
-          teachersCollection: collection(db, 'teachers'),
         };
       } catch (error) {
         console.error('Failed to load Firestore dependencies for skill registration.', error);
@@ -952,27 +971,21 @@ function createSuggestedMatchCard(match) {
     : 'Skill details pending';
 
   const lines = [
-    `<p class="suggested-match-card__line"><strong>Skills:</strong> ${escapeHtml(skills)}</p>`,
+    `<p class="suggested-match-card__line"><strong>Can teach:</strong> ${escapeHtml(skills)}</p>`,
   ];
 
-  if (match.availability) {
-    lines.push(`<p class="suggested-match-card__line"><strong>Availability:</strong> ${escapeHtml(match.availability)}</p>`);
+  if (match.wants) {
+    lines.push(`<p class="suggested-match-card__line"><strong>Wants to learn:</strong> ${escapeHtml(match.wants)}</p>`);
   }
-  if (match.email) {
-    const safeEmail = escapeHtml(match.email);
-    lines.push(`<p class="suggested-match-card__line"><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>`);
-  }
-  if (match.phone) {
-    const safePhone = escapeHtml(match.phone);
-    lines.push(`<p class="suggested-match-card__line"><strong>Phone:</strong> <a href="tel:${safePhone}">${safePhone}</a></p>`);
-  }
-  if (match.notes) {
-    lines.push(`<p class="suggested-match-card__notes">${escapeHtml(match.notes)}</p>`);
-  }
+
+  // Deliberately no name, email or phone number. Members are introduced to
+  // each other by the concierge desk once both sides agree - the browser
+  // never holds another member's contact details.
+  lines.push('<p class="suggested-match-card__notes">We make the introduction by email once you both agree. Contact details are never shown here.</p>');
 
   card.innerHTML = `
     <header class="suggested-match-card__header">
-      <h3>${escapeHtml(match.name || 'Tutor')}</h3>
+      <h3>Member on the exchange</h3>
       ${match.location ? `<span class="suggested-match-card__location">${escapeHtml(match.location)}</span>` : ''}
     </header>
     <div class="suggested-match-card__content">
@@ -1067,163 +1080,62 @@ async function fetchTutorMatches(skill, location) {
     return [];
   }
 
+  const skillKey = normalizedSkill.toLowerCase();
+
   try {
     const {
-      registrationsCollection,
-      teachersCollection,
+      directoryCollection,
       getDocs,
       query,
       where,
       limit,
     } = await getFirestoreContext();
 
-    if (!registrationsCollection || !getDocs || !query || !where) {
+    if (!directoryCollection || !getDocs || !query || !where) {
       return [];
     }
 
-    const seen = new Set();
-    const matches = [];
-
-    const addMatch = (match) => {
-      if (!match) {
-        return;
+    // The public directory is the only member collection the browser may
+    // read. It carries skills, state and join date - never a name, an email
+    // or a phone number. Introductions are made by the desk, over email.
+    const buildQuery = (withSkill) => {
+      const clauses = [where('location', '==', location)];
+      if (withSkill) {
+        clauses.push(where('teachSkillsIndex', 'array-contains', skillKey));
       }
-      const dedupeKey = (match.email || match.phone || match.id || '').toLowerCase();
-      if (dedupeKey && seen.has(dedupeKey)) {
-        return;
-      }
-      if (dedupeKey) {
-        seen.add(dedupeKey);
-      }
-      matches.push(match);
+      return limit
+        ? query(directoryCollection, ...clauses, limit(SUGGESTED_TUTOR_LIMIT * 2))
+        : query(directoryCollection, ...clauses);
     };
 
-    const registrationQuery = limit
-      ? query(
-          registrationsCollection,
-          where('location', '==', location),
-          where('teachSkills', 'array-contains', normalizedSkill),
-          limit(SUGGESTED_TUTOR_LIMIT * 2),
-        )
-      : query(
-          registrationsCollection,
-          where('location', '==', location),
-          where('teachSkills', 'array-contains', normalizedSkill),
-        );
-
-    let registrationSnapshot;
+    let snapshot;
     try {
-      registrationSnapshot = await getDocs(registrationQuery);
+      snapshot = await getDocs(buildQuery(true));
     } catch (error) {
       const missingIndex = error?.code === 'failed-precondition' || /index/.test(error?.message || '');
       if (!missingIndex) {
         throw error;
       }
-
-      const fallbackQuery = limit
-        ? query(
-            registrationsCollection,
-            where('location', '==', location),
-            limit(SUGGESTED_TUTOR_LIMIT * 3),
-          )
-        : query(
-            registrationsCollection,
-            where('location', '==', location),
-          );
-      registrationSnapshot = await getDocs(fallbackQuery);
+      snapshot = await getDocs(buildQuery(false));
     }
 
-    registrationSnapshot.forEach((doc) => {
+    const matches = [];
+    snapshot.forEach((doc) => {
       if (matches.length >= SUGGESTED_TUTOR_LIMIT) {
         return;
       }
       const data = doc.data() || {};
-      if (data.intent && data.intent !== 'teach') {
+      const offeredIndex = Array.isArray(data.teachSkillsIndex) ? data.teachSkillsIndex : [];
+      if (!offeredIndex.includes(skillKey)) {
         return;
       }
-      const skillsOffered = Array.isArray(data.teachSkills) ? data.teachSkills : [];
-      if (!skillsOffered.includes(normalizedSkill)) {
-        return;
-      }
-      addMatch({
+      matches.push({
         id: doc.id,
-        name: data.fullName || data.name || 'Tutor',
-        email: data.email || data.contactEmail || '',
-        phone: data.phone || data.contactPhone || '',
-        availability: data.availability || data.preferredSchedule || '',
+        skills: Array.isArray(data.teachSkills) ? data.teachSkills : [],
+        wants: data.learnSkill || '',
         location: data.location || '',
-        skills: skillsOffered,
-        notes: data.bio || data.experience || '',
       });
     });
-
-    if (matches.length >= SUGGESTED_TUTOR_LIMIT || !teachersCollection) {
-      return matches.slice(0, SUGGESTED_TUTOR_LIMIT);
-    }
-
-    const lowercaseSkill = normalizedSkill.toLowerCase();
-    const teacherPlans = [
-      () => query(
-        teachersCollection,
-        where('location', '==', location),
-        where('skillsIndex', 'array-contains', lowercaseSkill),
-        limit ? limit(SUGGESTED_TUTOR_LIMIT * 2) : undefined,
-      ),
-    ];
-
-    if (!lowercaseSkill) {
-      teacherPlans.length = 0;
-    }
-
-    for (const buildQuery of teacherPlans) {
-      if (matches.length >= SUGGESTED_TUTOR_LIMIT) {
-        break;
-      }
-
-      let teacherQuery;
-      try {
-        const result = buildQuery();
-        teacherQuery = Array.isArray(result)
-          ? result[0]
-          : result;
-      } catch (error) {
-        console.error('Failed to prepare teacher query.', error);
-        continue;
-      }
-
-      if (!teacherQuery) {
-        continue;
-      }
-
-      try {
-        const snapshot = await getDocs(teacherQuery);
-        snapshot.forEach((doc) => {
-          if (matches.length >= SUGGESTED_TUTOR_LIMIT) {
-            return;
-          }
-          const data = doc.data() || {};
-          const skills = extractSkillNamesForMatch(data.skillsIndex || data.skillsOffered || data.skills || data.skillsLabel);
-          if (!skills.some((skillName) => skillName.toLowerCase() === lowercaseSkill)) {
-            return;
-          }
-          addMatch({
-            id: doc.id,
-            name: data.name || data.fullName || 'Tutor',
-            email: data.email || data.contactEmail || '',
-            phone: data.phone || data.contactPhone || '',
-            availability: data.availability || data.schedule || '',
-            location: data.location || data.city || '',
-            skills,
-            notes: data.bio || data.summary || data.about || '',
-          });
-        });
-      } catch (error) {
-        const missingIndex = error?.code === 'failed-precondition' || /index/.test(error?.message || '');
-        if (!missingIndex) {
-          console.error('Failed to query teacher profiles for suggestions.', error);
-        }
-      }
-    }
 
     return matches.slice(0, SUGGESTED_TUTOR_LIMIT);
   } catch (error) {
@@ -1634,6 +1546,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const teachSkillsRaw = teachSkillsInput?.value?.trim() || '';
       const teachSkills = (teachSkillsRaw || '').split(',').map(s => s.trim()).filter(s => s.length > 0);
 
+      const consentGiven = document.getElementById('consent')?.checked === true;
+
       console.log('Submission Debug (Deep Trace):', {
         fullName,
         email,
@@ -1677,43 +1591,34 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
+      if (!consentGiven) {
+        showError('Please tick the consent box so we can store your details and match you.');
+        document.getElementById('consent')?.focus();
+        return;
+      }
+
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting…';
       }
+
+      const reference = buildRegistrationReference();
 
       try {
         const {
           addDoc,
           serverTimestamp,
           registrationsCollection,
+          directoryCollection,
           skillsCollection,
           getDocs,
           query,
           where,
         } = await getFirestoreContext();
 
-        // Intelligence Layer: Check for existing identical registration to prevent duplicates
-        try {
-          // Note: This check is optimized to ensure the user doesn't spam identical entries
-          // but will not block the submission if the query itself fails (e.g. missing indexes).
-          const duplicateQuery = query(
-            registrationsCollection,
-            where('email', '==', email.toLowerCase()),
-            where('selectedSkill', '==', skillForSubmission)
-          );
-          const duplicateSnap = await getDocs(duplicateQuery);
-          if (!duplicateSnap.empty) {
-            showInfo('You have already registered for this skill. Our team is processing your request.');
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalButtonText;
-            }
-            return;
-          }
-        } catch (dupError) {
-          console.warn('Duplicate check bypassed (expected if Firestore indexes are building):', dupError);
-        }
+        // Note: registrations are write-only from the browser by design, so a
+        // client-side duplicate check is no longer possible. The matching
+        // pipeline de-duplicates on email + skill server-side instead.
 
         // Processing indices for high-performance tutor matching
         const teachSkillsIndex = Array.from(new Set(
@@ -1747,7 +1652,10 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           status: 'pending',
           source: 'skill-selection',
+          reference,
           consent: true,
+          consentVersion: CONSENT_VERSION,
+          consentAt: serverTimestamp(),
           createdAt: serverTimestamp(),
         };
 
@@ -1755,6 +1663,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const docRef = await addDoc(registrationsCollection, payload);
         console.log('Registration successfully stored with ID:', docRef.id);
+
+        // Anonymised projection for the public directory. The security rules
+        // whitelist these keys only, so no personal detail can reach it.
+        try {
+          await addDoc(directoryCollection, {
+            teachSkills,
+            teachSkillsIndex,
+            learnSkill: skillForSubmission,
+            learnSkillIndex: skillForSubmission.trim().toLowerCase(),
+            location,
+            status: 'active',
+            joinedAt: serverTimestamp(),
+          });
+        } catch (directoryError) {
+          // A failed projection must never lose the registration itself.
+          console.warn('Directory entry could not be written.', directoryError);
+        }
 
         const registrationData = {
           fullName,
@@ -1813,8 +1738,26 @@ document.addEventListener('DOMContentLoaded', function() {
           })
         );
 
-        showSuccess(`Success! Your registration for "${skillForSubmission}" is in. A confirmation email is on its way to ${email} — we’ll introduce you to your match as soon as we find one, usually within 24 hours.`);
+        // Only fires if the visitor accepted analytics cookies.
+        window.slinkAnalytics?.track('registration_submitted', {
+          skill: skillForSubmission,
+          location,
+          teach_skill_count: teachSkills.length,
+        });
+
+        try {
+          sessionStorage.setItem('slinkRegistration', JSON.stringify({
+            reference,
+            email,
+            skill: skillForSubmission,
+          }));
+        } catch (storageError) {
+          console.warn('Could not stash the registration reference.', storageError);
+        }
+
         form.reset();
+        window.location.href = `registration-received.html?ref=${encodeURIComponent(reference)}`;
+        return;
 
         const selectedSkillField = document.getElementById('selectedSkillField');
         if (selectedSkillField) {
@@ -1903,11 +1846,15 @@ async function subscribeToSkills() {
 async function loadTutorCounts() {
   try {
     const {
-      registrationsCollection,
+      directoryCollection,
       getDocs,
       query,
       where,
     } = await getFirestoreContext();
+
+    if (!directoryCollection) {
+      return;
+    }
 
     const skills = Array.from(new Set(
       Array.from(document.querySelectorAll('[data-skill-count]'))
@@ -1916,7 +1863,9 @@ async function loadTutorCounts() {
     ));
 
     const countsBySkill = await Promise.all(skills.map(async (skill) => {
-      const snapshot = await getDocs(query(registrationsCollection, where('teachSkills', 'array-contains', skill)));
+      const snapshot = await getDocs(
+        query(directoryCollection, where('teachSkillsIndex', 'array-contains', skill.toLowerCase()))
+      );
       return { skill, count: snapshot.size };
     }));
 
@@ -1927,7 +1876,7 @@ async function loadTutorCounts() {
       });
     });
   } catch (error) {
-    console.error('Failed to load tutor counts from Firestore.', error);
+    console.error('Failed to load tutor counts from the directory.', error);
   }
 }
 

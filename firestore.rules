@@ -3,6 +3,11 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    /* ----------------------------------------------------------------
+       Shape helpers. These validate what the public site is allowed to
+       write. Cloud Functions use the Admin SDK and bypass all of this.
+       ---------------------------------------------------------------- */
+
     function isNonEmptyString(value) {
       return value is string && value.size() > 0;
     }
@@ -13,10 +18,6 @@ service cloud.firestore {
 
     function isOptionalString(value) {
       return value == null || value is string;
-    }
-
-    function isOptionalTimestamp(value) {
-      return value == null || value is timestamp;
     }
 
     function isTimestampOrServer(value) {
@@ -68,6 +69,9 @@ service cloud.firestore {
           'status',
           'source',
           'consent',
+          'consentAt',
+          'consentVersion',
+          'reference',
           'createdAt',
           'phone',
           'contactPhone',
@@ -88,6 +92,8 @@ service cloud.firestore {
           'status',
           'source',
           'consent',
+          'consentVersion',
+          'reference',
           'teachSkills',
           'intent'
         ]) &&
@@ -102,6 +108,10 @@ service cloud.firestore {
         data.status in ['pending', 'matched', 'archived'] &&
         isNonEmptyString(data.source) &&
         data.consent == true &&
+        isNonEmptyString(data.consentVersion) &&
+        (data.consentAt == null || isTimestampOrServer(data.consentAt)) &&
+        isNonEmptyString(data.reference) &&
+        data.reference.size() <= 32 &&
         (data.createdAt == null || isTimestampOrServer(data.createdAt)) &&
         isOptionalNonEmptyString(data.phone) &&
         isOptionalNonEmptyString(data.contactPhone) &&
@@ -113,27 +123,65 @@ service cloud.firestore {
         hasValidTeacherNotification(data.teacherNotification);
     }
 
+    /* Registrations hold full name, email, age and phone number. The public
+       site may add one, and may never read one back. Introductions are made
+       by email from the server — the browser is not a lookup surface for
+       other members' contact details. */
     match /registrations/{registrationId} {
-      allow create, read, update, delete: if true;
+      allow create: if isPublicRegistrationCreate();
+      allow read, update, delete: if false;
     }
 
+    /* Legacy collection, kept closed. */
     match /submissions/{submissionId} {
-      allow create, read, update, delete: if true;
+      allow read, write: if false;
     }
 
-    match /mailQueue/{mailId} {
-      allow create, read, update, delete: if true;
+    /* ----------------------------------------------------------------
+       The public directory. This is the anonymised projection of a
+       registration that the site is allowed to read: which skills are
+       offered and wanted, and in which state. The key whitelist below
+       is the guarantee — a name, an email or a phone number cannot be
+       written here at all, so it cannot leak from here either.
+       ---------------------------------------------------------------- */
+
+    function isValidDirectoryCreate() {
+      let data = request.resource.data;
+      return data.keys().hasOnly([
+          'teachSkills',
+          'teachSkillsIndex',
+          'learnSkill',
+          'learnSkillIndex',
+          'location',
+          'status',
+          'joinedAt'
+        ]) &&
+        data.keys().hasAll(['teachSkills', 'teachSkillsIndex', 'location', 'status']) &&
+        isNonEmptyStringList(data.teachSkills) &&
+        data.teachSkills.size() <= 20 &&
+        isOptionalStringList(data.teachSkillsIndex) &&
+        isOptionalNonEmptyString(data.learnSkill) &&
+        isOptionalNonEmptyString(data.learnSkillIndex) &&
+        isNonEmptyString(data.location) &&
+        data.status == 'active' &&
+        (data.joinedAt == null || isTimestampOrServer(data.joinedAt));
     }
 
-    // Match records hold both parties' contact details. They are written only
-    // by Cloud Functions (the Admin SDK bypasses these rules), so every client
-    // path is closed. Do not open these up: the introduction emails are the
-    // delivery mechanism, not the browser.
+    match /directory/{entryId} {
+      allow read: if true;
+      allow create: if isValidDirectoryCreate();
+      allow update, delete: if false;
+    }
+
+    /* Match records hold both parties' contact details. They are written only
+       by Cloud Functions (the Admin SDK bypasses these rules), so every client
+       path is closed. Do not open these up: the introduction emails are the
+       delivery mechanism, not the browser. */
     match /matches/{matchId} {
       allow read, write: if false;
     }
 
-    // Idempotency locks and delivery receipts for outbound email. Server only.
+    /* Idempotency locks and delivery receipts for outbound email. Server only. */
     match /emailLog/{logId} {
       allow read, write: if false;
     }
@@ -151,6 +199,7 @@ service cloud.firestore {
         (data.createdAt == null || isTimestampOrServer(data.createdAt));
     }
 
+    /* Skill names are catalogue data, not personal data. */
     match /skills/{skillId} {
       allow read: if true;
       allow create: if isValidSkillCreate();
@@ -177,9 +226,11 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
+    /* Curated tutor profiles, written by the desk. These carry names and
+       contact details, so the public site cannot read them either — the
+       directory above is the public view. */
     match /teachers/{teacherId} {
-      allow read: if true;
-      allow write: if false;
+      allow read, write: if false;
     }
 
     match /{document=**} {

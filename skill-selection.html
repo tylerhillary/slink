@@ -8,11 +8,12 @@
 
     <title>Register your skill — Slink360</title>
     <meta name="description" content="Tell us the skill you want to learn and the skills you can teach. A person reads every registration and comes back within 24 hours.">
+    <link rel="canonical" href="https://slink-beta.vercel.app/skill-selection.html">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Register your skill — Slink360">
     <meta property="og:description" content="Tell us what you want to learn and what you can teach. We match you within 24 hours.">
-    <meta property="og:image" content="https://slink-beta.vercel.app/assets/img/logos/slink.png">
+    <meta property="og:image" content="https://slink-beta.vercel.app/assets/img/social/slink-share.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,6 +281,16 @@
                                 </div>
                             </fieldset>
 
+                            <div class="consent">
+                                <input class="consent__box" type="checkbox" id="consent" name="consent" required>
+                                <label class="consent__label" for="consent">
+                                    I agree to Slink360 storing the details above in order to verify me and
+                                    introduce me to a match, as described in the
+                                    <a href="privacy-policy.html">Privacy Policy</a>.
+                                    <span class="req">*</span>
+                                </label>
+                            </div>
+
                             <div class="submit-bar">
                                 <button type="submit" class="btn btn--primary btn--lg btn--block">Submit registration</button>
                                 <span class="trust-note">
@@ -402,6 +413,7 @@
     <script src="js/motion.js?v=3.0.2" defer></script>
     <script type="module" src="js/firebase-init.js?v=3.0.2"></script>
     <script type="module" src="js/skill-selection.js?v=3.0.2"></script>
+    <script src="js/consent.js?v=3.0.2" defer></script>
 </body>
 
 </html>
