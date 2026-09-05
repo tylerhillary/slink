@@ -1539,7 +1539,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const location = document.getElementById('location')?.value || '';
       const countryCode = document.getElementById('countryCode')?.value || '';
       const mobileNumberInput = document.getElementById('mobileNumber')?.value?.trim() || '';
-      const sanitizedMobileNumber = mobileNumberInput.replace(/\D/g, '');
+
+      // Same rules the live validator uses, so the form and the field can
+      // never disagree. normalisePhone strips the trunk "0" people naturally
+      // type: without it, "0803 123 4567" was stored as +23408031234567.
+      const validators = window.slinkValidators;
+      const sanitizedMobileNumber = validators
+        ? validators.normalisePhone(mobileNumberInput, countryCode)
+        : mobileNumberInput.replace(/\D/g, '').replace(/^0+/, '');
       const fullMobileNumber = `${countryCode}${sanitizedMobileNumber}`;
       
       const learnSkillsInput = document.getElementById('learnSkillsInput');
@@ -1574,7 +1581,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      if (sanitizedMobileNumber.length < 7 || sanitizedMobileNumber.length > 15) {
+      if (validators) {
+        const emailCheck = validators.validateEmail(email);
+        if (emailCheck.state !== 'valid' && emailCheck.state !== 'suspect') {
+          showError(emailCheck.message || 'Please check the email address.');
+          document.getElementById('email')?.focus();
+          return;
+        }
+
+        const phoneCheck = validators.validatePhone(mobileNumberInput, countryCode);
+        if (phoneCheck.state !== 'valid') {
+          showError(phoneCheck.message || 'Please check the mobile number.');
+          document.getElementById('mobileNumber')?.focus();
+          return;
+        }
+      } else if (sanitizedMobileNumber.length < 7 || sanitizedMobileNumber.length > 15) {
         showError('Please enter a valid phone number between 7 and 15 digits.');
         return;
       }

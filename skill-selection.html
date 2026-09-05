@@ -177,7 +177,8 @@
 
                                     <div class="field">
                                         <label class="field__label" for="email">Email address <span class="req">*</span></label>
-                                        <input class="input" type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required>
+                                        <input class="input" type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" aria-describedby="emailFeedback" required>
+                                        <p class="field__feedback" id="emailFeedback" role="status" aria-live="polite"></p>
                                     </div>
 
                                     <div class="field">
@@ -250,9 +251,10 @@
                                                 <option value="+233">🇬🇭 +233</option>
                                                 <option value="+254">🇰🇪 +254</option>
                                             </select>
-                                            <input class="input" type="tel" id="mobileNumber" name="mobileNumber" placeholder="812 345 6789" pattern="[0-9 ]{7,20}" autocomplete="tel-national" required>
+                                            <input class="input" type="tel" id="mobileNumber" name="mobileNumber" placeholder="803 123 4567" autocomplete="tel-national" aria-describedby="mobileHint mobileFeedback" required>
                                         </div>
-                                        <span class="field__hint">We use this only to reach you about your match.</span>
+                                        <span class="field__hint" id="mobileHint">We use this only to reach you about your match. A leading 0 is fine &mdash; we remove it.</span>
+                                        <p class="field__feedback" id="mobileFeedback" role="status" aria-live="polite"></p>
                                     </div>
                                 </div>
                             </fieldset>
@@ -413,6 +415,7 @@
     <script src="js/core.js?v=3.0.2" defer></script>
     <script src="js/motion.js?v=3.0.2" defer></script>
     <script type="module" src="js/firebase-init.js?v=3.0.2"></script>
+    <script src="js/field-validation.js?v=3.0.2" defer></script>
     <script type="module" src="js/skill-selection.js?v=3.0.2"></script>
     <script src="js/consent.js?v=3.0.2" defer></script>
 </body>
