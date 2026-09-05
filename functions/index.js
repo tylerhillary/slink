@@ -15,6 +15,7 @@ admin.initializeApp();
 
 const config = require('./lib/config');
 const pipeline = require('./lib/pipeline');
+const stats = require('./lib/stats');
 
 functions.logger.info('Slink360 functions booted', {
   mailProvider: config.resolvedProvider,
@@ -34,6 +35,16 @@ exports.onRegistrationCreated = functions
       ref: snap.ref,
       notifyAdminOnMiss: true,
     });
+
+    /* The public figures on the site come from public/stats. Refresh them
+       here so a new member is reflected without waiting for the sweep. A
+       failure must never fail the registration itself. */
+    try {
+      await stats.recomputeStats(admin.firestore());
+    } catch (error) {
+      functions.logger.error('Stats refresh failed', { detail: error?.message || error });
+    }
+
     return null;
   });
 
@@ -72,6 +83,15 @@ exports.sweepUnmatchedRegistrations = functions
         scanned: summary.scanned,
         matched: summary.matched,
         skippedOld: summary.skippedOld,
+      });
+
+      /* Recount from scratch and backfill any missing directory entries. */
+      const counts = await stats.recomputeStats(admin.firestore(), { backfillDirectory: true });
+      functions.logger.info('Stats republished', {
+        activeMembers: counts.activeMembers,
+        skillsTotal: counts.skillsTotal,
+        statesCovered: counts.statesCovered,
+        directoryCreated: counts.directoryCreated,
       });
     } catch (error) {
       functions.logger.error('Sweep failed', { detail: error?.message || error });

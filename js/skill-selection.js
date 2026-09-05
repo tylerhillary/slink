@@ -96,6 +96,8 @@ async function getFirestoreContext() {
         const {
           addDoc,
           collection,
+          doc,
+          setDoc,
           serverTimestamp,
           getDocs,
           onSnapshot,
@@ -108,6 +110,8 @@ async function getFirestoreContext() {
 
         return {
           addDoc,
+          doc,
+          setDoc,
           serverTimestamp,
           getDocs,
           onSnapshot,
@@ -1596,6 +1600,8 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         const {
           addDoc,
+          doc,
+          setDoc,
           serverTimestamp,
           registrationsCollection,
           directoryCollection,
@@ -1655,7 +1661,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Anonymised projection for the public directory. The security rules
         // whitelist these keys only, so no personal detail can reach it.
         try {
-          await addDoc(directoryCollection, {
+          // Keyed by the registration id, so the server-side backfill in
+          // functions/lib/stats.js can tell which registrations already have
+          // an entry and never creates a duplicate.
+          await setDoc(doc(directoryCollection, docRef.id), {
             teachSkills,
             teachSkillsIndex,
             learnSkill: skillForSubmission,

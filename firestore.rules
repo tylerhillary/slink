@@ -173,6 +173,14 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    /* Aggregate counts only - how many members, skills and states. Written
+       by the server from the real registrations, and safe to read publicly
+       precisely because it contains no one's details. */
+    match /public/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
     /* Match records hold both parties' contact details. They are written only
        by Cloud Functions (the Admin SDK bypasses these rules), so every client
        path is closed. Do not open these up: the introduction emails are the
