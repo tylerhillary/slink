@@ -7,3 +7,6 @@ firebase.json
 firestore.rules
 firestore.indexes.json
 .firebaserc
+
+# Documentation and tests are for the repo, not the deployed site.
+docs/

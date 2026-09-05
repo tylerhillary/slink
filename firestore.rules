@@ -8,6 +8,35 @@ service cloud.firestore {
        write. Cloud Functions use the Admin SDK and bypass all of this.
        ---------------------------------------------------------------- */
 
+    /* ------------------------------------------------------------------
+       App Check gate.
+
+       The public write paths below have no authentication - by design, since
+       there is no login - so nothing but this stands between a script and an
+       unlimited number of junk registrations.
+
+       STAGE 1 (now): returns true. App Check runs on the client and reports
+       to the Firebase console, but writes are not yet refused. This is the
+       monitoring window: watch App Check -> Requests until verified traffic
+       is arriving and the unverified count is effectively zero.
+
+       STAGE 2 (you, afterwards): change the body to `request.app != null`
+       and redeploy. Do NOT do this first - until the client carries a token,
+       it would reject every registration on the site.
+
+       See docs/app-check-setup.md.
+       ------------------------------------------------------------------ */
+    function appCheckOk() {
+      return true;  // stage 2: change to `request.app != null`
+    }
+
+    /* A bounded string. Firestore documents can reach 1 MB, and with an open
+       create path that is a storage bill waiting to happen, so every free-text
+       field the public can write is capped. */
+    function isBoundedString(value, maxLength) {
+      return value is string && value.size() > 0 && value.size() <= maxLength;
+    }
+
     function isNonEmptyString(value) {
       return value is string && value.size() > 0;
     }
@@ -97,30 +126,31 @@ service cloud.firestore {
           'teachSkills',
           'intent'
         ]) &&
-        isNonEmptyString(data.fullName) &&
+        isBoundedString(data.fullName, 100) &&
         data.fullName.size() >= 3 &&
-        isNonEmptyString(data.email) &&
+        isBoundedString(data.email, 254) &&
         data.email.size() > 5 &&
         data.age is int && data.age >= 18 && data.age <= 100 &&
-        isNonEmptyString(data.gender) &&
-        isNonEmptyString(data.location) &&
-        isNonEmptyString(data.selectedSkill) &&
+        isBoundedString(data.gender, 20) &&
+        isBoundedString(data.location, 60) &&
+        isBoundedString(data.selectedSkill, 100) &&
         data.status in ['pending', 'matched', 'archived'] &&
         isNonEmptyString(data.source) &&
         data.consent == true &&
         isNonEmptyString(data.consentVersion) &&
-        (data.consentAt == null || isTimestampOrServer(data.consentAt)) &&
+        (data.get('consentAt', null) == null || isTimestampOrServer(data.get('consentAt', null))) &&
         isNonEmptyString(data.reference) &&
         data.reference.size() <= 32 &&
-        (data.createdAt == null || isTimestampOrServer(data.createdAt)) &&
-        isOptionalNonEmptyString(data.phone) &&
-        isOptionalNonEmptyString(data.contactPhone) &&
+        (data.get('createdAt', null) == null || isTimestampOrServer(data.get('createdAt', null))) &&
+        (data.get('phone', null) == null || isBoundedString(data.get('phone', null), 20)) &&
+        (data.get('contactPhone', null) == null || isBoundedString(data.get('contactPhone', null), 20)) &&
         isNonEmptyStringList(data.teachSkills) &&
-        isOptionalStringList(data.teachSkillsIndex) &&
-        isOptionalNonEmptyString(data.selectedSkillIndex) &&
+        data.teachSkills.size() <= 20 &&
+        isOptionalStringList(data.get('teachSkillsIndex', null)) &&
+        isOptionalNonEmptyString(data.get('selectedSkillIndex', null)) &&
         data.intent in ['learn', 'teach', 'both'] &&
-        hasValidPhoneDetails(data.phoneDetails) &&
-        hasValidTeacherNotification(data.teacherNotification);
+        hasValidPhoneDetails(data.get('phoneDetails', null)) &&
+        hasValidTeacherNotification(data.get('teacherNotification', null));
     }
 
     /* Registrations hold full name, email, age and phone number. The public
@@ -128,7 +158,7 @@ service cloud.firestore {
        by email from the server — the browser is not a lookup surface for
        other members' contact details. */
     match /registrations/{registrationId} {
-      allow create: if isPublicRegistrationCreate();
+      allow create: if appCheckOk() && isPublicRegistrationCreate();
       allow read, update, delete: if false;
     }
 
@@ -160,16 +190,16 @@ service cloud.firestore {
         isNonEmptyStringList(data.teachSkills) &&
         data.teachSkills.size() <= 20 &&
         isOptionalStringList(data.teachSkillsIndex) &&
-        isOptionalNonEmptyString(data.learnSkill) &&
-        isOptionalNonEmptyString(data.learnSkillIndex) &&
-        isNonEmptyString(data.location) &&
+        (data.get('learnSkill', null) == null || isBoundedString(data.get('learnSkill', null), 100)) &&
+        (data.get('learnSkillIndex', null) == null || isBoundedString(data.get('learnSkillIndex', null), 100)) &&
+        isBoundedString(data.location, 60) &&
         data.status == 'active' &&
-        (data.joinedAt == null || isTimestampOrServer(data.joinedAt));
+        (data.get('joinedAt', null) == null || isTimestampOrServer(data.get('joinedAt', null)));
     }
 
     match /directory/{entryId} {
       allow read: if true;
-      allow create: if isValidDirectoryCreate();
+      allow create: if appCheckOk() && isValidDirectoryCreate();
       allow update, delete: if false;
     }
 
@@ -199,18 +229,18 @@ service cloud.firestore {
       return request.auth == null &&
         data.keys().hasOnly(['name', 'icon', 'description', 'status', 'nameLower', 'createdAt']) &&
         data.keys().hasAll(['name', 'status', 'nameLower']) &&
-        isNonEmptyString(data.name) &&
-        isOptionalString(data.icon) &&
-        isOptionalString(data.description) &&
-        isNonEmptyString(data.status) &&
-        isNonEmptyString(data.nameLower) &&
-        (data.createdAt == null || isTimestampOrServer(data.createdAt));
+        isBoundedString(data.name, 100) &&
+        (data.get('icon', null) == null || data.get('icon', '').size() <= 200) &&
+        (data.get('description', null) == null || data.get('description', '').size() <= 500) &&
+        isBoundedString(data.status, 40) &&
+        isBoundedString(data.nameLower, 100) &&
+        (data.get('createdAt', null) == null || isTimestampOrServer(data.get('createdAt', null)));
     }
 
     /* Skill names are catalogue data, not personal data. */
     match /skills/{skillId} {
       allow read: if true;
-      allow create: if isValidSkillCreate();
+      allow create: if appCheckOk() && isValidSkillCreate();
       allow update, delete: if false;
     }
 
@@ -218,19 +248,19 @@ service cloud.firestore {
       let data = request.resource.data;
       return data.keys().hasOnly(['name', 'email', 'phone', 'topic', 'subject', 'message', 'timestamp']) &&
         data.keys().hasAll(['name', 'email', 'topic', 'subject', 'message', 'timestamp']) &&
-        isNonEmptyString(data.name) &&
+        isBoundedString(data.name, 100) &&
         data.name.size() >= 3 &&
-        isNonEmptyString(data.email) &&
+        isBoundedString(data.email, 254) &&
         data.email.size() > 5 &&
-        isNonEmptyString(data.topic) &&
-        isNonEmptyString(data.subject) &&
-        isNonEmptyString(data.message) &&
-        isOptionalString(data.phone) &&
+        isBoundedString(data.topic, 60) &&
+        isBoundedString(data.subject, 200) &&
+        isBoundedString(data.message, 5000) &&
+        (data.get('phone', null) == null || isBoundedString(data.get('phone', null), 20)) &&
         isTimestampOrServer(data.timestamp);
     }
 
     match /contactSubmissions/{submissionId} {
-      allow create: if isValidContactSubmission();
+      allow create: if appCheckOk() && isValidContactSubmission();
       allow read, update, delete: if false;
     }
 
