@@ -77,18 +77,19 @@
         </ul>
         <div class="nav-drawer__footer">
             <a href="skill-selection.html" class="btn btn--primary btn--lg btn--block">Join the exchange</a>
-            <p>Free to join · Verified members · Response within 24 hours</p>
+            <p>Free to join · Verified members · We aim to reply within 24 hours</p>
         </div>
     </div>
 
     <main id="main" class="site-main">
         <section class="legal-hero">
             <div class="container">
-                <span class="legal-hero__eyebrow">Cookies & Tracking</span>
+                <span class="legal-hero__eyebrow">Cookies &amp; Storage</span>
                 <h1 class="legal-hero__title">Cookie Policy</h1>
                 <div class="legal-hero__meta">
-                    <span><strong>Last Updated:</strong> December 7, 2025</span>
-                    <span><strong>Effective Date:</strong> December 21, 2025</span>
+                    <span><strong>Last Updated:</strong> 5 September 2026</span>
+                    <span><strong>Effective Date:</strong> 5 September 2026</span>
+                    <span><strong>Version:</strong> 2026-09-05</span>
                 </div>
             </div>
         </section>
@@ -101,99 +102,109 @@
                     </svg>
                     Back to Home
                 </a>
+
                 <article class="legal-section" id="introduction">
-                    <h2>1. Introduction</h2>
-                    <p>This Cookie Policy explains how <strong>Slink360</strong>, operated by <strong>Radius Technology</strong>, uses cookies and similar technologies when you visit our websites, use our mobile experiences, or engage with our mentorship platform (collectively, the “Services”). It should be read together with our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-                    <p>By continuing to browse or use our Services, you agree that we can store and access essential cookies on your device. You can manage or disable non-essential cookies at any time as outlined below.</p>
+                    <h2>1. The short version</h2>
+                    <p><strong>Slink360 sets no cookies at all unless you press Accept.</strong> There are no advertising cookies, no tracking pixels, and no third-party marketing tags anywhere on this site. If you decline the banner, or simply ignore it, nothing is stored except your choice not to be tracked.</p>
+                    <p>This policy explains exactly what is stored, when, and how to get rid of it. It should be read with our <a href="privacy-policy.html">Privacy Policy</a>.</p>
                 </article>
+
                 <article class="legal-section" id="what-are-cookies">
-                    <h2>2. What Are Cookies?</h2>
-                    <p>Cookies are small text files placed on your computer, tablet, or mobile device when you visit a website. Cookies store information about your browsing session that can be retrieved later. Related technologies—such as web beacons, pixels, device identifiers, and local storage—perform similar functions and are treated as “cookies” for the purposes of this policy.</p>
+                    <h2>2. What we mean by &ldquo;cookies&rdquo;</h2>
+                    <p>Cookies are small text files a website places on your device. Related technologies &mdash; <code>localStorage</code> and <code>sessionStorage</code> &mdash; store information in your browser in a similar way. We treat all of them as &ldquo;cookies&rdquo; for the purposes of this policy, and we list every one we use below.</p>
                 </article>
-                <article class="legal-section" id="how-we-use-cookies">
-                    <h2>3. How We Use Cookies</h2>
-                    <p>We use first-party and third-party cookies to support four key objectives:</p>
-                    <ul>
-                        <li><strong>Essential Operations:</strong> Maintain secure logins, session continuity, and load balancers to deliver core platform functionality.</li>
-                        <li><strong>Performance & Analytics:</strong> Understand how learners and mentors use Slink360 in order to improve features, fix errors, and optimise onboarding flows.</li>
-                        <li><strong>Personalisation:</strong> Remember your preferences—such as language, region, and saved filters—to streamline recurring visits.</li>
-                        <li><strong>Marketing:</strong> Deliver relevant updates about new skills, mentors, or promotions and measure the effectiveness of our campaigns.</li>
-                    </ul>
-                </article>
+
                 <article class="legal-section" id="cookie-types">
-                    <h2>4. Types of Cookies We Set</h2>
+                    <h2>3. Everything this site stores</h2>
+                    <p>This is the complete list. If it is not here, we do not set it.</p>
                     <div class="legal-table legal-table--scroll">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Cookie Category</th>
-                                    <th>Purpose</th>
-                                    <th>Examples</th>
-                                    <th>Retention</th>
+                                    <th>What</th>
+                                    <th>Why</th>
+                                    <th>Set when</th>
+                                    <th>How long</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Essential</td>
-                                    <td>Authentication, security, load balancing, fraud prevention</td>
-                                    <td>Session ID, CSRF token</td>
-                                    <td>Session or up to 12 months</td>
+                                    <td><code>slink.consent.v1</code><br><small>Browser storage, ours</small></td>
+                                    <td>Remembers whether you accepted or declined analytics, so we stop asking.</td>
+                                    <td>The moment you answer the banner</td>
+                                    <td>Until you clear your browser data</td>
                                 </tr>
                                 <tr>
-                                    <td>Analytics</td>
-                                    <td>Measure usage trends, diagnose performance, test new features</td>
-                                    <td>Google Analytics, Mixpanel</td>
-                                    <td>6–24 months</td>
+                                    <td><code>slinkRegistration</code><br><small>Session storage, ours</small></td>
+                                    <td>Carries your registration reference to the confirmation page.</td>
+                                    <td>When you submit the registration form</td>
+                                    <td>Deleted as soon as the confirmation page reads it, and in any case when you close the tab</td>
                                 </tr>
                                 <tr>
-                                    <td>Personalisation</td>
-                                    <td>Remember preferences, saved mentors, and recently viewed skills</td>
-                                    <td>User locale, product tour state</td>
-                                    <td>Up to 12 months</td>
+                                    <td><code>selectedSkill</code><br><small>Browser storage, ours</small></td>
+                                    <td>Remembers the skill you picked, so the form still has it if you navigate away and come back.</td>
+                                    <td>When you choose a skill</td>
+                                    <td>Until you clear your browser data</td>
                                 </tr>
                                 <tr>
-                                    <td>Marketing</td>
-                                    <td>Serve relevant ads or email journeys and cap impression frequency</td>
-                                    <td>Meta Pixel, LinkedIn Insight</td>
-                                    <td>3–12 months</td>
+                                    <td><code>_ga</code>, <code>_ga_*</code><br><small>Google Analytics</small></td>
+                                    <td>Counts visits and shows us which pages people actually use. Aggregated; we cannot identify you from it.</td>
+                                    <td><strong>Only if you press Accept</strong></td>
+                                    <td>Up to 24 months</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <p>None of the first three tell us anything about you &mdash; they never leave your device and we cannot read them. Only the Google Analytics cookies send anything anywhere, and only with your agreement.</p>
                 </article>
+
+                <article class="legal-section" id="how-we-use-cookies">
+                    <h2>4. What we do not do</h2>
+                    <p>Because cookie policies are often written to describe things a site might one day do, here is what this one does not:</p>
+                    <ul>
+                        <li>We do not run advertising cookies, retargeting, or conversion pixels. There is no Meta Pixel, no LinkedIn Insight Tag, no TikTok pixel, no Google Ads tag.</li>
+                        <li>We do not sell or share anything cookies collect.</li>
+                        <li>We do not build a profile of you, or track you across other websites.</li>
+                        <li>We have no logins, so there are no authentication or session cookies.</li>
+                        <li>We do not use cookies to make any decision about your registration or your match. A person does that.</li>
+                    </ul>
+                </article>
+
                 <article class="legal-section" id="third-party">
-                    <h2>5. Third-Party Cookies</h2>
-                    <p>Some cookies are placed by trusted third parties who provide services on our behalf. These providers may collect information about your online activities over time and across different services. We contractually require partners to process data in accordance with applicable privacy laws and in line with our instructions.</p>
+                    <h2>5. Third parties</h2>
+                    <p>The only third party that can set a cookie here is <strong>Google</strong>, through Google Analytics, and only after you accept. Google's own handling of that data is governed by its privacy terms.</p>
+                    <p>Our fonts are served by Google Fonts, and our site is delivered by Vercel. Neither sets cookies on this site, though both will see your IP address as part of delivering the page &mdash; as any web host does.</p>
                 </article>
+
                 <article class="legal-section" id="managing-cookies">
-                    <h2>6. Managing Your Cookie Preferences</h2>
-                    <p>You can control cookies through:</p>
+                    <h2>6. Changing your mind</h2>
+                    <p>You can withdraw consent at any time, and it is as easy to withdraw as it was to give:</p>
                     <ul>
-                        <li><strong>Browser Settings:</strong> Most browsers allow you to block or delete cookies. Refer to the help section of your preferred browser for instructions.</li>
-                        <li><strong>Consent Banner:</strong> When you first arrive on Slink360, you can accept or reject non-essential cookies. You can revisit these choices through the “Cookie Preferences” link in our footer.</li>
-                        <li><strong>Third-Party Opt-Outs:</strong> Services such as <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out</a> or <a href="https://optout.aboutads.info/" target="_blank" rel="noopener">AboutAds</a> provide additional controls.</li>
+                        <li><strong>Clear this site's data in your browser.</strong> Your stored choice disappears with it, and the banner will ask again on your next visit. In most browsers this is under Settings &rarr; Privacy &rarr; Cookies and site data.</li>
+                        <li><strong>Block cookies for this site</strong> in your browser settings. The site will still work; the banner simply will not be able to remember your answer.</li>
+                        <li><strong>Write to us</strong> at <a href="mailto:skillbank0@gmail.com?subject=Cookie%20question">skillbank0@gmail.com</a> and we will tell you exactly what we hold.</li>
                     </ul>
-                    <p>Blocking essential cookies may impact your ability to sign in, schedule sessions, or access certain secure areas of the platform.</p>
+                    <p>Declining costs you nothing. Every part of Slink360 &mdash; registering, being matched, being introduced &mdash; works identically whether you accept or decline.</p>
                 </article>
+
                 <article class="legal-section" id="do-not-track">
-                    <h2>7. Do Not Track Signals</h2>
-                    <p>Our Services currently do not respond to “Do Not Track” signals because there is no uniform technological standard for recognising and responding to them. We will revisit this approach if industry standards evolve.</p>
+                    <h2>7. Do Not Track and Global Privacy Control</h2>
+                    <p>Because we set no analytics cookies without explicit consent, a Do Not Track or Global Privacy Control signal from your browser changes nothing about how we behave: we were already not tracking you until you said we could.</p>
                 </article>
+
                 <article class="legal-section" id="changes">
-                    <h2>8. Updates to This Policy</h2>
-                    <p>We may update this Cookie Policy to reflect changes in technology, regulations, or our business practices. When we make material changes we will update the “Last Updated” date and, where appropriate, provide additional notice (such as a banner or email communication).</p>
+                    <h2>8. Changes to this policy</h2>
+                    <p>If we ever add a new cookie, we will add it to the table in section 3 before it is set, update the version at the top, and ask for your consent again where the law requires it.</p>
                 </article>
-                <article class="legal-section" id="contact">
-                    <h2>9. Contact Us</h2>
-                    <p>If you have questions about this Cookie Policy or wish to exercise your privacy rights, please reach out to our Data Protection Officer:</p>
-                    <ul>
-                        <li>Email: <a href="mailto:privacy@radius-technology.com">privacy@radius-technology.com</a></li>
-                        <li>Mail: Radius Technology, Attn: Privacy Office, Port Harcourt, Rivers State, Nigeria</li>
-                        <li>Phone: +234 808 489 1200</li>
-                    </ul>
+
+                <article class="legal-section legal-contact" id="contact">
+                    <h2>Questions about cookies?</h2>
+                    <p>Ask us. It is a short list and we are happy to walk through it.</p>
+                    <p><strong>Radius Technology</strong><br>Port Harcourt, Rivers State, Nigeria<br><a href="mailto:skillbank0@gmail.com?subject=Cookie%20question">skillbank0@gmail.com</a></p>
                 </article>
             </div>
         </section>
+
     </main>
 
     <footer class="site-footer">

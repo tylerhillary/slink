@@ -101,7 +101,7 @@ service cloud.firestore {
         data.fullName.size() >= 3 &&
         isNonEmptyString(data.email) &&
         data.email.size() > 5 &&
-        data.age is int && data.age >= 13 && data.age <= 100 &&
+        data.age is int && data.age >= 18 && data.age <= 100 &&
         isNonEmptyString(data.gender) &&
         isNonEmptyString(data.location) &&
         isNonEmptyString(data.selectedSkill) &&

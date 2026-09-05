@@ -1548,22 +1548,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const consentGiven = document.getElementById('consent')?.checked === true;
 
-      console.log('Submission Debug (Deep Trace):', {
-        fullName,
-        email,
-        age,
-        gender,
-        location,
-        fullMobileNumber,
-        skillForSubmission,
-        teachSkills,
-        learnSkillsInputExists: !!learnSkillsInput,
-        selectedSkillFieldExists: !!selectedSkillField,
-        teachSkillsInputExists: !!teachSkillsInput,
-        teachSkillsRaw: teachSkillsRaw,
-        localStorageSkill: localStorage.getItem('selectedSkill'),
-        globalSelectedSkill: selectedSkill
-      });
+      // Deliberately not logging the submitted values. This ran on every
+      // submission and printed the member's name, email, age, gender and
+      // phone number into the browser console, where anything reading the
+      // console - an extension, an error reporter, a shared machine - could
+      // pick them up. Log the shape of a failure, never its contents.
 
       const missingFields = [];
       if (!fullName) missingFields.push('Full Name');
@@ -1586,8 +1575,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      if (age < 13 || age > 100) {
-        showError('Please enter a valid age between 13 and 100.');
+      if (age < 18 || age > 100) {
+        showError('You must be 18 or over to register. Slink360 pairs adults for private one-to-one sessions.');
         return;
       }
 
@@ -1659,8 +1648,7 @@ document.addEventListener('DOMContentLoaded', function() {
           createdAt: serverTimestamp(),
         };
 
-        console.log('Submitting registration payload to Firestore...', payload);
-
+        console.log('Submitting registration to Firestore\u2026');
         const docRef = await addDoc(registrationsCollection, payload);
         console.log('Registration successfully stored with ID:', docRef.id);
 
@@ -1681,24 +1669,9 @@ document.addEventListener('DOMContentLoaded', function() {
           console.warn('Directory entry could not be written.', directoryError);
         }
 
-        const registrationData = {
-          fullName,
-          email,
-          age,
-          gender,
-          location,
-          mobileNumber: fullMobileNumber,
-          phoneDetails: {
-            e164: fullMobileNumber,
-            countryCode,
-            nationalNumber: sanitizedMobileNumber,
-            rawInput: mobileNumberInput,
-          },
-          selectedSkill: skillForSubmission,
-          teachSkills,
-        };
-
-        localStorage.setItem('registrationData', JSON.stringify(registrationData));
+        // The member's details are deliberately not persisted to this device.
+        // Only the reference is kept, in sessionStorage, and only until the
+        // confirmation page reads it.
 
         updateLearnerMatchState({
           fullName,
