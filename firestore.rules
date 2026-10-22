@@ -61,28 +61,42 @@ service cloud.firestore {
       return list == null || (list is list && (list.size() == 0 || list[0] is string));
     }
 
+    /* Optional keys are read with .get(key, null), never with dot access.
+       Rules *error* when an expression reads a map key that is not present,
+       and an error denies the write — so `isOptionalNonEmptyString(details.display)`
+       never reaches the null check that would have returned true. The website
+       sends four of these six keys, which is why it was being refused. */
     function hasValidPhoneDetails(details) {
       return details == null || (
         details is map &&
         details.keys().hasOnly(['e164', 'countryCode', 'nationalNumber', 'rawInput', 'international', 'display']) &&
-        isOptionalNonEmptyString(details.e164) &&
-        isOptionalNonEmptyString(details.countryCode) &&
-        isOptionalNonEmptyString(details.nationalNumber) &&
-        isOptionalString(details.rawInput) &&
-        isOptionalNonEmptyString(details.international) &&
-        isOptionalNonEmptyString(details.display)
+        isOptionalNonEmptyString(details.get('e164', null)) &&
+        isOptionalNonEmptyString(details.get('countryCode', null)) &&
+        isOptionalNonEmptyString(details.get('nationalNumber', null)) &&
+        isOptionalString(details.get('rawInput', null)) &&
+        isOptionalNonEmptyString(details.get('international', null)) &&
+        isOptionalNonEmptyString(details.get('display', null))
       );
     }
 
+    /* Same fix, including `status`: `hasOnly` above permits that key but does
+       not require it, so a map arriving without one would error on the read
+       rather than fail the check. `.get('status', '')` fails it instead,
+       which is the intended answer.
+
+       The app and the website both send this map with two keys, status and
+       createdAt, because updatedAt, lastAttemptedAt and lastError are the
+       server's to write. A client inventing values for them to route around
+       a rules bug would put fiction in the desk's records. */
     function hasValidTeacherNotification(notification) {
       return notification == null || (
         notification is map &&
         notification.keys().hasOnly(['status', 'createdAt', 'updatedAt', 'lastAttemptedAt', 'lastError']) &&
-        isNonEmptyString(notification.status) &&
-        (notification.createdAt == null || isTimestampOrServer(notification.createdAt)) &&
-        (notification.updatedAt == null || isTimestampOrServer(notification.updatedAt)) &&
-        (notification.lastAttemptedAt == null || isTimestampOrServer(notification.lastAttemptedAt)) &&
-        isOptionalString(notification.lastError)
+        isNonEmptyString(notification.get('status', '')) &&
+        (notification.get('createdAt', null) == null || isTimestampOrServer(notification.get('createdAt', null))) &&
+        (notification.get('updatedAt', null) == null || isTimestampOrServer(notification.get('updatedAt', null))) &&
+        (notification.get('lastAttemptedAt', null) == null || isTimestampOrServer(notification.get('lastAttemptedAt', null))) &&
+        isOptionalString(notification.get('lastError', null))
       );
     }
 
@@ -109,7 +123,9 @@ service cloud.firestore {
           'teachSkillsIndex',
           'teacherNotification',
           'intent',
-          'selectedSkillIndex'
+          'selectedSkillIndex',
+          'uid',
+          'authProvider'
         ]) &&
         data.keys().hasAll([
           'fullName',
@@ -150,7 +166,28 @@ service cloud.firestore {
         isOptionalNonEmptyString(data.get('selectedSkillIndex', null)) &&
         data.intent in ['learn', 'teach', 'both'] &&
         hasValidPhoneDetails(data.get('phoneDetails', null)) &&
-        hasValidTeacherNotification(data.get('teacherNotification', null));
+        hasValidTeacherNotification(data.get('teacherNotification', null)) &&
+        isOwnedByCaller(data);
+    }
+
+    /* Who filed this.
+       -------------------------------------------------------------------
+       A registration from the app carries the signed-in member's uid, so the
+       trade belongs to an account rather than to a typed email address that
+       anybody could have entered. A registration from the website carries
+       none, because the site has no sign-in: those are joined on email
+       afterwards, by the desk.
+
+       The check that matters is the negative one. `uid` is optional, but a
+       *present* uid must be the caller's own — otherwise anyone could file a
+       registration under somebody else's account, and the account holder
+       would find a trade they never registered attached to their name. */
+    function isOwnedByCaller(data) {
+      return data.get('uid', null) == null || (
+        request.auth != null &&
+        data.get('uid', '') == request.auth.uid &&
+        isOptionalNonEmptyString(data.get('authProvider', null))
+      );
     }
 
     /* Registrations hold full name, email, age and phone number. The public
@@ -184,9 +221,11 @@ service cloud.firestore {
           'learnSkillIndex',
           'location',
           'status',
-          'joinedAt'
+          'joinedAt',
+          'uid'
         ]) &&
         data.keys().hasAll(['teachSkills', 'teachSkillsIndex', 'location', 'status']) &&
+        isOwnedByCaller(data) &&
         isNonEmptyStringList(data.teachSkills) &&
         data.teachSkills.size() <= 20 &&
         isOptionalStringList(data.teachSkillsIndex) &&
@@ -269,6 +308,175 @@ service cloud.firestore {
        directory above is the public view. */
     match /teachers/{teacherId} {
       allow read, write: if false;
+    }
+
+    /* ----------------------------------------------------------------
+       Member accounts.
+
+       One document per signed-in member, keyed by their Firebase Auth uid.
+       Both the app and the site create it on first sign-in — there is no
+       Cloud Function doing it server-side — so the shape is validated here
+       rather than trusted.
+
+       Every optional key is read with .get(key, null). A rule that reads an
+       absent key with dot access *errors*, and an error denies the write;
+       that is exactly the bug that silently rejected every registration on
+       this project between 5 and 14 September 2026. Do not reintroduce it.
+       ---------------------------------------------------------------- */
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function hasOnlyUserKeys(data) {
+      return data.keys().hasOnly([
+        'uid', 'email', 'displayName', 'photoUrl',
+        'provider', 'role', 'createdAt', 'lastSeenAt',
+        // The member's own trade, mirrored onto the account so that "this
+        // person's skills" is a single document read rather than a join
+        // against a collection no client may read.
+        'teachSkills', 'learnSkill', 'location', 'registrationRef',
+        // Written by the desk, through the console's Admin SDK. Whitelisted
+        // here because `request.resource.data` on an update is the *whole*
+        // document after the merge — without these keys the member's own next
+        // write would fail the check on fields they never touched.
+        'registrationStage', 'stageUpdatedAt', 'partnerName'
+      ]);
+    }
+
+    function hasValidUserProfile(data, uid) {
+      return data.get('uid', '') == uid &&
+        isBoundedString(data.get('email', ''), 254) &&
+        (data.get('displayName', null) == null ||
+          isBoundedString(data.get('displayName', null), 100)) &&
+        (data.get('photoUrl', null) == null ||
+          isBoundedString(data.get('photoUrl', null), 2000)) &&
+        data.get('provider', '') in ['password', 'google.com', 'apple.com'] &&
+        (data.get('createdAt', null) == null ||
+          isTimestampOrServer(data.get('createdAt', null))) &&
+        (data.get('lastSeenAt', null) == null ||
+          isTimestampOrServer(data.get('lastSeenAt', null))) &&
+        isOptionalStringList(data.get('teachSkills', null)) &&
+        (data.get('teachSkills', null) == null ||
+          data.get('teachSkills', []).size() <= 20) &&
+        (data.get('learnSkill', null) == null ||
+          isBoundedString(data.get('learnSkill', null), 100)) &&
+        (data.get('location', null) == null ||
+          isBoundedString(data.get('location', null), 60)) &&
+        (data.get('registrationRef', null) == null ||
+          isBoundedString(data.get('registrationRef', null), 32));
+    }
+
+    match /users/{uid} {
+      /* Your own record, and nobody else's. The admin catch-all below is the
+         only other way in, which is what lets the console list members. */
+      allow read: if isOwner(uid);
+
+      /* `role` is pinned to 'member' here and frozen on update. Without both,
+         a member could write themselves an 'admin' role and every check that
+         trusts this document would start believing it. Console access is
+         granted by a custom claim set with the Admin SDK, never by a value
+         the account being granted it can write. */
+      allow create: if isOwner(uid) &&
+        hasOnlyUserKeys(request.resource.data) &&
+        hasValidUserProfile(request.resource.data, uid) &&
+        request.resource.data.get('role', '') == 'member' &&
+        // A new account cannot arrive already verified.
+        request.resource.data.get('registrationStage', null) == null;
+
+      /* The member may edit their own trade. They may not edit where the desk
+         says they have got to — a stage somebody can set for themselves is
+         not a verification, it is a checkbox. Frozen the same way `role` is,
+         and for the same reason. */
+      allow update: if isOwner(uid) &&
+        hasOnlyUserKeys(request.resource.data) &&
+        hasValidUserProfile(request.resource.data, uid) &&
+        request.resource.data.get('role', '') == resource.data.get('role', '') &&
+        request.resource.data.get('createdAt', null) == resource.data.get('createdAt', null) &&
+        request.resource.data.get('registrationStage', null) ==
+          resource.data.get('registrationStage', null) &&
+        request.resource.data.get('stageUpdatedAt', null) ==
+          resource.data.get('stageUpdatedAt', null) &&
+        request.resource.data.get('partnerName', null) ==
+          resource.data.get('partnerName', null);
+
+      /* Deleting an account is a desk decision with consequences elsewhere —
+         a live exchange, a filed registration — so it is not a client write. */
+      allow delete: if false;
+    }
+
+    /* ----------------------------------------------------------------
+       Exchanges: the trades members arrange between themselves.
+
+       Peer to peer, the way a friend request is. Anyone who can see a member
+       in the public directory may propose a trade; the other side accepts or
+       declines; only then does the exchange start. The desk still verifies
+       people and still makes introductions, but it is not a gate that every
+       conversation has to pass through.
+
+       `members` is the two account uids and it is the whole access model:
+       a document is readable and writable only by the two people in it.
+       Nobody can list other people's trades, and knowing an id is not enough.
+       ---------------------------------------------------------------- */
+    function isMember(uids) {
+      return request.auth != null && request.auth.uid in uids;
+    }
+
+    function isValidExchangeCreate() {
+      let data = request.resource.data;
+      return isMember(data.get('members', [])) &&
+        data.get('members', []).size() == 2 &&
+        // You propose as yourself. Filing a request that claims to come from
+        // somebody else is the one thing this must never allow.
+        data.get('proposedBy', '') == request.auth.uid &&
+        data.get('status', '') == 'request' &&
+        isBoundedString(data.get('youGive', ''), 100) &&
+        isBoundedString(data.get('youGet', ''), 100) &&
+        data.get('contactShared', []).size() == 0 &&
+        data.get('contactsExchangedAt', null) == null;
+    }
+
+    function membersUnchanged() {
+      return request.resource.data.get('members', []) ==
+        resource.data.get('members', []) &&
+        request.resource.data.get('proposedBy', '') ==
+          resource.data.get('proposedBy', '');
+    }
+
+    match /exchanges/{exchangeId} {
+      allow read: if isMember(resource.data.get('members', []));
+      allow create: if isValidExchangeCreate();
+
+      /* Either side may move the trade along — accept, decline, agree terms,
+         book a session, share contact details. What neither may do is change
+         who is in it, which would let somebody hand their conversation to a
+         third party. */
+      allow update: if isMember(resource.data.get('members', [])) &&
+        membersUnchanged();
+
+      /* Declining closes an exchange; it never deletes one. A trade that
+         happened is a record both people may want, and one side deleting it
+         would take it from the other as well. */
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        function parent() {
+          return get(/databases/$(database)/documents/exchanges/$(exchangeId)).data;
+        }
+
+        allow read: if isMember(parent().get('members', []));
+
+        /* Messages are written as yourself and never edited afterwards. An
+           editable message is a conversation whose record neither party can
+           rely on. `messagesExpireAt` carries the retention deadline so a
+           Firestore TTL policy can sweep them without a cron job. */
+        allow create: if isMember(parent().get('members', [])) &&
+          request.resource.data.get('senderUid', '') == request.auth.uid;
+        allow update: if false;
+
+        /* Deleted by the members when the retention window passes, and by the
+           TTL policy regardless. */
+        allow delete: if isMember(parent().get('members', []));
+      }
     }
 
     match /{document=**} {

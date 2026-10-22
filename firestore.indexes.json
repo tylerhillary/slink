@@ -4,16 +4,42 @@
       "collectionGroup": "directory",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "location", "order": "ASCENDING" },
-        { "fieldPath": "teachSkillsIndex", "arrayConfig": "CONTAINS" }
+        {
+          "fieldPath": "location",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "teachSkillsIndex",
+          "arrayConfig": "CONTAINS"
+        }
       ]
     },
     {
       "collectionGroup": "directory",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "teachSkillsIndex", "arrayConfig": "CONTAINS" },
-        { "fieldPath": "joinedAt", "order": "DESCENDING" }
+        {
+          "fieldPath": "teachSkillsIndex",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "joinedAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "directory",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "joinedAt",
+          "order": "DESCENDING"
+        }
       ]
     }
   ],

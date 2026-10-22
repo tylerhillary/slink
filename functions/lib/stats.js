@@ -20,11 +20,56 @@ const admin = require('firebase-admin');
 
 const STATS_DOC = 'public/stats';
 
-/** Registrations that count as a member of the exchange. */
-const ACTIVE_STATUSES = ['pending', 'matched'];
+/**
+ * Registrations that count as a member of the exchange.
+ *
+ * `connected` and `verified` are the admin console's vocabulary for a learner
+ * who has been introduced to a tutor; `matched` is this module's. They mean
+ * the same thing, and leaving the console's spellings out here undercounted
+ * the exchange by every member the desk had actually placed — 13 of 36 on
+ * 14 September 2026, which is a third of the site's headline figure.
+ */
+const ACTIVE_STATUSES = ['pending', 'matched', 'connected', 'verified'];
+
+/**
+ * Skills that are placeholders rather than skills.
+ *
+ * The registration form takes free text, so `None` arrives as often as
+ * `Python` does. Counting it inflates "skills being traded", and projecting it
+ * into the public directory puts a word nobody chose on a real person's card.
+ *
+ * Mirrors `Skill.looksPublishable` in the mobile app. If you extend one,
+ * extend the other.
+ */
+const PLACEHOLDER_SKILLS = new Set([
+  'none', 'n/a', 'na', 'nil', 'null', 'test', 'testing', 'asdf', 'abc', 'xxx',
+]);
 
 function normalise(value) {
   return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
+
+/** True for a skill worth counting and worth publishing. */
+function isRealSkill(value) {
+  const key = normalise(value);
+  return key.length >= 3 && !PLACEHOLDER_SKILLS.has(key);
+}
+
+/**
+ * Rows left behind by the September rules investigation.
+ *
+ * Six documents, all `SL-2602-TEST` / `integration-test@example.com`, wanting
+ * a skill called "Zzz Integration Test". They are `pending` and otherwise
+ * well-formed, so nothing else here would exclude them — and without this they
+ * would be counted as members and published into the public directory.
+ *
+ * Delete the documents and this guard becomes dead code, which is the right
+ * end state. It stays until then because a recount is run far more often than
+ * a cleanup.
+ */
+function isTestRow(data) {
+  return data.reference === 'SL-2602-TEST'
+    || String(data.email || '').endsWith('@example.com');
 }
 
 /**
@@ -53,7 +98,7 @@ async function recomputeStats(db, { backfillDirectory = false, dryRun = false } 
     const data = doc.data() || {};
     const status = normalise(data.status) || 'pending';
 
-    if (!ACTIVE_STATUSES.includes(status)) {
+    if (!ACTIVE_STATUSES.includes(status) || isTestRow(data)) {
       return;
     }
 
@@ -62,12 +107,12 @@ async function recomputeStats(db, { backfillDirectory = false, dryRun = false } 
       matchedMembers += 1;
     }
 
-    const teachSkills = Array.isArray(data.teachSkills) ? data.teachSkills : [];
-    teachSkills.map(normalise).filter(Boolean).forEach((skill) => skillsOffered.add(skill));
+    const teachSkills = (Array.isArray(data.teachSkills) ? data.teachSkills : [])
+      .filter(isRealSkill);
+    teachSkills.map(normalise).forEach((skill) => skillsOffered.add(skill));
 
-    const learnSkill = normalise(data.selectedSkill);
-    if (learnSkill) {
-      skillsWanted.add(learnSkill);
+    if (isRealSkill(data.selectedSkill)) {
+      skillsWanted.add(normalise(data.selectedSkill));
     }
 
     const state = typeof data.location === 'string' ? data.location.trim() : '';
@@ -114,6 +159,22 @@ async function recomputeStats(db, { backfillDirectory = false, dryRun = false } 
 }
 
 /**
+ * Whether a registration is worth projecting into the public directory.
+ *
+ * Shared by the writer and the dry-run counter. They used to decide
+ * separately, and the counter's answer was only ever "is it already there?" —
+ * so `--dry-run` reported entries the real run would then skip. A dry run that
+ * disagrees with the real run is worse than none, because it is believed.
+ *
+ * Nothing teachable means the matcher can never surface the entry: it starts
+ * from "do they teach what you asked for?" and drops the row when the answer
+ * is no. Such a row would be fetched and discarded on every single query.
+ */
+function isPublishableEntry(entry) {
+  return entry.teachSkills.filter(isRealSkill).length > 0 && Boolean(entry.state);
+}
+
+/**
  * Give older registrations the anonymised directory entry that newer ones
  * write for themselves. The directory document id is the registration id, so
  * running this twice creates nothing the second time.
@@ -131,16 +192,21 @@ async function backfillDirectoryEntries(db, entries) {
       continue;
     }
 
-    const teachSkills = entry.teachSkills.filter((s) => typeof s === 'string' && s.trim());
-    if (!teachSkills.length || !entry.state) {
-      continue; // not enough to make a useful entry
+    if (!isPublishableEntry(entry)) {
+      continue;
     }
+    const teachSkills = entry.teachSkills.filter(isRealSkill);
 
     batch.set(ref, {
       teachSkills,
       teachSkillsIndex: Array.from(new Set(teachSkills.map(normalise).filter(Boolean))),
-      learnSkill: entry.data.selectedSkill || null,
-      learnSkillIndex: normalise(entry.data.selectedSkill) || null,
+      // A goal of "None" becomes no goal rather than a card reading
+      // "Wants: None". The matcher already scores an empty goal as a one-way
+      // match, so nothing is lost by being honest here.
+      learnSkill: isRealSkill(entry.data.selectedSkill) ? entry.data.selectedSkill : '',
+      learnSkillIndex: isRealSkill(entry.data.selectedSkill)
+        ? normalise(entry.data.selectedSkill)
+        : '',
       location: entry.state,
       status: 'active',
       joinedAt: entry.data.createdAt || admin.firestore.FieldValue.serverTimestamp(),
@@ -167,6 +233,9 @@ async function backfillDirectoryEntries(db, entries) {
 async function countMissingDirectoryEntries(db, entries) {
   let missing = 0;
   for (const entry of entries) {
+    if (!isPublishableEntry(entry)) {
+      continue;
+    }
     // eslint-disable-next-line no-await-in-loop
     const existing = await db.collection('directory').doc(entry.id).get();
     if (!existing.exists) {

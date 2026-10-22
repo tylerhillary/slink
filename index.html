@@ -91,7 +91,7 @@
         </ul>
         <div class="nav-drawer__footer">
             <a href="skill-selection.html" class="btn btn--primary btn--lg btn--block">Join the exchange</a>
-            <p>Free to join · Verified members · We aim to reply within 24 hours</p>
+            <p>Free to join · You choose your own match · Start the day you register</p>
         </div>
     </div>
 
@@ -131,8 +131,8 @@
                             <span class="hero__proof-label">To join and to be matched</span>
                         </div>
                         <div class="hero__proof-item">
-                            <span class="hero__proof-value" data-stat="activeMembers">By hand</span>
-                            <span class="hero__proof-label" data-stat-label="activeMembers">Every registration read by a person</span>
+                            <span class="hero__proof-value" data-stat="activeMembers">—</span>
+                            <span class="hero__proof-label" data-stat-label="activeMembers">You pick who you trade with</span>
                         </div>
                         <div class="hero__proof-item">
                             <span class="hero__proof-value">Both ways</span>
@@ -142,8 +142,8 @@
                 </div>
 
                 <div class="hero__visual" data-reveal="up" data-reveal-delay="180">
-                    <div class="exchange">
-                        <article class="exchange__card exchange__card--a">
+                    <div class="exchange" role="img" aria-label="An example of a balanced trade between two members: one teaches product design and wants Python, the other teaches backend engineering and wants UX research.">
+                        <article class="exchange__card exchange__card--a" aria-hidden="true">
                             <div class="exchange__row">
                                 <span class="exchange__avatar">AO</span>
                                 <div>
@@ -165,7 +165,7 @@
                             </span>
                         </div>
 
-                        <article class="exchange__card exchange__card--b">
+                        <article class="exchange__card exchange__card--b" aria-hidden="true">
                             <div class="exchange__row">
                                 <span class="exchange__avatar exchange__avatar--crimson">TB</span>
                                 <div>
@@ -181,7 +181,7 @@
                             </div>
                         </article>
 
-                        <p class="exchange__caption">A matched pair. Both sides teach, both sides learn.</p>
+                        <p class="exchange__caption">An illustration of a balanced trade: both sides teach, both sides learn. The people shown are examples, not members.</p>
                     </div>
                 </div>
             </div>
@@ -247,17 +247,18 @@
             <div class="container">
                 <div class="feature-row">
                     <div data-reveal="right">
-                        <span class="eyebrow">Concierge matching</span>
-                        <h2 class="h3 mt-sm">A person reads every registration</h2>
+                        <span class="eyebrow">How matching works</span>
+                        <h2 class="h3 mt-sm">You choose who you trade with</h2>
                         <p class="lead mt-md">
-                            No algorithm decides who you meet. Our team reads what you wrote, checks
-                            what you claimed, and hand-picks the shortlist. If a match isn't working,
-                            you tell us and we re-pair you — free, and without making it awkward.
+                            Register and you are on the exchange straight away — no queue and no
+                            waiting list. Search by the skill you want or the one you offer, and ask
+                            whoever looks right. They accept or they do not, and nobody is paired
+                            with anybody they did not choose.
                         </p>
                         <ul class="feature__list mt-lg">
                             <li>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
-                                Shortlist in your inbox within 24 hours
+                                On the exchange the moment you register
                             </li>
                             <li>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
@@ -288,11 +289,11 @@
                     </div>
                     <div class="metric">
                         <p class="metric__value" data-stat="matchedMembers">24h</p>
-                        <p class="metric__label" data-stat-label="matchedMembers">What we aim for on a shortlist, not a guarantee</p>
+                        <p class="metric__label" data-stat-label="matchedMembers">How long before you can start asking</p>
                     </div>
                     <div class="metric">
                         <p class="metric__value" data-stat="skillsTotal">1&thinsp;:&thinsp;1</p>
-                        <p class="metric__label" data-stat-label="skillsTotal">Every match read and made by a person</p>
+                        <p class="metric__label" data-stat-label="skillsTotal">Every trade agreed by both people</p>
                     </div>
                     <div class="metric">
                         <p class="metric__value" data-stat="statesCovered">0</p>
@@ -310,8 +311,8 @@
                         <span class="eyebrow">How it works</span>
                         <h2 class="h2 mt-sm">Four steps between now and your first session.</h2>
                         <p class="lead mt-md">
-                            Registration takes about three minutes, and a human reads every single
-                            one.
+                            Registration takes about three minutes, and you are on the exchange as
+                            soon as it is filed.
                         </p>
                         <a href="skill-selection.html" class="btn btn--primary mt-lg">
                             Register now
@@ -334,9 +335,9 @@
                         <li class="process__step" data-reveal="up">
                             <span class="process__num">02</span>
                             <div>
-                                <h3 class="process__title">We verify and shortlist</h3>
+                                <h3 class="process__title">Find someone and ask</h3>
                                 <p class="process__text">
-                                    Our team checks your details, then hand-picks members whose teaching
+                                    Search the exchange by skill. Ask somebody to teach you, or offer to teach
                                     skill answers your goal and whose learning goal answers yours.
                                 </p>
                                 <span class="process__meta">Within 24 hours</span>
@@ -370,7 +371,11 @@
         </section>
 
         <!-- ================= SKILLS ================= -->
-        <section class="section section--tight section--alt section--hairline">
+        <!-- Filled by js/skills-marquee.js from real registrations. Ships
+             empty on purpose: a hard-coded list here would be a claim about
+             skills nobody is trading, and the section removes itself when
+             there is nothing real to show. -->
+        <section class="section section--tight section--alt section--hairline" data-skill-section hidden>
             <div class="container">
                 <div class="section-head section-head--center" data-reveal="up">
                     <span class="eyebrow">On the exchange</span>
@@ -380,111 +385,10 @@
 
             <div class="skill-strip" data-reveal="up">
                 <div class="marquee" data-marquee="52">
-                    <div class="marquee__track">
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Product design</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Python</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Photography</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Copywriting</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Data analysis</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Video editing</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Public speaking</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Fashion design</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Digital marketing</span>
-                    </div>
+                    <div class="marquee__track" data-skill-track></div>
                 </div>
                 <div class="marquee marquee--reverse" data-marquee="58">
-                    <div class="marquee__track">
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>JavaScript</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Bookkeeping</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Music production</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Baking</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Spoken French</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Project management</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Tailoring</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Motion graphics</span>
-                        <span class="skill-pill"><span class="skill-pill__dot"></span>Sales</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= TESTIMONIALS ================= -->
-        <section class="section">
-            <div class="container">
-                <div class="section-head section-head--center" data-reveal="up">
-                    <span class="eyebrow">Members</span>
-                    <h2 class="h2">What the trade actually looks like</h2>
-                </div>
-
-                <div class="grid grid--3" data-stagger="90">
-                    <article class="card" data-reveal="up">
-                        <div class="quote-card">
-                            <div class="stars" aria-label="Rated 5 out of 5">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                            </div>
-                            <p class="quote-card__text">
-                                I taught Excel modelling and got eight weeks of Figma in return. Six
-                                months later I'm designing our company dashboards myself.
-                            </p>
-                            <div class="quote-card__author">
-                                <span class="avatar">GE</span>
-                                <div>
-                                    <div class="quote-card__name">Grace Etim</div>
-                                    <div class="quote-card__meta">Financial analyst · Uyo</div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="card" data-reveal="up">
-                        <div class="quote-card">
-                            <div class="stars" aria-label="Rated 5 out of 5">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                            </div>
-                            <p class="quote-card__text">
-                                The verification is the part I didn't expect. Someone actually called my
-                                referee. By the time I met my match, the trust was already there.
-                            </p>
-                            <div class="quote-card__author">
-                                <span class="avatar avatar--crimson">IN</span>
-                                <div>
-                                    <div class="quote-card__name">Ibrahim Nuhu</div>
-                                    <div class="quote-card__meta">Backend engineer · Abuja</div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="card" data-reveal="up">
-                        <div class="quote-card">
-                            <div class="stars" aria-label="Rated 5 out of 5">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4l-5-4.9 7-.9L12 2Z"/></svg>
-                            </div>
-                            <p class="quote-card__text">
-                                My first pairing wasn't right and I said so. They re-matched me in two
-                                days without making me feel like a problem.
-                            </p>
-                            <div class="quote-card__author">
-                                <span class="avatar avatar--slate">CA</span>
-                                <div>
-                                    <div class="quote-card__name">Chidera Anozie</div>
-                                    <div class="quote-card__meta">Photographer · Lagos</div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                    <div class="marquee__track" data-skill-track></div>
                 </div>
             </div>
         </section>
@@ -504,8 +408,8 @@
                         <blockquote class="mt-md">
                             <p class="founder__quote">
                                 "Most people already hold something worth teaching. The problem was never
-                                talent — it was that nobody was doing the work of putting the right two
-                                people in the same room. That's the whole job, and we do it by hand."
+                                talent — it was that the right two people had no way of finding each
+                                other. Putting them in the same room is the whole job."
                             </p>
                         </blockquote>
                         <div class="founder__sig">
@@ -606,6 +510,7 @@
     <script src="js/core.js?v=3.0.2" defer></script>
     <script src="js/motion.js?v=3.0.2" defer></script>
     <script src="js/stats.js?v=3.0.2" type="module"></script>
+    <script src="js/skills-marquee.js?v=3.0.2" type="module"></script>
     <script src="js/consent.js?v=3.0.2" defer></script>
 </body>
 
