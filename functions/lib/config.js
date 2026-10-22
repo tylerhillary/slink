@@ -49,7 +49,7 @@ const config = {
   parentBrandUrl: readString('SLINK_PARENT_URL', slinkLegacy.parent_url, 'https://radiustechnology.vercel.app'),
   siteUrl: readString('SLINK_SITE_URL', slinkLegacy.site_url, 'https://slink-beta.vercel.app'),
   adminEmail: readString('SLINK_ADMIN_EMAIL', slinkLegacy.admin_email, 'skillbank0@gmail.com'),
-  adminPhone: readString('SLINK_ADMIN_PHONE', slinkLegacy.admin_phone, '+234 812 820 4201'),
+  adminPhone: readString('SLINK_ADMIN_PHONE', slinkLegacy.admin_phone, '+234 903 064 2091'),
   supportEmail: readString('SLINK_SUPPORT_EMAIL', slinkLegacy.support_email, 'skillbank0@gmail.com'),
 
   // --- Mail transport --------------------------------------------------
