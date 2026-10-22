@@ -1573,11 +1573,25 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!location) missingFields.push('Location');
       if (!sanitizedMobileNumber) missingFields.push('Mobile Number');
       if (!skillForSubmission) missingFields.push('Skill you want to LEARN');
-      if (teachSkills.length === 0) missingFields.push('Skill you can TEACH');
+      if (teachSkills.length === 0) missingFields.push('Skills you can TEACH');
 
       if (missingFields.length > 0) {
         showError(`Incomplete Form: Please provide ${missingFields.join(', ')}.`);
         console.warn('Blocking submission due to missing fields:', missingFields);
+        return;
+      }
+
+      // At least two teaching skills, not one.
+      //
+      // A member who can teach one thing can only ever be matched on that one
+      // thing. A second or third skill multiplies the mirror swaps they fit
+      // into, and too few matches is the likeliest way this exchange fails
+      // somebody - they register, nobody wants the one skill they listed, and
+      // they leave. Cheaper to ask for two here than to recruit a partner for
+      // every single-skill member later.
+      if (teachSkills.length < 2) {
+        showError('Please list at least two skills you can teach, separated by commas. One skill means you can only be matched by that one thing - a second roughly doubles the members you can be paired with.', 'Add one more skill');
+        teachSkillsInput?.focus();
         return;
       }
 

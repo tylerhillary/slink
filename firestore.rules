@@ -61,6 +61,22 @@ service cloud.firestore {
       return list == null || (list is list && (list.size() == 0 || list[0] is string));
     }
 
+    /* Two teaching skills, not one.
+       -------------------------------------------------------------------
+       A member who can teach one thing can only ever be matched on that one
+       thing, and too few matches is the likeliest way this exchange fails
+       somebody: they register, nobody wants the single skill they listed,
+       and they leave. The registration form asks for two; this is the copy
+       of that rule that a stale script, a direct write or the app cannot
+       talk its way past.
+
+       `create` only. Registrations and directory entries already filed with
+       a single skill are not touched by this - both collections refuse
+       updates anyway. */
+    function hasTradeableTeachSkills(list) {
+      return isNonEmptyStringList(list) && list.size() >= 2 && list.size() <= 20;
+    }
+
     /* Optional keys are read with .get(key, null), never with dot access.
        Rules *error* when an expression reads a map key that is not present,
        and an error denies the write — so `isOptionalNonEmptyString(details.display)`
@@ -160,8 +176,7 @@ service cloud.firestore {
         (data.get('createdAt', null) == null || isTimestampOrServer(data.get('createdAt', null))) &&
         (data.get('phone', null) == null || isBoundedString(data.get('phone', null), 20)) &&
         (data.get('contactPhone', null) == null || isBoundedString(data.get('contactPhone', null), 20)) &&
-        isNonEmptyStringList(data.teachSkills) &&
-        data.teachSkills.size() <= 20 &&
+        hasTradeableTeachSkills(data.teachSkills) &&
         isOptionalStringList(data.get('teachSkillsIndex', null)) &&
         isOptionalNonEmptyString(data.get('selectedSkillIndex', null)) &&
         data.intent in ['learn', 'teach', 'both'] &&
@@ -226,8 +241,7 @@ service cloud.firestore {
         ]) &&
         data.keys().hasAll(['teachSkills', 'teachSkillsIndex', 'location', 'status']) &&
         isOwnedByCaller(data) &&
-        isNonEmptyStringList(data.teachSkills) &&
-        data.teachSkills.size() <= 20 &&
+        hasTradeableTeachSkills(data.teachSkills) &&
         isOptionalStringList(data.teachSkillsIndex) &&
         (data.get('learnSkill', null) == null || isBoundedString(data.get('learnSkill', null), 100)) &&
         (data.get('learnSkillIndex', null) == null || isBoundedString(data.get('learnSkillIndex', null), 100)) &&

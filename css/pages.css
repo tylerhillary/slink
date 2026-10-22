@@ -919,35 +919,6 @@
 .trust-note svg { width: 0.9rem; height: 0.9rem; flex: none; color: var(--success); }
 
 /* ==========================================================================
-   PAYMENT
-   ========================================================================== */
-
-.payment-grid { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; }
-
-@media (min-width: 900px) {
-  .payment-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: start; }
-}
-
-.payment-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: var(--space-lg); }
-
-.payment-steps li { display: flex; gap: 0.8rem; font-size: var(--step--1); color: var(--text-2); line-height: 1.6; }
-
-.payment-steps .n {
-  display: grid;
-  place-items: center;
-  width: 1.55rem;
-  height: 1.55rem;
-  flex: none;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-2);
-}
-
-.assurance { display: flex; flex-direction: column; gap: var(--space-md); }
-
-/* ==========================================================================
    LEGAL PAGES
    ========================================================================== */
 

@@ -34,8 +34,8 @@ function validRegistration(overrides) {
     location: 'Rivers',
     selectedSkill: 'Python',
     selectedSkillIndex: 'python',
-    teachSkills: ['Product Design'],
-    teachSkillsIndex: ['product design'],
+    teachSkills: ['Product Design', 'Figma'],
+    teachSkillsIndex: ['product design', 'figma'],
     intent: 'learn',
     status: 'pending',
     source: 'skill-selection',
@@ -47,8 +47,8 @@ function validRegistration(overrides) {
 
 function validDirectoryEntry(overrides) {
   return Object.assign({
-    teachSkills: ['Product Design'],
-    teachSkillsIndex: ['product design'],
+    teachSkills: ['Product Design', 'Figma'],
+    teachSkillsIndex: ['product design', 'figma'],
     learnSkill: 'Python',
     learnSkillIndex: 'python',
     location: 'Rivers',
@@ -114,6 +114,21 @@ test('a 300-character email is rejected', async (db) => {
     validRegistration({ email: 'a'.repeat(290) + '@example.com' })));
 });
 
+test('a single teach skill is rejected', async (db) => {
+  await assertFails(db.collection('registrations').add(
+    validRegistration({ teachSkills: ['Product Design'], teachSkillsIndex: ['product design'] })));
+});
+
+test('exactly two teach skills are accepted', async (db) => {
+  await assertSucceeds(db.collection('registrations').add(
+    validRegistration({ teachSkills: ['Product Design', 'Figma'], teachSkillsIndex: ['product design', 'figma'] })));
+});
+
+test('an empty teach skills list is rejected', async (db) => {
+  await assertFails(db.collection('registrations').add(
+    validRegistration({ teachSkills: [], teachSkillsIndex: [] })));
+});
+
 test('more than 20 teach skills is rejected', async (db) => {
   const many = [];
   for (let i = 0; i < 25; i += 1) many.push('Skill ' + i);
@@ -143,6 +158,11 @@ test('a directory entry carrying an email is REJECTED', async (db) => {
 
 test('a directory entry carrying a phone number is REJECTED', async (db) => {
   await assertFails(db.collection('directory').add(validDirectoryEntry({ phone: '+2348031234567' })));
+});
+
+test('a directory entry with a single teach skill is REJECTED', async (db) => {
+  await assertFails(db.collection('directory').add(
+    validDirectoryEntry({ teachSkills: ['Product Design'], teachSkillsIndex: ['product design'] })));
 });
 
 test('directory entries cannot be edited once written', async (db) => {
