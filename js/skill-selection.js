@@ -8,7 +8,7 @@ const SUGGESTED_TUTOR_LIMIT = 5;
 
 // Bump this whenever the wording of the consent checkbox, or the privacy
 // policy it points at, changes - so older records stay attributable.
-const CONSENT_VERSION = '2026-09-05';
+const CONSENT_VERSION = '2026-10-22';
 
 // A short, human-quotable reference the member can give the desk on the phone.
 function buildRegistrationReference() {
